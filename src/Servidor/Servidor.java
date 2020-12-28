@@ -64,7 +64,7 @@ public class Servidor{
                 if (!partidaIniciada){ 
                     contadorDeConexiones++;
                     if (contadorDeConexiones > 1)
-                        refPantalla.btnIniciar.setEnabled(true);
+                    refPantalla.btnIniciar.setEnabled(true);
                     refPantalla.addMessage(":Conexión " + contadorDeConexiones + "aceptada");
 
                     // nuevo thread
