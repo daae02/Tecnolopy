@@ -10,5 +10,8 @@ package tecnopoly;
  * @author Alejandra G
  */
 public class UtilityProperty extends Property{
-    
+
+    public UtilityProperty(int costo, int index, int hipotecable, String img, String familia, String nombre) {
+        super(costo, index, hipotecable, img, familia, nombre);
+    }
 }

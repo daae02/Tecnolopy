@@ -10,5 +10,9 @@ package tecnopoly;
  * @author Alejandra G
  */
 public class TransportProperty extends Property{
-    
+
+    public TransportProperty(int costo, int index, int hipotecable, String img, String familia, String nombre) {
+        super(costo, index, hipotecable, img, familia, nombre);
+    }
+   
 }

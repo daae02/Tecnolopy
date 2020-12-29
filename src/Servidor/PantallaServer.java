@@ -5,12 +5,13 @@
  */
 package Servidor;
 import java.util.Collections;
+import tecnopoly.Juego;
 /**
  *
  * @author Alejandra G
  */
 public class PantallaServer extends javax.swing.JFrame {
-
+    Juego prueba = new Juego();
     /**
      * Creates new form PantallaServer
      */
@@ -85,6 +86,7 @@ public class PantallaServer extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
+        prueba.startGame();
         //Collections.sort(srv.conexiones);
     }//GEN-LAST:event_btnIniciarActionPerformed
 

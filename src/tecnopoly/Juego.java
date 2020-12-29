@@ -12,32 +12,82 @@ public class Juego {
     public ArrayList<Property> propiedades = new ArrayList<Property>();
     int houses;
     int hotel;
-    
-    void startGame(){
-    String[] nombres = {"Cultura y Deporta","Esc. Ciencias Sociales","BiciPubliCartago",
-                        "Ciencias del Lenguaje", "Escuela de Quimica", "Escuela de Matematicas",
-                        "Escuela de Biologia", "Ingenieria Agricola", "Ingenieria Forestal",
-                        "Autobuses Lumaca","Administración de Empresas","Ing en Seg. Laboral E Higiene Amb.",
-                        "Ingenieria en producción Industrial","Escuela de Fisica","Escuela de Educación Técnica",
-                        "Ingenieria en Construcción","BICITEC","Ingenieria Electromecanica",
-                        "Ingenieria Electrica", "Ingenieria en Materiales","Escuela de Diseño Industrial",
-                        "Ingenieria Mecatronica", "Ingenieria en Computadores", "Trenes Incofer",
-                        "Ingenieria en Computación","Escuela de Arquitectura y Urbanismo", "Fotocopiadora",
-                        "LAIMI"};
-    String[] URL = {"Resources\\Propiedades\\Comunes\\Moradas\\CulturaDeporte.png","Resources\\Propiedades\\Comunes\\Moradas\\CienciasSociales.png",
-                    "Resources\\Propiedades\\Transporte\\BiciPubli.png","Resources\\Propiedades\\Comunes\\Celestes\\CienciasLenguaje.png",
-                    "Resources\\Propiedades\\Comunes\\Celestes\\Quimica.png","Resources\\Propiedades\\Comunes\\Celestes\\Matematica.png",
-                    "Resources\\Propiedades\\Comunes\\Rosas\\Biologia.png","Resources\\Propiedades\\Comunes\\Rosas\\Agricola.png",
-                    "Resources\\Propiedades\\Comunes\\Rosas\\Forestal.png","Resources\\Propiedades\\Transporte\\Lumaca.png",
-                    "Resources\\Propiedades\\Comunes\\Naranjas\\Administracion.png","Resources\\Propiedades\\Comunes\\Naranjas\\SeguridadHigiene.png",
-                    "Resources\\Propiedades\\Comunes\\Naranjas\\Producción.png","Resources\\Propiedades\\Comunes\\Rojas\\Fisica.png",
-                    "Resources\\Propiedades\\Comunes\\Rojas\\EducacionTecnica.png","Resources\\Propiedades\\Comunes\\Rojas\\Construccion.png",
-                    "Resources\\Propiedades\\Transporte\\BiciTEC.png","Resources\\Propiedades\\Comunes\\Amarillas\\Electromecanica.png",
-                    "Resources\\Propiedades\\Comunes\\Amarillas\\Electronica.png","Resources\\Propiedades\\Comunes\\Amarillas\\Materiales.png",
-                    "Resources\\Propiedades\\Comunes\\Verdes\\DiseñoIndustrial.png","Resources\\Propiedades\\Comunes\\Verdes\\Mecatronica.png",
-                    "Resources\\Propiedades\\Comunes\\Verdes\\Computadores.png","Resources\\Propiedades\\Transporte\\Incofer.png",
-                    "Resources\\Propiedades\\Comunes\\Azules\\Computación.png","Resources\\Propiedades\\Comunes\\Azules\\ArquitecturaUrbanismo.png"};
-    int[] valores = {60,60,200,100,100,120,140,140,160,200,180,180,200,220,220,240,200,260,260,280,300,300,320,200,350,400,150,150};
+    void propietyLinker(){
+        for (int i = 0; i < propiedades.size(); i++){
+            for (int j = 0; j < propiedades.size(); j++){
+                if(!(propiedades.get(i).nombre.equals(propiedades.get(j).nombre)) && 
+                  (propiedades.get(i).familia.equals(propiedades.get(j).familia))){
+                    propiedades.get(i).hermanas.add(propiedades.get(j));
+                }    
+            }   
+        }   
+    }
+    void propietyFactory(int index,int tipo, String nombre,String URL, int valor, int cobro, int c1, int c2,int c3, int c4,int hotel, int hipoteca, String familia){
+        switch (tipo){
+            case 0:
+                propiedades.add(new CommonProperty(c1,c2,c3,c4,hotel,valor,index,hipoteca,URL,familia,nombre));
+                break;
+            case 1:
+                propiedades.add(new TransportProperty(valor, index, hipoteca, URL, familia,nombre));
+                break;
+            case 2:
+                propiedades.add(new UtilityProperty(valor, index, hipoteca, URL, familia,nombre));
+                break;                
+        }
+    }
+    void propietyCreator(){
+        String[] nombres = {"Cultura y Deporta","Esc. Ciencias Sociales","BiciPubliCartago",
+                            "Ciencias del Lenguaje", "Escuela de Quimica", "Escuela de Matematicas",
+                            "Escuela de Biologia", "Ingenieria Agricola", "Ingenieria Forestal",
+                            "Autobuses Lumaca","Administración de Empresas","Ing en Seg. Laboral E Higiene Amb.",
+                            "Ingenieria en producción Industrial","Escuela de Fisica","Escuela de Educación Técnica",
+                            "Ingenieria en Construcción","BICITEC","Ingenieria Electromecanica",
+                            "Ingenieria Electrica", "Ingenieria en Materiales","Escuela de Diseño Industrial",
+                            "Ingenieria Mecatronica", "Ingenieria en Computadores", "Trenes Incofer",
+                            "Ingenieria en Computación","Escuela de Arquitectura y Urbanismo", "Fotocopiadora",
+                            "LAIMI"};
+        String[] URL = {"Resources\\Propiedades\\Comunes\\Moradas\\CulturaDeporte.png","Resources\\Propiedades\\Comunes\\Moradas\\CienciasSociales.png",
+                        "Resources\\Propiedades\\Transporte\\BiciPubli.png","Resources\\Propiedades\\Comunes\\Celestes\\CienciasLenguaje.png",
+                        "Resources\\Propiedades\\Comunes\\Celestes\\Quimica.png","Resources\\Propiedades\\Comunes\\Celestes\\Matematica.png",
+                        "Resources\\Propiedades\\Comunes\\Rosas\\Biologia.png","Resources\\Propiedades\\Comunes\\Rosas\\Agricola.png",
+                        "Resources\\Propiedades\\Comunes\\Rosas\\Forestal.png","Resources\\Propiedades\\Transporte\\Lumaca.png",
+                        "Resources\\Propiedades\\Comunes\\Naranjas\\Administracion.png","Resources\\Propiedades\\Comunes\\Naranjas\\SeguridadHigiene.png",
+                        "Resources\\Propiedades\\Comunes\\Naranjas\\Producción.png","Resources\\Propiedades\\Comunes\\Rojas\\Fisica.png",
+                        "Resources\\Propiedades\\Comunes\\Rojas\\EducacionTecnica.png","Resources\\Propiedades\\Comunes\\Rojas\\Construccion.png",
+                        "Resources\\Propiedades\\Transporte\\BiciTEC.png","Resources\\Propiedades\\Comunes\\Amarillas\\Electromecanica.png",
+                        "Resources\\Propiedades\\Comunes\\Amarillas\\Electronica.png","Resources\\Propiedades\\Comunes\\Amarillas\\Materiales.png",
+                        "Resources\\Propiedades\\Comunes\\Verdes\\DiseñoIndustrial.png","Resources\\Propiedades\\Comunes\\Verdes\\Mecatronica.png",
+                        "Resources\\Propiedades\\Comunes\\Verdes\\Computadores.png","Resources\\Propiedades\\Transporte\\Incofer.png",
+                        "Resources\\Propiedades\\Comunes\\Azules\\Computación.png","Resources\\Propiedades\\Comunes\\Azules\\ArquitecturaUrbanismo.png",
+                        "Resources\\Propiedades\\Servicios\\Fotocopiadora.png","Resources\\Propiedades\\Servicios\\LAIMI.png"};
+        String[] familia = {"mor","mor","trans","cel","cel","cel","ros","ros","ros","trans","nar","nar","nar","roj","roj","roj",
+                            "trans","amar","amar","amar","ver","ver","ver","trans","azu","azu","util","util"};
+        int[] valores = {60,60,200,100,100,120,140,140,160,200,180,180,200,220,220,240,200,260,260,280,300,300,320,200,350,400,150,150};
+        int[] cobro = {2,4,50,6,6,8,10,10,12,50,14,14,16,18,18,20,50,22,22,24,26,26,28,50,35,50,0,0};
+        int[] casa1 = {10,20,0,30,30,40,50,50,60,0,70,70,80,90,90,100,0,110,110,120,130,130,150,0,175,175,0,0};
+        int[] casa2 = {30,60,0,90,90,100,150,150,180,0,200,200,220,250,250,300,0,330,330,360,390,390,390,0,500,500,0,0};
+        int[] casa3 = {90,180,0,270,270,300,450,450,500,0,550,550,600,700,700,750,0,800,800,850,900,900,900,0,1100,1100,0,0};
+        int[] casa4 = {160,320,0,400,400,450,625,625,700,0,750,750,800,875,875,925,0,975,975,1025,1100,1100,1200,0,1300,1700,0,0};
+        int[] hotel = {250,450,0,550,550,600,750,750,900,0,950,950,1000,1050,1050,1100,0,1150,1150,1200,1275,1275,1400,0,1500,2000,0,0};
+        int[] hipoteca = {30,30,100,50,50,60,70,70,80,100,90,90,100,110,110,120,100,130,130,140,150,150,160,100,175,200,75,75};
+        int[] tipos = {0,0 ,1,0,0,0 ,0,0,0 ,1,0,0,0 , 0,0,0, 1,0,0,0 , 0,0,0 ,1,0,0, 2,2};
+        int[] index = {1,3,5,6,8,9,11,13,14,15,16,18,19,21,23,24,25,26,27,29,31,32,34,35,37,39,12,28};
+        for(int i = 0; i < nombres.length;i++){
+            
+            propietyFactory(index[i],tipos[i],nombres[i],URL[i],valores[i],cobro[i],casa1[i],casa2[i],casa3[i],casa4[i],hotel[i],hipoteca[i],familia[i]);
+        }
+    }
+    public void startGame(){
+        propietyCreator();
+        propietyLinker();
+         for (int i = 0; i < propiedades.size(); i++){
+             System.out.println("Nombre: "+propiedades.get(i).nombre);
+             System.out.println("Costo: "+propiedades.get(i).costo);
+             System.out.println("Posición: "+propiedades.get(i).index);
+             for (int j = 0; j < propiedades.get(i).hermanas.size(); j++){
+                 System.out.println("Nombre hermana #"+j+" :"+propiedades.get(i).hermanas.get(j).nombre);
+             }
+         }
     }
 }
 
