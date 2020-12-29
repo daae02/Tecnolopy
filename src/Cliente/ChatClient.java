@@ -21,6 +21,7 @@ public class ChatClient extends javax.swing.JFrame {
     /**
      * Creates new form ChatClient
      */
+    //Ale guapa
     Cliente refCliente;
     private String nombreTurno = "";
     public ArrayList <javax.swing.JButton> arregloBotones = new ArrayList <javax.swing.JButton>();
