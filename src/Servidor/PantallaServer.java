@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 package Servidor;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tecnopoly.Juego;
 /**
  *
  * @author Alejandra G
  */
-public class PantallaServer extends javax.swing.JFrame {
+public class PantallaServer extends javax.swing.JFrame{
     Juego prueba = new Juego();
     /**
      * Creates new form PantallaServer
@@ -86,8 +90,35 @@ public class PantallaServer extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
-        prueba.startGame();
-        //Collections.sort(srv.conexiones);
+        srv.juego = new Juego(srv.conexiones.size());
+        addMessage("" + srv.conexiones.size());
+        srv.ordenarAL();
+        //srv.ordenarAL();
+        for (int i = 0; i < srv.conexiones.size(); i++) {
+        addMessage(srv.conexiones.get(i).toString()); 
+        addMessage("NOmbre: "+ srv.conexiones.get(i).nickname);
+        addMessage("turno: "+srv.conexiones.get(i).turno+"");
+        addMessage("pieza: "+srv.conexiones.get(i).pieza+"");}
+        try{
+            for (int i = 0; i < srv.conexiones.size(); i++) {
+            System.out.println("entra"+ i);
+            ThreadServidor current = srv.conexiones.get(i);
+            current.writer.writeInt(4);
+            current.objWriter.writeObject(srv.urlBotones); 
+            current.objWriter.writeObject(srv.nombres); 
+            }
+            for (int i = 0; i < srv.conexiones.size(); i++) {
+            ThreadServidor current = srv.conexiones.get(i);
+            current.writer.writeInt(5);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+      
+        
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
@@ -130,4 +161,6 @@ public class PantallaServer extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txaMensajes;
     // End of variables declaration//GEN-END:variables
+
+    
 }

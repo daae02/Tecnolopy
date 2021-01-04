@@ -6,6 +6,7 @@
 package Cliente;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 import java.util.Collections;
@@ -14,24 +15,29 @@ import java.util.Collections;
  *
  * @author diemo
  */
-public class Cliente{
+public class Cliente implements Serializable{//,Comparable<Cliente>{
     
-    Socket socketRef;
-    ChatClient refPantalla;
-    public ThreadCliente hiloCliente;
-    public String pieza = "";
+    public transient Socket socketRef;
+    public transient MonopolyJF secPantalla;
+    public transient ChatClient refPantalla;
+    public transient ThreadCliente hiloCliente;
+    public String pieza = "null";
+    public String nickname = "null";
+    public int turno = 0;
 
-    public Cliente(ChatClient refPantalla) {
+    public Cliente(ChatClient refPantalla,MonopolyJF secPantalla) {
         this.refPantalla = refPantalla;
         refPantalla.setRefCliente(this);
+        this.secPantalla = secPantalla;
+        secPantalla.setRefCliente(this);
     }
-    
+
     public void conectar(){
  
         try{
         
             socketRef = new Socket("localhost", 35577);
-            hiloCliente = new ThreadCliente(socketRef, refPantalla);
+            hiloCliente = new ThreadCliente(this,socketRef, refPantalla, secPantalla);
             hiloCliente.start();
             //String nombre = JOptionPane.showInputDialog("Introduzca un Nick:");
             //refPantalla.setTitle(nombre);

@@ -20,9 +20,11 @@ public class MainCliente {
     public static void main(String[] args) {
         try{
         ChatClient pantalla = new ChatClient();
-        Cliente c = new Cliente(pantalla);
+        MonopolyJF secPantalla = new MonopolyJF();
+        Cliente c = new Cliente(pantalla,secPantalla);
         pantalla.setVisible(true); 
         c.conectar();
+        
                
         }
         catch(Exception e){

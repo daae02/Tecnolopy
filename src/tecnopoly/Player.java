@@ -12,7 +12,12 @@ import javax.swing.JLabel;
  * @author Alejandra G
  */
 public class Player {
-    int money;
-    ArrayList<Property> propieties = new ArrayList<Property>();
+    public int money;
+    ArrayList<Property> properties = new ArrayList<Property>();
     int currentIndex;
+    public Player(){
+        money = 2000;
+        currentIndex = 0;
+    }
+
 }

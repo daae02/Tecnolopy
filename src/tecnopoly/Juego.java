@@ -10,8 +10,14 @@ import java.util.ArrayList;
 public class Juego {
     public ArrayList<Player> currentPlayers = new ArrayList<Player>();
     public ArrayList<Property> propiedades = new ArrayList<Property>();
+    public int cantConexiones;
     int houses;
     int hotel;
+    public Juego(){}
+    public Juego(int cantConexiones){
+        this.cantConexiones = cantConexiones;
+        startGame();
+    }
     void propietyLinker(){
         for (int i = 0; i < propiedades.size(); i++){
             for (int j = 0; j < propiedades.size(); j++){
@@ -77,7 +83,13 @@ public class Juego {
             propietyFactory(index[i],tipos[i],nombres[i],URL[i],valores[i],cobro[i],casa1[i],casa2[i],casa3[i],casa4[i],hotel[i],hipoteca[i],familia[i]);
         }
     }
+    public void crearPlayers(){
+        for (int i = 0; i < cantConexiones; i++) {
+            currentPlayers.add(new Player());           
+        }
+    }
     public void startGame(){
+        crearPlayers();
         propietyCreator();
         propietyLinker();
          for (int i = 0; i < propiedades.size(); i++){
@@ -89,5 +101,61 @@ public class Juego {
              }
          }
     }
+        public void comprarPropiedad(int indice){
+        for (int i = 0; i<propiedades.size(); i++){
+            if (propiedades.get(i).index == currentPlayers.get(indice).currentIndex){
+                currentPlayers.get(indice).properties.add(propiedades.get(i));
+                propiedades.get(i).dueno =  currentPlayers.get(indice);
+                currentPlayers.get(indice).money -= propiedades.get(i).costo;
+            }
+        }
+    }
+    private ArrayList<Property> findProperties(String[] nombres){
+        ArrayList<Property> resultado = new ArrayList<Property>();
+        for (int i=0; i<nombres.length;i++){
+            for (int j=0;j<propiedades.size();j++){
+                if (propiedades.get(j).nombre.equals(nombres[i]))
+                    resultado.add(propiedades.get(j));
+            }
+        }
+        return resultado;
+    }
+    private void changeOwner(ArrayList<Property> propiedades, int antiguo, int nuevo){
+        for(int i=0; i<propiedades.size();i++){
+            currentPlayers.get(antiguo).properties.remove(propiedades.get(i));
+            currentPlayers.get(antiguo).properties.add(propiedades.get(i));
+        }
+    }
+    public void intercambio (String[] nombres1, int dinero1, int indice1,String[] nombres2, int dinero2, int indice2){
+       ArrayList<Property> propiedades1 = findProperties(nombres1);
+       ArrayList<Property> propiedades2 = findProperties(nombres2);
+       changeOwner(propiedades1,indice1,indice2);
+       changeOwner(propiedades2,indice2,indice1);
+        currentPlayers.get(indice1).money += dinero2;
+        currentPlayers.get(indice1).money -= dinero1;
+        currentPlayers.get(indice2).money += dinero1;
+        currentPlayers.get(indice2).money -= dinero2;
+    }
+    public void hipotecar (String propiedad, int indice){
+            for (int i=0;i<propiedades.size();i++){
+                if (propiedades.get(i).nombre.equals(propiedad)){
+                    if (propiedades.get(i).hipotecada == true){
+                        currentPlayers.get(indice).money -= propiedades.get(i).hipotecable;
+                    }
+                    else{
+                        currentPlayers.get(indice).money += propiedades.get(i).hipotecable;
+                    }
+                    propiedades.get(i).hipotecada = !propiedades.get(i).hipotecada;
+                }
+            }
+    }
+    public String getProperties(int indice){
+        String res = "";
+        for (int i = 0; i<currentPlayers.get(indice).properties.size();i++){
+            res += currentPlayers.get(indice).properties.get(i).nombre + "/n";
+        }
+        return res;
+    }
 }
+
 

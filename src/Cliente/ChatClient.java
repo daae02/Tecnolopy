@@ -24,13 +24,26 @@ public class ChatClient extends javax.swing.JFrame {
     //Ale guapa
     Cliente refCliente;
     private String nombreTurno = "";
+    public String nickname = "";
+    public String pieza = "hello";
     public ArrayList <javax.swing.JButton> arregloBotones = new ArrayList <javax.swing.JButton>();
     
     public ChatClient() {
         initComponents();
-        arregloBotones.add(btnBota);
+        arregloBotones.add(btnCarretilla);
+        arregloBotones.add(btnBuque);
+        arregloBotones.add(btnSaco);
+        arregloBotones.add(btnJinete);
+        arregloBotones.add(btnCarro);
+        arregloBotones.add(btnTren);
+        arregloBotones.add(btnDedal);
+        arregloBotones.add(btnCañon);
         arregloBotones.add(btnZapato);
+        arregloBotones.add(btnPerro);
         arregloBotones.add(btnSombrero);
+        arregloBotones.add(btnPlancha);
+        arregloBotones.add(btnGato);
+        arregloBotones.add(btnGuitarra);
         lblDado1.setOpaque(true);
         lblDado2.setOpaque(true);
     }
@@ -48,10 +61,23 @@ public class ChatClient extends javax.swing.JFrame {
         lblDado1 = new javax.swing.JLabel();
         lblDado2 = new javax.swing.JLabel();
         btnLanzarDados = new javax.swing.JButton();
-        btnBota = new javax.swing.JButton();
-        btnSombrero = new javax.swing.JButton();
         btnZapato = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
+        btnGuitarra = new javax.swing.JButton();
+        btnBuque = new javax.swing.JButton();
+        btnSaco = new javax.swing.JButton();
+        btnJinete = new javax.swing.JButton();
+        btnCarro = new javax.swing.JButton();
+        btnCarretilla = new javax.swing.JButton();
+        btnCañon = new javax.swing.JButton();
+        btnTren = new javax.swing.JButton();
+        btnPerro = new javax.swing.JButton();
+        btnDedal = new javax.swing.JButton();
+        btnSombrero = new javax.swing.JButton();
+        btnPlancha = new javax.swing.JButton();
+        btnGato = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnFinal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,21 +98,13 @@ public class ChatClient extends javax.swing.JFrame {
             }
         });
 
-        btnBota.setText("Bota");
-        btnBota.addActionListener(new java.awt.event.ActionListener() {
+        btnZapato.setBackground(new java.awt.Color(255, 255, 255));
+        btnZapato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Shoe.jpg"))); // NOI18N
+        btnZapato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBotaActionPerformed(evt);
+                btnZapatoActionPerformed(evt);
             }
         });
-
-        btnSombrero.setText("Sombrero");
-        btnSombrero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSombreroActionPerformed(evt);
-            }
-        });
-
-        btnZapato.setText("Zapato");
 
         btnOk.setText("ok");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
@@ -95,49 +113,224 @@ public class ChatClient extends javax.swing.JFrame {
             }
         });
 
+        btnGuitarra.setBackground(new java.awt.Color(255, 255, 255));
+        btnGuitarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Guitarra.jpg"))); // NOI18N
+        btnGuitarra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuitarraActionPerformed(evt);
+            }
+        });
+
+        btnBuque.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Buque.jpg"))); // NOI18N
+        btnBuque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuqueActionPerformed(evt);
+            }
+        });
+
+        btnSaco.setBackground(new java.awt.Color(255, 255, 255));
+        btnSaco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/SacoDinero.jpg"))); // NOI18N
+        btnSaco.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSaco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSacoActionPerformed(evt);
+            }
+        });
+
+        btnJinete.setBackground(new java.awt.Color(255, 255, 255));
+        btnJinete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Jinete.jpg"))); // NOI18N
+        btnJinete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJineteActionPerformed(evt);
+            }
+        });
+
+        btnCarro.setBackground(new java.awt.Color(255, 255, 255));
+        btnCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Carro.jpg"))); // NOI18N
+        btnCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarroActionPerformed(evt);
+            }
+        });
+
+        btnCarretilla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Carretilla.jpg"))); // NOI18N
+        btnCarretilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarretillaActionPerformed(evt);
+            }
+        });
+
+        btnCañon.setBackground(new java.awt.Color(255, 255, 255));
+        btnCañon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Cañon.jpg"))); // NOI18N
+        btnCañon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCañonActionPerformed(evt);
+            }
+        });
+
+        btnTren.setBackground(new java.awt.Color(255, 255, 255));
+        btnTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Tren.jpg"))); // NOI18N
+        btnTren.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrenActionPerformed(evt);
+            }
+        });
+
+        btnPerro.setBackground(new java.awt.Color(255, 255, 255));
+        btnPerro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Perro.jpg"))); // NOI18N
+        btnPerro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerroActionPerformed(evt);
+            }
+        });
+
+        btnDedal.setBackground(new java.awt.Color(255, 255, 255));
+        btnDedal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Dedal.jpg"))); // NOI18N
+        btnDedal.setText("Dedal");
+        btnDedal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDedalActionPerformed(evt);
+            }
+        });
+
+        btnSombrero.setBackground(new java.awt.Color(255, 255, 255));
+        btnSombrero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Sombrero.jpg"))); // NOI18N
+        btnSombrero.setText("Sombrero");
+        btnSombrero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSombreroActionPerformed(evt);
+            }
+        });
+
+        btnPlancha.setBackground(new java.awt.Color(255, 255, 255));
+        btnPlancha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Plancha.jpg"))); // NOI18N
+        btnPlancha.setText("Plancha");
+        btnPlancha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlanchaActionPerformed(evt);
+            }
+        });
+
+        btnGato.setBackground(new java.awt.Color(255, 255, 255));
+        btnGato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tokens/Gato.jpg"))); // NOI18N
+        btnGato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGatoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nickname:");
+
+        btnFinal.setText("OkiKoki");
+        btnFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnTren, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDedal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addComponent(btnCañon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPerro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(btnSombrero, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnPlancha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGato, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGuitarra, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(btnFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDado1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblDado2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnLanzarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBota)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSombrero, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnZapato)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnCarretilla, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuque, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnLanzarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnSaco, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnJinete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(lblDado1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(75, 75, 75)
+                                .addComponent(lblDado2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOk))
-                .addGap(18, 18, 18)
+                    .addComponent(btnOk)
+                    .addComponent(jLabel1))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblDado1, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                    .addComponent(lblDado2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lblDado1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(lblDado2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(btnLanzarDados)
-                .addGap(33, 33, 33)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBota)
-                    .addComponent(btnSombrero)
-                    .addComponent(btnZapato))
-                .addContainerGap(84, Short.MAX_VALUE))
+                    .addComponent(btnBuque, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSaco, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnJinete, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarretilla, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTren, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCañon, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPerro, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDedal, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSombrero, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPlancha, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGato, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuitarra, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,10 +348,6 @@ public class ChatClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void btnSombreroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSombreroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSombreroActionPerformed
-
     private void btnLanzarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarDadosActionPerformed
         // TODO add your handling code here:
         try {   
@@ -169,32 +358,140 @@ public class ChatClient extends javax.swing.JFrame {
         } catch (IOException ex) {
             
         }
+        //btnLanzarDados.setEnabled(false);
     }//GEN-LAST:event_btnLanzarDadosActionPerformed
 
-    private void btnBotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotaActionPerformed
-        // TODO add your handling code here:
+    private void bloquearToken(int indice){
         try{
             refCliente.hiloCliente.writer.writeInt(2);
-            refCliente.hiloCliente.writer.writeInt(0);
+            refCliente.hiloCliente.writer.writeInt(indice);
+            for (int  i = 0;  i < arregloBotones.size();  i++) {
+                arregloBotones.get(i).setEnabled(false);
+            }
         }
         catch (IOException ex) {
-            System.out.println("EErorrrrrr");
+            
         }
-    }//GEN-LAST:event_btnBotaActionPerformed
+    }
+    private void btnZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZapatoActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(8);
+        pieza = "/Resources/TokensPNG/shoePNG.png";
+    }//GEN-LAST:event_btnZapatoActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         // TODO add your handling code here:
         String nombre = txtNombre.getText();
+        refCliente.nickname = nombre;
+        nickname = nombre;
+        System.out.println(nickname);
+        System.out.println(pieza);
     }//GEN-LAST:event_btnOkActionPerformed
-    public void pintarLanzamientoDados (int valor1, int valor2){        
+
+    private void btnGuitarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuitarraActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(13);
+        pieza = "url png";
+    }//GEN-LAST:event_btnGuitarraActionPerformed
+
+    private void btnBuqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuqueActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(1);
+        pieza = "url png";
+    }//GEN-LAST:event_btnBuqueActionPerformed
+
+    private void btnCarretillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarretillaActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(0);
+        pieza = "url png";
+    }//GEN-LAST:event_btnCarretillaActionPerformed
+
+    private void btnCañonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCañonActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(7);
+        pieza = "url png";
+    }//GEN-LAST:event_btnCañonActionPerformed
+
+    private void btnTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrenActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(5);
+        pieza = "url png";
+    }//GEN-LAST:event_btnTrenActionPerformed
+
+    private void btnPerroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerroActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(9);
+        pieza = "/Resources/TokensPNG/perroPNG.png";
+    }//GEN-LAST:event_btnPerroActionPerformed
+
+    private void btnDedalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDedalActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(6);
+        pieza = "url png";
+    }//GEN-LAST:event_btnDedalActionPerformed
+
+    private void btnSombreroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSombreroActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(10);
+        pieza = "url png";
+    }//GEN-LAST:event_btnSombreroActionPerformed
+
+    private void btnPlanchaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanchaActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(11);
+        pieza = "url png";
+    }//GEN-LAST:event_btnPlanchaActionPerformed
+
+    private void btnGatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGatoActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(12);
+        pieza = "/Resources/TokensPNG/gatoPNG.png";
+    }//GEN-LAST:event_btnGatoActionPerformed
+
+    private void btnSacoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacoActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(2);
+        pieza = "url png";
+    }//GEN-LAST:event_btnSacoActionPerformed
+
+    private void btnJineteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJineteActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(3);
+        pieza = "url png";
+    }//GEN-LAST:event_btnJineteActionPerformed
+
+    private void btnCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroActionPerformed
+        // TODO add your handling code here:
+        bloquearToken(4);
+        pieza = "url png";
+    }//GEN-LAST:event_btnCarroActionPerformed
+
+    private void btnFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalActionPerformed
+        // TODO add your handling code here:
+        /*try {
+            refCliente.hiloCliente.objWriter.writeObject(refCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       */ try {
+            refCliente.hiloCliente.writer.writeInt(4);
+           // refCliente.hiloCliente.writer.writeInt(3);
+            //refCliente.hiloCliente.objWriter.writeObject(refCliente);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFinalActionPerformed
+    public void pintarLanzamientoDados (int valor1, int valor2,String icon1, String icon2){        
         
-        lblDado1.setText(valor1 + "");
+        /*lblDado1.setText(valor1 + "");
         lblDado2.setText(valor2 + "");
         lblDado1.setBackground(Color.red);
         lblDado2.setBackground(Color.red);
         
         if (!btnLanzarDados.isEnabled())
-            btnLanzarDados.setEnabled(true);
+            btnLanzarDados.setEnabled(true);*/
+        lblDado1.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon1))); // NOI18
+        lblDado2.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon2)));
     }
     
     /**
@@ -233,13 +530,26 @@ public class ChatClient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBota;
+    private javax.swing.JButton btnBuque;
+    private javax.swing.JButton btnCarretilla;
+    private javax.swing.JButton btnCarro;
+    private javax.swing.JButton btnCañon;
+    private javax.swing.JButton btnDedal;
+    private javax.swing.JButton btnFinal;
+    private javax.swing.JButton btnGato;
+    private javax.swing.JButton btnGuitarra;
+    private javax.swing.JButton btnJinete;
     private javax.swing.JButton btnLanzarDados;
     private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnPerro;
+    private javax.swing.JButton btnPlancha;
+    private javax.swing.JButton btnSaco;
     private javax.swing.JButton btnSombrero;
+    private javax.swing.JButton btnTren;
     private javax.swing.JButton btnZapato;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDado1;
     private javax.swing.JLabel lblDado2;
-    private javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
