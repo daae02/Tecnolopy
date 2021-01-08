@@ -87,16 +87,21 @@ class ThreadServidor extends Thread{
                         }
                         break;
                     case 3:
-                    try {
-                        System.out.println("mmmmmmmmmmmkurto");
-                        Cliente objCliente = (Cliente)objReader.readObject();
-                        System.out.println(objCliente.toString()+objCliente.nickname);
-                        server.clientes.add(objCliente);
-
-                    } catch (IOException | ClassNotFoundException ex) {
-                        System.out.println("mmmmmmmmmmmkurto");
-                        Logger.getLogger(ThreadServidor.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        int [] turno2Tmp = server.lanzarDados();
+                        boolean iguales = turno2Tmp[0] == turno2Tmp[1];
+                        String iguales2 = Boolean.toString(iguales);
+                        String [] iconDados2 = server.buscarDados(turno2Tmp);
+                        for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current = server.conexiones.get(i);
+                            current.writer.writeInt(8);
+                            //current.writer.writeInt(turno2Tmp[0]);
+                            //current.writer.writeInt(turno2Tmp[1]); 
+                            current.writer.writeUTF(iconDados2[0]);
+                            current.writer.writeUTF(iconDados2[1]);
+                            current.writer.writeUTF(iguales2);
+                            
+                        }
+                    
                     break;
                     case 4:
                     try {

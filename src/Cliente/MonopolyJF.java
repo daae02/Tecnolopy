@@ -8,6 +8,7 @@ package Cliente;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import static java.lang.Boolean.parseBoolean;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     /**
      * Creates new form MonopolyJF
      */
+    public boolean actualizado = false;
     public ArrayList<String> botones;
     public ArrayList<String> nombres;
     ArrayList<JLabel> lblAL;
@@ -63,7 +65,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         inicio = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        jButton22 = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         cbbNombres = new javax.swing.JComboBox<>();
@@ -78,6 +82,10 @@ public class MonopolyJF extends javax.swing.JFrame {
         jTextArea19 = new javax.swing.JTextArea();
         jLabel34 = new javax.swing.JLabel();
         chatSms = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        lblDado2 = new javax.swing.JLabel();
+        lblDado1 = new javax.swing.JLabel();
+        btnLanzarDados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,19 +105,39 @@ public class MonopolyJF extends javax.swing.JFrame {
                 jButton19ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 100, 50));
+        jPanel1.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
 
-        jButton20.setBackground(new java.awt.Color(121, 150, 130));
-        jButton20.setForeground(new java.awt.Color(255, 255, 255));
-        jButton20.setText("HIPOTECAR");
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
+        jButton21.setBackground(new java.awt.Color(121, 150, 130));
+        jButton21.setForeground(new java.awt.Color(255, 255, 255));
+        jButton21.setText("HIPOTECAR");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+                jButton21ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, 50));
+        jPanel1.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 110, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 330, 150));
+        jButton22.setBackground(new java.awt.Color(121, 150, 130));
+        jButton22.setForeground(new java.awt.Color(255, 255, 255));
+        jButton22.setText("CONSTRUIR");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 110, 50));
+
+        jButton23.setBackground(new java.awt.Color(121, 150, 130));
+        jButton23.setForeground(new java.awt.Color(255, 255, 255));
+        jButton23.setText("TERMINAR TURNO");
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 130, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 550, 150));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tablero.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 690));
@@ -184,6 +212,28 @@ public class MonopolyJF extends javax.swing.JFrame {
 
         getContentPane().add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 260, 330, 270));
 
+        jPanel2.setBackground(new java.awt.Color(206, 255, 221));
+        jPanel2.setToolTipText("");
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblDado2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(lblDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 84, 84));
+
+        lblDado1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(lblDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 84, 84));
+
+        btnLanzarDados.setBackground(new java.awt.Color(121, 150, 130));
+        btnLanzarDados.setForeground(new java.awt.Color(255, 255, 255));
+        btnLanzarDados.setText("LANZAR DADOS");
+        btnLanzarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLanzarDadosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnLanzarDados, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 110, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 210, 530));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -191,8 +241,10 @@ public class MonopolyJF extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             int index = cbbNombres.getSelectedIndex();
+            if(index>-1 && actualizado){
             refCliente.hiloCliente.writer.writeInt(6);
             refCliente.hiloCliente.writer.writeInt(index);
+            }
         } catch (IOException ex) {
             Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -207,11 +259,23 @@ public class MonopolyJF extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton19ActionPerformed
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+    private void btnLanzarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarDadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton20ActionPerformed
+        try {
+            refCliente.hiloCliente.writer.writeInt(6);
+            } catch (IOException ex) {
+            Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }//GEN-LAST:event_btnLanzarDadosActionPerformed
     public void addMessage(String msj){
         jTextArea19.append(msj + "\n");
+    }
+    public void pintarLanzamientoDados(String icon1,String icon2,String iguales){
+        lblDado1.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon1))); // NOI18
+        lblDado2.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon2)));
+        if (!parseBoolean(iguales)){
+            btnLanzarDados.setEnabled(false);
+        }
     }
     private void chatSmsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chatSmsKeyPressed
         // TODO add your handling code here:
@@ -220,11 +284,24 @@ public class MonopolyJF extends javax.swing.JFrame {
               String str = chatSms.getText();
               refCliente.hiloCliente.writer.writeInt(5);
               refCliente.hiloCliente.writer.writeUTF(str);
+              chatSms.setText("");
           } catch (IOException ex) {
               Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
           }
    }
     }//GEN-LAST:event_chatSmsKeyPressed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton23ActionPerformed
     public void actualizarCBBplayer(String propiedades,String dinero){
         lblMoney.setText("");
         lblProperties.setText("");
@@ -236,6 +313,7 @@ public class MonopolyJF extends javax.swing.JFrame {
             cbbNombres.addItem(nombres.get(i));
         } 
         cbbNombres.setSelectedIndex(-1);
+        actualizado = true;
     }
     public void colocarBtnsInicio(){
         for (int i = 0; i < botones.size(); i++) {
@@ -282,11 +360,14 @@ public class MonopolyJF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLanzarDados;
     private javax.swing.JComboBox<String> cbbNombres;
     private javax.swing.JTextField chatSms;
     private javax.swing.JPanel inicio;
     private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -294,10 +375,13 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel19;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea19;
+    private javax.swing.JLabel lblDado1;
+    private javax.swing.JLabel lblDado2;
     private javax.swing.JLabel lblMoney;
     private javax.swing.JTextArea lblProperties;
     // End of variables declaration//GEN-END:variables

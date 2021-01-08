@@ -96,6 +96,11 @@ public class ThreadCliente extends Thread {
                         String propiedades = reader.readUTF();
                         String dinero = reader.readUTF();
                         secPantalla.actualizarCBBplayer(propiedades, dinero);
+                    case 8:
+                        String icon1sec = reader.readUTF();
+                        String icon2sec = reader.readUTF();
+                        String iguales  = reader.readUTF(); 
+                        secPantalla.pintarLanzamientoDados(icon1sec,icon2sec,iguales);
                     
                 }
             } catch (IOException ex) {
