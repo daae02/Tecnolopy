@@ -35,6 +35,7 @@ public class Servidor{
     private int turno = 0;
     private boolean partidaIniciada = false;
     private boolean pause = false;
+    public int indexJugadorActual = 1;
 
     public Servidor(PantallaServer refPantalla) {
         this.refPantalla = refPantalla;

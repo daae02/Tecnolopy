@@ -152,6 +152,22 @@ class ThreadServidor extends Thread{
                         writer.writeUTF(prop);
                         writer.writeUTF(dinero);
                         break;
+                    case 7:
+                        for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current = server.conexiones.get(i);
+                            if (i == server.indexJugadorActual){
+                                current.writer.writeInt(9);
+                                server.indexJugadorActual++;
+                                //validación para revisar
+                                if (server.indexJugadorActual+1 >= server.conexiones.size())
+                                    server.indexJugadorActual = 0;
+                            }
+                            else{
+                                current.writer.writeInt(10);
+                            }
+                        }
+                        break;
+                        
                         
                         
                 }

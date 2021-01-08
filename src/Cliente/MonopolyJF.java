@@ -64,10 +64,10 @@ public class MonopolyJF extends javax.swing.JFrame {
 
         inicio = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jButton19 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
+        btnIntercambiar = new javax.swing.JButton();
+        btnHipotecar = new javax.swing.JButton();
+        btnConstruir = new javax.swing.JButton();
+        btnTerminarTurno = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         cbbNombres = new javax.swing.JComboBox<>();
@@ -97,45 +97,49 @@ public class MonopolyJF extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(206, 255, 221));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton19.setBackground(new java.awt.Color(121, 150, 130));
-        jButton19.setForeground(new java.awt.Color(255, 255, 255));
-        jButton19.setText("INTERCAMBIAR");
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        btnIntercambiar.setBackground(new java.awt.Color(121, 150, 130));
+        btnIntercambiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIntercambiar.setText("INTERCAMBIAR");
+        btnIntercambiar.setEnabled(false);
+        btnIntercambiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                btnIntercambiarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
+        jPanel1.add(btnIntercambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
 
-        jButton21.setBackground(new java.awt.Color(121, 150, 130));
-        jButton21.setForeground(new java.awt.Color(255, 255, 255));
-        jButton21.setText("HIPOTECAR");
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
+        btnHipotecar.setBackground(new java.awt.Color(121, 150, 130));
+        btnHipotecar.setForeground(new java.awt.Color(255, 255, 255));
+        btnHipotecar.setText("HIPOTECAR");
+        btnHipotecar.setEnabled(false);
+        btnHipotecar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+                btnHipotecarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 110, 50));
+        jPanel1.add(btnHipotecar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 110, 50));
 
-        jButton22.setBackground(new java.awt.Color(121, 150, 130));
-        jButton22.setForeground(new java.awt.Color(255, 255, 255));
-        jButton22.setText("CONSTRUIR");
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
+        btnConstruir.setBackground(new java.awt.Color(121, 150, 130));
+        btnConstruir.setForeground(new java.awt.Color(255, 255, 255));
+        btnConstruir.setText("CONSTRUIR");
+        btnConstruir.setEnabled(false);
+        btnConstruir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
+                btnConstruirActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 110, 50));
+        jPanel1.add(btnConstruir, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 110, 50));
 
-        jButton23.setBackground(new java.awt.Color(121, 150, 130));
-        jButton23.setForeground(new java.awt.Color(255, 255, 255));
-        jButton23.setText("TERMINAR TURNO");
-        jButton23.addActionListener(new java.awt.event.ActionListener() {
+        btnTerminarTurno.setBackground(new java.awt.Color(121, 150, 130));
+        btnTerminarTurno.setForeground(new java.awt.Color(255, 255, 255));
+        btnTerminarTurno.setText("TERMINAR TURNO");
+        btnTerminarTurno.setEnabled(false);
+        btnTerminarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton23ActionPerformed(evt);
+                btnTerminarTurnoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 130, 50));
+        jPanel1.add(btnTerminarTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 130, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 550, 150));
 
@@ -225,6 +229,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         btnLanzarDados.setBackground(new java.awt.Color(121, 150, 130));
         btnLanzarDados.setForeground(new java.awt.Color(255, 255, 255));
         btnLanzarDados.setText("LANZAR DADOS");
+        btnLanzarDados.setEnabled(false);
         btnLanzarDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLanzarDadosActionPerformed(evt);
@@ -237,6 +242,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setTitulo(){
+        this.setTitle(refCliente.nickname);
+    }
     private void cbbNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNombresActionPerformed
         try {
             // TODO add your handling code here:
@@ -254,10 +262,10 @@ public class MonopolyJF extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chatSmsActionPerformed
 
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+    private void btnIntercambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiarActionPerformed
 
 
-    }//GEN-LAST:event_jButton19ActionPerformed
+    }//GEN-LAST:event_btnIntercambiarActionPerformed
 
     private void btnLanzarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarDadosActionPerformed
         // TODO add your handling code here:
@@ -277,6 +285,20 @@ public class MonopolyJF extends javax.swing.JFrame {
             btnLanzarDados.setEnabled(false);
         }
     }
+    public void habilitarBtns(){
+        btnLanzarDados.setEnabled(true);
+        btnIntercambiar.setEnabled(true);
+        btnHipotecar.setEnabled(true);
+        btnConstruir.setEnabled(true);
+        btnTerminarTurno.setEnabled(true);
+    }
+    public void deshabilitarBtns(){
+        btnLanzarDados.setEnabled(false);
+        btnIntercambiar.setEnabled(false);
+        btnHipotecar.setEnabled(false);
+        btnConstruir.setEnabled(false);
+        btnTerminarTurno.setEnabled(false);
+    }
     private void chatSmsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chatSmsKeyPressed
         // TODO add your handling code here:
       if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -291,17 +313,22 @@ public class MonopolyJF extends javax.swing.JFrame {
    }
     }//GEN-LAST:event_chatSmsKeyPressed
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+    private void btnHipotecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHipotecarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton21ActionPerformed
+    }//GEN-LAST:event_btnHipotecarActionPerformed
 
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+    private void btnConstruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstruirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton22ActionPerformed
+    }//GEN-LAST:event_btnConstruirActionPerformed
 
-    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+    private void btnTerminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarTurnoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton23ActionPerformed
+        try {
+              refCliente.hiloCliente.writer.writeInt(7);
+          } catch (IOException ex) {
+              Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+          }
+    }//GEN-LAST:event_btnTerminarTurnoActionPerformed
     public void actualizarCBBplayer(String propiedades,String dinero){
         lblMoney.setText("");
         lblProperties.setText("");
@@ -360,14 +387,14 @@ public class MonopolyJF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConstruir;
+    private javax.swing.JButton btnHipotecar;
+    private javax.swing.JButton btnIntercambiar;
     private javax.swing.JButton btnLanzarDados;
+    private javax.swing.JButton btnTerminarTurno;
     private javax.swing.JComboBox<String> cbbNombres;
     private javax.swing.JTextField chatSms;
     private javax.swing.JPanel inicio;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

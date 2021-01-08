@@ -26,6 +26,7 @@ public class ChatClient extends javax.swing.JFrame {
     private String nombreTurno = "";
     public String nickname = "";
     public String pieza = "hello";
+    boolean lanzoDados = false;
     public ArrayList <javax.swing.JButton> arregloBotones = new ArrayList <javax.swing.JButton>();
     
     public ChatClient() {
@@ -223,6 +224,7 @@ public class ChatClient extends javax.swing.JFrame {
         jLabel1.setText("Nickname:");
 
         btnFinal.setText("OkiKoki");
+        btnFinal.setEnabled(false);
         btnFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinalActionPerformed(evt);
@@ -352,6 +354,7 @@ public class ChatClient extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {   
                 //String nombre = txtNombre.getText();
+                lanzoDados = true;
                 refCliente.hiloCliente.writer.writeInt(1);
                 //refCliente.hiloCliente.writer.writeUTF(nombre); //instruccion para el switch del thraed servidor
             
@@ -368,6 +371,8 @@ public class ChatClient extends javax.swing.JFrame {
             for (int  i = 0;  i < arregloBotones.size();  i++) {
                 arregloBotones.get(i).setEnabled(false);
             }
+            if (lanzoDados)
+                btnFinal.setEnabled(true);
         }
         catch (IOException ex) {
             
@@ -473,7 +478,9 @@ public class ChatClient extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-       */ try {
+        
+       */
+        try {
             refCliente.hiloCliente.writer.writeInt(4);
            // refCliente.hiloCliente.writer.writeInt(3);
             //refCliente.hiloCliente.objWriter.writeObject(refCliente);

@@ -76,6 +76,7 @@ public class ThreadCliente extends Thread {
                         ArrayList<String> nombres = (ArrayList<String>)objReader.readObject();
                         secPantalla.botones = urlBotones;
                         secPantalla.nombres = nombres;
+                        secPantalla.setTitulo();
                         System.out.println("llega");
                         break;
                     case 5:
@@ -96,11 +97,19 @@ public class ThreadCliente extends Thread {
                         String propiedades = reader.readUTF();
                         String dinero = reader.readUTF();
                         secPantalla.actualizarCBBplayer(propiedades, dinero);
+                        break;
                     case 8:
                         String icon1sec = reader.readUTF();
                         String icon2sec = reader.readUTF();
                         String iguales  = reader.readUTF(); 
                         secPantalla.pintarLanzamientoDados(icon1sec,icon2sec,iguales);
+                        break;
+                    case 9:
+                        secPantalla.habilitarBtns();
+                        break;
+                    case 10:
+                        secPantalla.deshabilitarBtns();
+                        break;
                     
                 }
             } catch (IOException ex) {

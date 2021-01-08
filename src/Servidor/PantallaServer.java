@@ -111,6 +111,10 @@ public class PantallaServer extends javax.swing.JFrame{
             ThreadServidor current = srv.conexiones.get(i);
             current.writer.writeInt(5);
             }
+            ThreadServidor current = srv.conexiones.get(0);
+            current.writer.writeInt(9);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(PantallaServer.class.getName()).log(Level.SEVERE, null, ex);
         }
