@@ -14,5 +14,15 @@ public class TransportProperty extends Property{
     public TransportProperty(int costo, int index, int hipotecable, String img, String familia, String nombre) {
         super(costo, index, hipotecable, img, familia, nombre);
     }
-   
+
+    @Override
+    public int calcularCobro(int dado1, int dado2) {
+        int res = 50;
+        for (int i = 0 ; i<hermanas.size();i++){
+            if (dueno == hermanas.get(i).dueno){
+                res +=50;
+            }
+        }
+        return res;
+    }
 }

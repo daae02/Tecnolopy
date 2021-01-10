@@ -14,4 +14,13 @@ public class UtilityProperty extends Property{
     public UtilityProperty(int costo, int index, int hipotecable, String img, String familia, String nombre) {
         super(costo, index, hipotecable, img, familia, nombre);
     }
+
+    @Override
+    public int calcularCobro(int dado1, int dado2) {
+        int suma = dado1 + dado2;
+        if (wholeMonopoly()){
+            return suma*10;
+        }
+        return suma*4;
+    }
 }

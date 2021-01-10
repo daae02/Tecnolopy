@@ -25,5 +25,13 @@ abstract class  Property {
         this.familia = familia;
         this.nombre = nombre;
     }
-    
+    public boolean wholeMonopoly(){
+        for (int i = 0 ; i<hermanas.size();i++){
+            if(this.dueno != hermanas.get(i).dueno){
+                return false;
+            }
+        }
+        return true;
+    }
+    abstract public int calcularCobro(int dado1, int dado2);
 }

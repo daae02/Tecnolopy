@@ -15,6 +15,8 @@ public class Player {
     public int money;
     ArrayList<Property> properties = new ArrayList<Property>();
     int currentIndex;
+    boolean enCarcel;
+    int turnosRestantes;
     public Player(){
         money = 2000;
         currentIndex = 0;

@@ -10,6 +10,7 @@ package tecnopoly;
  * @author Alejandra G
  */
 public class CommonProperty extends Property{
+    int cobro;
     int casas;
     int casa1;
     int casa2;
@@ -23,5 +24,36 @@ public class CommonProperty extends Property{
         this.casa3 = casa3;
         this.casa4 = casa4;
         this.hotel = hotel;
+    }
+    public int obtenerValor(){
+       switch (casas){
+           case 1:
+                return casa1;
+           case 2:
+                return casa2;
+           case 3:
+                return casa3;
+           case 4:
+                return casa4;
+           case 5:
+               return hotel;
+           default:
+               return 0;
+       } 
+    }
+    @Override
+    public int calcularCobro(int dado1, int dado2) {
+        if (hipotecada){
+            return 0;
+        }
+        else if (casas != 0){
+                return obtenerValor();
+            }
+        else if (wholeMonopoly()){
+                return cobro*2;
+            }        
+        else{
+            return cobro;
+        }
     }
 }

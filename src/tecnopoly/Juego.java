@@ -156,6 +156,12 @@ public class Juego {
         }
         return res;
     }
+    public void turnoJugador(int indice){
+        if (!currentPlayers.get(indice).enCarcel){
+            
+        }
+    }
 }
+
 
 
