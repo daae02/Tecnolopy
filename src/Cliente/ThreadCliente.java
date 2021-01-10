@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -74,6 +75,9 @@ public class ThreadCliente extends Thread {
                     case 4:
                         ArrayList<String> urlBotones = (ArrayList<String>)objReader.readObject();
                         ArrayList<String> nombres = (ArrayList<String>)objReader.readObject();
+                        int miIndice = reader.readInt();
+                        secPantalla.myIndex = miIndice;
+                        secPantalla.pieza = refPantalla.pieza.toString();
                         secPantalla.botones = urlBotones;
                         secPantalla.nombres = nombres;
                         secPantalla.setTitulo();
@@ -102,7 +106,8 @@ public class ThreadCliente extends Thread {
                         String icon1sec = reader.readUTF();
                         String icon2sec = reader.readUTF();
                         String iguales  = reader.readUTF(); 
-                        secPantalla.pintarLanzamientoDados(icon1sec,icon2sec,iguales);
+                        int turnoLegal = reader.readInt();
+                        secPantalla.pintarLanzamientoDados(icon1sec,icon2sec,turnoLegal,iguales);
                         break;
                     case 9:
                         secPantalla.habilitarBtns();
@@ -110,6 +115,14 @@ public class ThreadCliente extends Thread {
                     case 10:
                         secPantalla.deshabilitarBtns();
                         break;
+                    case 11:
+                        int labelActual = reader.readInt();
+                        int casillaMover = reader.readInt();
+                        //int indexThread = reader.readInt();
+                        ImageIcon icono = (ImageIcon) objReader.readObject();
+                        secPantalla.findToken(labelActual,icono,casillaMover);
+                        break;
+                        
                     
                 }
             } catch (IOException ex) {

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -99,6 +100,8 @@ class ThreadServidor extends Thread{
                             current.writer.writeUTF(iconDados2[0]);
                             current.writer.writeUTF(iconDados2[1]);
                             current.writer.writeUTF(iguales2);
+                            current.writer.writeInt(turno2Tmp[0]+turno2Tmp[1]);
+                            
                             
                         }
                     
@@ -167,12 +170,27 @@ class ThreadServidor extends Thread{
                             }
                         }
                         break;
+                    case 8:
+                        int labelActual = reader.readInt();
+                        int casillaMover = reader.readInt();
+                        ImageIcon icono = (ImageIcon) objReader.readObject();
+                        
+                       for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current = server.conexiones.get(i);
+                            current.writer.writeInt(11);
+                            current.writer.writeInt(labelActual);
+                            current.writer.writeInt(casillaMover);
+                            current.objWriter.writeObject(icono);
+                            
+                        }
                         
                         
                         
                 }
             } catch (IOException ex) {
                 System.out.println(":(");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThreadServidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

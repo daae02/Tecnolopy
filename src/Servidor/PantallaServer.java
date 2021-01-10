@@ -105,7 +105,8 @@ public class PantallaServer extends javax.swing.JFrame{
             ThreadServidor current = srv.conexiones.get(i);
             current.writer.writeInt(4);
             current.objWriter.writeObject(srv.urlBotones); 
-            current.objWriter.writeObject(srv.nombres); 
+            current.objWriter.writeObject(srv.nombres);
+            current.writer.writeInt(i);
             }
             for (int i = 0; i < srv.conexiones.size(); i++) {
             ThreadServidor current = srv.conexiones.get(i);
