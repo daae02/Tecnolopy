@@ -396,31 +396,31 @@ public class ChatClient extends javax.swing.JFrame {
     private void btnGuitarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuitarraActionPerformed
         // TODO add your handling code here:
         bloquearToken(13);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/GuitarraPNG.png";
     }//GEN-LAST:event_btnGuitarraActionPerformed
 
     private void btnBuqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuqueActionPerformed
         // TODO add your handling code here:
         bloquearToken(1);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/BuquePNG.png";
     }//GEN-LAST:event_btnBuqueActionPerformed
 
     private void btnCarretillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarretillaActionPerformed
         // TODO add your handling code here:
         bloquearToken(0);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/CaretillaPNG.png";
     }//GEN-LAST:event_btnCarretillaActionPerformed
 
     private void btnCañonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCañonActionPerformed
         // TODO add your handling code here:
         bloquearToken(7);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/CañonPNG.png";
     }//GEN-LAST:event_btnCañonActionPerformed
 
     private void btnTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrenActionPerformed
         // TODO add your handling code here:
         bloquearToken(5);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/TrenPNG.png";
     }//GEN-LAST:event_btnTrenActionPerformed
 
     private void btnPerroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerroActionPerformed
@@ -432,19 +432,19 @@ public class ChatClient extends javax.swing.JFrame {
     private void btnDedalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDedalActionPerformed
         // TODO add your handling code here:
         bloquearToken(6);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/DedalPNG.png";
     }//GEN-LAST:event_btnDedalActionPerformed
 
     private void btnSombreroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSombreroActionPerformed
         // TODO add your handling code here:
         bloquearToken(10);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/SombreroPNG.png";
     }//GEN-LAST:event_btnSombreroActionPerformed
 
     private void btnPlanchaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanchaActionPerformed
         // TODO add your handling code here:
         bloquearToken(11);
-        pieza = "url png";
+        pieza = pieza = "/Resources/TokensPNG/PlanchaPNG.png";
     }//GEN-LAST:event_btnPlanchaActionPerformed
 
     private void btnGatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGatoActionPerformed
@@ -456,19 +456,19 @@ public class ChatClient extends javax.swing.JFrame {
     private void btnSacoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacoActionPerformed
         // TODO add your handling code here:
         bloquearToken(2);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/SacoDineroPNJ.png";
     }//GEN-LAST:event_btnSacoActionPerformed
 
     private void btnJineteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJineteActionPerformed
         // TODO add your handling code here:
         bloquearToken(3);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/JinetePNG.png";
     }//GEN-LAST:event_btnJineteActionPerformed
 
     private void btnCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroActionPerformed
         // TODO add your handling code here:
         bloquearToken(4);
-        pieza = "url png";
+        pieza = "/Resources/TokensPNG/CarroPNG.png";
     }//GEN-LAST:event_btnCarroActionPerformed
 
     private void btnFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalActionPerformed

@@ -122,6 +122,17 @@ public class ThreadCliente extends Thread {
                         ImageIcon icono = (ImageIcon) objReader.readObject();
                         secPantalla.findToken(labelActual,icono,casillaMover);
                         break;
+                    case 12:
+                        String url = reader.readUTF();
+                        System.out.println("llega al thread cliente");
+                        secPantalla.mostrarPropDisponible(url);
+                        break;
+                    case 13:
+                        String url1 = reader.readUTF();
+                        String dueño = reader.readUTF();
+                        secPantalla.mostrarPropNoDisponible(url1,dueño);
+                        break;
+
                         
                     
                 }

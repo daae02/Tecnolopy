@@ -91,6 +91,7 @@ public class PantallaServer extends javax.swing.JFrame{
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
         srv.juego = new Juego(srv.conexiones.size());
+        srv.juego.refServer = srv;
         addMessage("" + srv.conexiones.size());
         srv.ordenarAL();
         //srv.ordenarAL();

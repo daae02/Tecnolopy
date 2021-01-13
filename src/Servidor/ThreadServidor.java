@@ -156,19 +156,19 @@ class ThreadServidor extends Thread{
                         writer.writeUTF(dinero);
                         break;
                     case 7:
+                        if (server.indexJugadorActual >= server.conexiones.size())
+                            server.indexJugadorActual = 0;
                         for (int i = 0; i < server.conexiones.size(); i++) {
                             ThreadServidor current = server.conexiones.get(i);
                             if (i == server.indexJugadorActual){
                                 current.writer.writeInt(9);
-                                server.indexJugadorActual++;
                                 //validación para revisar
-                                if (server.indexJugadorActual+1 >= server.conexiones.size())
-                                    server.indexJugadorActual = 0;
                             }
                             else{
                                 current.writer.writeInt(10);
                             }
                         }
+                        server.indexJugadorActual++;
                         break;
                     case 8:
                         int labelActual = reader.readInt();
@@ -183,9 +183,11 @@ class ThreadServidor extends Thread{
                             current.objWriter.writeObject(icono);
                             
                         }
-                        
-                        
-                        
+                       break;
+                    case 9:
+                        int casillasAMover = reader.readInt();
+                        server.juego.turnoJugador(server.conexiones.indexOf(this), casillasAMover);
+                        break;         
                 }
             } catch (IOException ex) {
                 System.out.println(":(");

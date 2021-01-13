@@ -1,6 +1,8 @@
 
 package tecnopoly;
 
+import Servidor.Servidor;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,7 @@ public class Juego {
     public int cantConexiones;
     int houses;
     int hotel;
+    public Servidor refServer;
     public Juego(){}
     public Juego(int cantConexiones){
         this.cantConexiones = cantConexiones;
@@ -52,20 +55,20 @@ public class Juego {
                             "Ingenieria Mecatronica", "Ingenieria en Computadores", "Trenes Incofer",
                             "Ingenieria en Computación","Escuela de Arquitectura y Urbanismo", "Fotocopiadora",
                             "LAIMI"};
-        String[] URL = {"Resources\\Propiedades\\Comunes\\Moradas\\CulturaDeporte.png","Resources\\Propiedades\\Comunes\\Moradas\\CienciasSociales.png",
-                        "Resources\\Propiedades\\Transporte\\BiciPubli.png","Resources\\Propiedades\\Comunes\\Celestes\\CienciasLenguaje.png",
-                        "Resources\\Propiedades\\Comunes\\Celestes\\Quimica.png","Resources\\Propiedades\\Comunes\\Celestes\\Matematica.png",
-                        "Resources\\Propiedades\\Comunes\\Rosas\\Biologia.png","Resources\\Propiedades\\Comunes\\Rosas\\Agricola.png",
-                        "Resources\\Propiedades\\Comunes\\Rosas\\Forestal.png","Resources\\Propiedades\\Transporte\\Lumaca.png",
-                        "Resources\\Propiedades\\Comunes\\Naranjas\\Administracion.png","Resources\\Propiedades\\Comunes\\Naranjas\\SeguridadHigiene.png",
-                        "Resources\\Propiedades\\Comunes\\Naranjas\\Producción.png","Resources\\Propiedades\\Comunes\\Rojas\\Fisica.png",
-                        "Resources\\Propiedades\\Comunes\\Rojas\\EducacionTecnica.png","Resources\\Propiedades\\Comunes\\Rojas\\Construccion.png",
-                        "Resources\\Propiedades\\Transporte\\BiciTEC.png","Resources\\Propiedades\\Comunes\\Amarillas\\Electromecanica.png",
-                        "Resources\\Propiedades\\Comunes\\Amarillas\\Electronica.png","Resources\\Propiedades\\Comunes\\Amarillas\\Materiales.png",
-                        "Resources\\Propiedades\\Comunes\\Verdes\\DiseñoIndustrial.png","Resources\\Propiedades\\Comunes\\Verdes\\Mecatronica.png",
-                        "Resources\\Propiedades\\Comunes\\Verdes\\Computadores.png","Resources\\Propiedades\\Transporte\\Incofer.png",
-                        "Resources\\Propiedades\\Comunes\\Azules\\Computación.png","Resources\\Propiedades\\Comunes\\Azules\\ArquitecturaUrbanismo.png",
-                        "Resources\\Propiedades\\Servicios\\Fotocopiadora.png","Resources\\Propiedades\\Servicios\\LAIMI.png"};
+        String[] URL = {"/Resources/Propiedades/Comunes/Moradas/CulturaDeporte.png","/Resources/Propiedades/Comunes/Moradas/CienciasSociales.png",
+                        "/Resources/Propiedades/Transporte/BiciPubli.png","/Resources/Propiedades/Comunes/Celestes/CienciasLenguaje.png",
+                        "/Resources/Propiedades/Comunes/Celestes/Quimica.png","/Resources/Propiedades/Comunes/Celestes/Matematica.png",
+                        "/Resources/Propiedades/Comunes/Rosas/Biologia.png","/Resources/Propiedades/Comunes/Rosas/Agricola.png",
+                        "/Resources/Propiedades/Comunes/Rosas/Forestal.png","/Resources/Propiedades/Transporte/Lumaca.png",
+                        "/Resources/Propiedades/Comunes/Naranjas/Administracion.png","/Resources/Propiedades/Comunes/Naranjas/SeguridadHigiene.png",
+                        "/Resources/Propiedades/Comunes/Naranjas/Producción.png","/Resources/Propiedades/Comunes/Rojas/Fisica.png",
+                        "/Resources/Propiedades/Comunes/Rojas/EducacionTecnica.png","/Resources/Propiedades/Comunes/Rojas/Construccion.png",
+                        "/Resources/Propiedades/Transporte/BiciTEC.png","/Resources/Propiedades/Comunes/Amarillas/Electromecanica.png",
+                        "/Resources/Propiedades/Comunes/Amarillas/Electronica.png","/Resources/Propiedades/Comunes/Amarillas/Materiales.png",
+                        "/Resources/Propiedades/Comunes/Verdes/DiseñoIndustrial.png","/Resources/Propiedades/Comunes/Verdes/Mecatronica.png",
+                        "/Resources/Propiedades/Comunes/Verdes/Computadores.png","/Resources/Propiedades/Transporte/Incofer.png",
+                        "/Resources/Propiedades/Comunes/Azules/Computación.png","/Resources/Propiedades/Comunes/Azules/ArquitecturaUrbanismo.png",
+                        "/Resources/Propiedades/Servicios/Fotocopiadora.png","/Resources/Propiedades/Servicios/LAIMI.png"};
         String[] familia = {"mor","mor","trans","cel","cel","cel","ros","ros","ros","trans","nar","nar","nar","roj","roj","roj",
                             "trans","amar","amar","amar","ver","ver","ver","trans","azu","azu","util","util"};
         int[] valores = {60,60,200,100,100,120,140,140,160,200,180,180,200,220,220,240,200,260,260,280,300,300,320,200,350,400,150,150};
@@ -85,23 +88,23 @@ public class Juego {
     }
     public void crearPlayers(){
         for (int i = 0; i < cantConexiones; i++) {
-            currentPlayers.add(new Player());           
+            currentPlayers.add(new Player(i));           
         }
     }
     public void startGame(){
         crearPlayers();
         propietyCreator();
         propietyLinker();
-         for (int i = 0; i < propiedades.size(); i++){
+        /* for (int i = 0; i < propiedades.size(); i++){
              System.out.println("Nombre: "+propiedades.get(i).nombre);
              System.out.println("Costo: "+propiedades.get(i).costo);
              System.out.println("Posición: "+propiedades.get(i).index);
              for (int j = 0; j < propiedades.get(i).hermanas.size(); j++){
                  System.out.println("Nombre hermana #"+j+" :"+propiedades.get(i).hermanas.get(j).nombre);
              }
-         }
+         }*/
     }
-        public void comprarPropiedad(int indice){
+    public void comprarPropiedad(int indexThread,int indice){
         for (int i = 0; i<propiedades.size(); i++){
             if (propiedades.get(i).index == currentPlayers.get(indice).currentIndex){
                 currentPlayers.get(indice).properties.add(propiedades.get(i));
@@ -156,10 +159,30 @@ public class Juego {
         }
         return res;
     }
-    public void turnoJugador(int indice){
-        if (!currentPlayers.get(indice).enCarcel){
-            
+    private Property getProperty(int posicionJugador){
+        for (int i = 0; i < propiedades.size(); i++) {
+            if(propiedades.get(i).index == posicionJugador)
+                return propiedades.get(i);   
         }
+        return null;
+    }
+    public void turnoJugador(int posicionThread,int casillasMover) throws IOException{
+        currentPlayers.get(posicionThread).currentIndex += casillasMover;
+        if (currentPlayers.get(posicionThread).currentIndex > 39){
+            currentPlayers.get(posicionThread).currentIndex -= 40;
+            currentPlayers.get(posicionThread).money += 200;
+        }
+        Property propiedadTmp = getProperty(currentPlayers.get(posicionThread).currentIndex);
+        if (propiedadTmp != null)
+            if(propiedadTmp.dueno == null)
+                refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
+           else {
+                if (propiedadTmp.dueno.indiceArreglo == posicionThread)
+                    refServer.writeInThreadOwner(posicionThread,"El jugador ya es dueño de esta propiedad");
+                else refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo);
+            }
+        
+            
     }
 }
 

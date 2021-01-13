@@ -7,6 +7,7 @@ package Cliente;
 
 
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import static java.lang.Boolean.parseBoolean;
@@ -604,40 +605,63 @@ public class MonopolyJF extends javax.swing.JFrame {
         System.out.println("myicnonito"+iconi);
         for (int i = 0; i < componentes.length ; i++) {
             JLabel iconito = (JLabel)componentes[i];
-            if (iconito.getIcon().equals(iconi)) {
+            if (iconito.getIcon().toString().equals(iconi.toString())) {
                 casilla.remove(componentes[i]);  
                 System.out.println("Sí lo encontró");
                 casilla.revalidate();
                 casilla.repaint();
                 repaintToken(iconito,lblAbuscar+casillaMover);
             }
-            System.out.println(iconito);
+            System.out.println(iconito.getIcon());
         }
     }
     public void repaintToken(JLabel lbl,int casillaActual){
+        System.out.println("Esta es su casilla actual"+casillaActual);
+        if (casillaActual > 39)
+            casillaActual = casillaActual-40;
         JPanel casilla = casillas.get(casillaActual);
         casilla.add(lbl);
         casilla.revalidate();
         casilla.repaint();
     }
+    public void mostrarPropDisponible(String url){
+        PropiedadesJF pantalla = new PropiedadesJF();
+        pantalla.setVisible(true);
+        ImageIcon icon = new ImageIcon(getClass().getResource(url));
+        int width =233;
+        int height = 343;
+        icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        pantalla.lblProperty.setIcon(icon);
+    }
+    public void mostrarPropNoDisponible(String url,String dueño){
+        PropiedadesJF pantalla = new PropiedadesJF();
+        pantalla.setVisible(true);
+        ImageIcon icon = new ImageIcon(getClass().getResource(url));
+        int width =233;
+        int height = 343;
+        icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        pantalla.lblProperty.setIcon(icon);
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //findToken(labelActual,myIcon);
-        findToken(labelActual,myIcon,turnoActual);
-        /*try {
+        //findToken(labelActual,myIcon,turnoActual);
+        try {
             
               refCliente.hiloCliente.writer.writeInt(8);
               refCliente.hiloCliente.writer.writeInt(labelActual);
               refCliente.hiloCliente.writer.writeInt(turnoActual);
               refCliente.hiloCliente.objWriter.writeObject(myIcon);
               labelActual += turnoActual;
+              refCliente.hiloCliente.writer.writeInt(9);
+              refCliente.hiloCliente.writer.writeInt(turnoActual);
               //refCliente.hiloCliente.writer.writeInt(myIndex);
               //refCliente.hiloCliente.writer.writeUTF(myIcon.toString());
               
               
           } catch (IOException ex) {
               Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
-          }*/
+          }
     }//GEN-LAST:event_jButton1ActionPerformed
     public void actualizarCBBplayer(String propiedades,String dinero){
         lblMoney.setText("");

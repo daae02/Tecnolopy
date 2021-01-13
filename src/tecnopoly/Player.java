@@ -17,9 +17,12 @@ public class Player {
     int currentIndex;
     boolean enCarcel;
     int turnosRestantes;
-    public Player(){
+    public int indiceArreglo;
+    public Player(int indiceArreglo){
         money = 2000;
         currentIndex = 0;
+        this.indiceArreglo = indiceArreglo;
     }
+    
 
 }

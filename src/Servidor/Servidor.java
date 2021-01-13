@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import com.sun.webkit.ThemeClient;
 import java.io.DataOutput;
+import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -60,7 +61,22 @@ public class Servidor{
         
         return conexiones.get(turno).nickname;
     }
+    public void writeInThreadAP(int position, String url) throws IOException{
+        System.out.println("URL ------------"+url);
+        conexiones.get(position).writer.writeInt(12);
+        conexiones.get(position).writer.writeUTF(url);
+    }
     
+    public void writeInThreadNAP(int position,String url, int posDueño) throws IOException{
+        String dueño = conexiones.get(posDueño).nickname;
+        conexiones.get(position).writer.writeInt(13);
+        conexiones.get(position).writer.writeUTF(url);
+        conexiones.get(position).writer.writeUTF(dueño);
+    }
+    public void writeInThreadOwner(int position,String mensaje) throws IOException{
+        conexiones.get(position).writer.writeInt(5);
+        conexiones.get(position).writer.writeUTF(mensaje);
+    }
     public String getTurno(){
         return conexiones.get(turno).nickname;
     }
