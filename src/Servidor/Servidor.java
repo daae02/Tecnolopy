@@ -74,7 +74,10 @@ public class Servidor{
         conexiones.get(position).writer.writeUTF(dueño);
     }
     public void writeInThreadOwner(int position,String mensaje) throws IOException{
-        conexiones.get(position).writer.writeInt(5);
+        String name = conexiones.get(position).nickname;
+        conexiones.get(position).writer.writeInt(6);
+        System.out.println("Posicion "+position + "nickname "+conexiones.get(position).nickname+ "mensaje "+ mensaje);
+        conexiones.get(position).writer.writeUTF(name);
         conexiones.get(position).writer.writeUTF(mensaje);
     }
     public String getTurno(){

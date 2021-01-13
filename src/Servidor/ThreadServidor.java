@@ -187,7 +187,11 @@ class ThreadServidor extends Thread{
                     case 9:
                         int casillasAMover = reader.readInt();
                         server.juego.turnoJugador(server.conexiones.indexOf(this), casillasAMover);
-                        break;         
+                        break;   
+                    case 10:
+                        System.out.println("entra case 10");
+                        server.juego.comprarPropiedad(server.conexiones.indexOf(this));
+                        break;
                 }
             } catch (IOException ex) {
                 System.out.println(":(");

@@ -42,8 +42,11 @@ public class MonopolyJF extends javax.swing.JFrame {
     public String nickname = "";
     public String pieza = "hello";
     public int turnoActual = 0; 
+    PropiedadesJF pantalla;
     public MonopolyJF() {
         initComponents();
+        pantalla = new PropiedadesJF();
+        pantalla.pantallaPrincipal = this;
         lblAL = new ArrayList();
         iconos = new ArrayList();
         JLabel lblToken1 = new javax.swing.JLabel();
@@ -602,12 +605,12 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void findToken(int lblAbuscar,ImageIcon iconi,int casillaMover){
         JPanel casilla = casillas.get(lblAbuscar);
         Component [] componentes = casilla.getComponents();
-        System.out.println("myicnonito"+iconi);
+        //System.out.println("myicnonito"+iconi);
         for (int i = 0; i < componentes.length ; i++) {
             JLabel iconito = (JLabel)componentes[i];
             if (iconito.getIcon().toString().equals(iconi.toString())) {
                 casilla.remove(componentes[i]);  
-                System.out.println("Sí lo encontró");
+                //System.out.println("Sí lo encontró");
                 casilla.revalidate();
                 casilla.repaint();
                 repaintToken(iconito,lblAbuscar+casillaMover);
@@ -617,30 +620,32 @@ public class MonopolyJF extends javax.swing.JFrame {
     }
     public void repaintToken(JLabel lbl,int casillaActual){
         System.out.println("Esta es su casilla actual"+casillaActual);
-        if (casillaActual > 39)
+        if (casillaActual > 39){
             casillaActual = casillaActual-40;
+            System.out.println("Esta es su casilla actual 2.0"+casillaActual);
+        }
         JPanel casilla = casillas.get(casillaActual);
         casilla.add(lbl);
         casilla.revalidate();
         casilla.repaint();
     }
     public void mostrarPropDisponible(String url){
-        PropiedadesJF pantalla = new PropiedadesJF();
         pantalla.setVisible(true);
         ImageIcon icon = new ImageIcon(getClass().getResource(url));
         int width =233;
         int height = 343;
         icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         pantalla.lblProperty.setIcon(icon);
+        pantalla.panelDisponible.setVisible(true);
     }
     public void mostrarPropNoDisponible(String url,String dueño){
-        PropiedadesJF pantalla = new PropiedadesJF();
         pantalla.setVisible(true);
         ImageIcon icon = new ImageIcon(getClass().getResource(url));
         int width =233;
         int height = 343;
         icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         pantalla.lblProperty.setIcon(icon);
+        pantalla.panelNoDisponible.setVisible(true);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:

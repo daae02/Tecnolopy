@@ -104,12 +104,16 @@ public class Juego {
              }
          }*/
     }
-    public void comprarPropiedad(int indexThread,int indice){
+    public void comprarPropiedad(int indice) throws IOException{
         for (int i = 0; i<propiedades.size(); i++){
+            
             if (propiedades.get(i).index == currentPlayers.get(indice).currentIndex){
                 currentPlayers.get(indice).properties.add(propiedades.get(i));
                 propiedades.get(i).dueno =  currentPlayers.get(indice);
                 currentPlayers.get(indice).money -= propiedades.get(i).costo;
+                System.out.println("Compro la propiedad "+propiedades.get(i).nombre);
+                refServer.writeInThreadOwner(indice,"Compro la propiedad "+propiedades.get(i).nombre);
+                break;
             }
         }
     }
