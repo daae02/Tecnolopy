@@ -33,7 +33,7 @@ public class Servidor{
     public ArrayList<String> urlBotones;
     private boolean running = true;
     private ServerSocket srv;
-    private int turno = 0;
+    public int turno = 0;
     private boolean partidaIniciada = false;
     private boolean pause = false;
     public int indexJugadorActual = 1;

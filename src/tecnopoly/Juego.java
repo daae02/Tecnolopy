@@ -104,6 +104,19 @@ public class Juego {
              }
          }*/
     }
+    public void comprarPorSubasta(int indice, int indicePropiedad,int pago) throws IOException{
+         for (int i = 0; i<propiedades.size(); i++){
+            
+            if (propiedades.get(i).index == indicePropiedad){
+                currentPlayers.get(indice).properties.add(propiedades.get(i));
+                propiedades.get(i).dueno =  currentPlayers.get(indice);
+                currentPlayers.get(indice).money -= pago;
+                System.out.println("Compro la propiedad "+propiedades.get(i).nombre);
+                refServer.writeInThreadOwner(indice,"Compro la propiedad "+propiedades.get(i).nombre);
+                break;
+            }
+        }
+    }
     public void comprarPropiedad(int indice) throws IOException{
         for (int i = 0; i<propiedades.size(); i++){
             
@@ -155,6 +168,18 @@ public class Juego {
                     propiedades.get(i).hipotecada = !propiedades.get(i).hipotecada;
                 }
             }
+    }
+    public int getPropertyValue(int indice){
+        System.out.println("Posicion del jugador: "+ currentPlayers.get(indice).currentIndex);
+        for (int i = 0; i<propiedades.size();i++){
+            System.out.println("Indice de la propiedad: "+propiedades.get(i).index);
+            
+            if (currentPlayers.get(indice).currentIndex == propiedades.get(i).index){
+                System.out.println("Propiedad: "+propiedades.get(i).nombre);
+                return propiedades.get(i).costo;
+            }
+        }
+        return 0;
     }
     public String getProperties(int indice){
         String res = "";

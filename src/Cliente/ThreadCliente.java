@@ -132,9 +132,23 @@ public class ThreadCliente extends Thread {
                         String dueño = reader.readUTF();
                         secPantalla.mostrarPropNoDisponible(url1,dueño);
                         break;
-
-                        
-                    
+                    case 14:
+                        String url2 = reader.readUTF();
+                        int maximo = reader.readInt();
+                        int minimo = reader.readInt();
+                        secPantalla.pantallaSubastas.startSpinner(minimo, maximo);
+                        secPantalla.pantallaSubastas.startList((ArrayList<String>)objReader.readObject());
+                        secPantalla.mostrarSubasta(url2);
+                        break;
+                    case 15:
+                        System.out.println("Llego a retirar");
+                        secPantalla.pantallaSubastas.updateList(reader.readUTF());
+                        break;
+                    case 16:
+                        int nuevoMonto = reader.readInt();
+                        String persona = reader.readUTF();
+                        secPantalla.pantallaSubastas.pujaRecibida(persona,nuevoMonto);
+                        break;
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {

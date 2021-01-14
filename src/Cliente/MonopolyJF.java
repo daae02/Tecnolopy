@@ -43,10 +43,12 @@ public class MonopolyJF extends javax.swing.JFrame {
     public String pieza = "hello";
     public int turnoActual = 0; 
     PropiedadesJF pantalla;
+    public Subasta pantallaSubastas;
     public MonopolyJF() {
         initComponents();
         pantalla = new PropiedadesJF();
         pantalla.pantallaPrincipal = this;
+        pantallaSubastas = new Subasta(this);
         lblAL = new ArrayList();
         iconos = new ArrayList();
         JLabel lblToken1 = new javax.swing.JLabel();
@@ -65,7 +67,16 @@ public class MonopolyJF extends javax.swing.JFrame {
         
 
     }
-
+    public void mostrarSubasta(String subastada){
+        System.out.println("En el metodo: "+subastada);
+        ImageIcon icon = new ImageIcon(getClass().getResource(subastada));
+        int width =275;
+        int height = 410;
+        icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        pantallaSubastas.lblPropiedad.setIcon(icon);
+        pantalla.panelDisponible.setVisible(true);
+        pantallaSubastas.setVisible(true);
+    }
     public void setRefCliente(Cliente refCliente) {
         this.refCliente = refCliente;
     }
@@ -631,6 +642,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     }
     public void mostrarPropDisponible(String url){
         pantalla.setVisible(true);
+        pantalla.imagen = url;
         ImageIcon icon = new ImageIcon(getClass().getResource(url));
         int width =233;
         int height = 343;

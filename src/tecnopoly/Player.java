@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 public class Player {
     public int money;
     ArrayList<Property> properties = new ArrayList<Property>();
-    int currentIndex;
+    public int currentIndex;
     boolean enCarcel;
     int turnosRestantes;
     public int indiceArreglo;

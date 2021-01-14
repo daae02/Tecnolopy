@@ -1,3 +1,6 @@
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -408,7 +411,7 @@ public class ChatClient extends javax.swing.JFrame {
     private void btnCarretillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarretillaActionPerformed
         // TODO add your handling code here:
         bloquearToken(0);
-        pieza = "/Resources/TokensPNG/CaretillaPNG.png";
+        pieza = "/Resources/TokensPNG/CarretillaPNG.png";
     }//GEN-LAST:event_btnCarretillaActionPerformed
 
     private void btnCañonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCañonActionPerformed

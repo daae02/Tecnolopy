@@ -53,7 +53,8 @@ class ThreadServidor extends Thread{
         }
         return false;
     }
-    public void run (){        
+    public void run (){       
+        int indiceSubastador = 0;
         int instruccionId = 0;
         while (running){
             try {
@@ -156,8 +157,12 @@ class ThreadServidor extends Thread{
                         writer.writeUTF(dinero);
                         break;
                     case 7:
-                        if (server.indexJugadorActual >= server.conexiones.size())
+                        if (server.turno >= server.conexiones.size()){
+                            server.turno = 0;
+                        }
+                        if (server.indexJugadorActual >= server.conexiones.size()){
                             server.indexJugadorActual = 0;
+                        }
                         for (int i = 0; i < server.conexiones.size(); i++) {
                             ThreadServidor current = server.conexiones.get(i);
                             if (i == server.indexJugadorActual){
@@ -169,6 +174,7 @@ class ThreadServidor extends Thread{
                             }
                         }
                         server.indexJugadorActual++;
+                        server.turno++;
                         break;
                     case 8:
                         int labelActual = reader.readInt();
@@ -192,6 +198,54 @@ class ThreadServidor extends Thread{
                         System.out.println("entra case 10");
                         server.juego.comprarPropiedad(server.conexiones.indexOf(this));
                         break;
+                    case 11:
+                        String imagen = reader.readUTF();
+                        indiceSubastador = server.conexiones.indexOf(this);
+                        for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current = server.conexiones.get(i);
+                            current.writer.writeInt(14);
+                            current.writer.writeUTF(imagen);
+                            System.out.println("Envio dinero");
+                            current.writer.writeInt(server.juego.currentPlayers.get(i).money);
+                            System.out.println("Envio costo propiedad");
+                            current.writer.writeInt(server.juego.getPropertyValue(indiceSubastador));
+                            current.objWriter.writeObject(server.nombres);
+                            System.out.println("Listo :)");
+                        }
+                        break;
+                    case 12:
+                        System.out.println("Se retira: "+server.nombres.get(server.conexiones.indexOf(this)));
+                        for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current = server.conexiones.get(i);
+                            current.writer.writeInt(15);
+                            current.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
+                        }
+                        break;
+                    case 13:
+                        int nuevoMonto = reader.readInt();
+                        for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current = server.conexiones.get(i);
+                            current.writer.writeInt(16);
+                            current.writer.writeInt(nuevoMonto);
+                            current.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
+                        }
+                        break;
+                    case 14:
+                        String ganador = reader.readUTF();
+                        for(int i= 0; i <server.nombres.size();i++){
+                            if(server.nombres.get(i).equals(ganador)){
+                                for (int j = 0; j < server.conexiones.size(); j++) {
+                                    ThreadServidor current = server.conexiones.get(j);
+                                    current.writer.writeInt(7);
+                                    current.writer.writeUTF(ganador);
+                                    current.writer.writeUTF("Ha ganado la subasta");
+                                }
+                                int monto = reader.readInt();
+                                System.out.println("Por: &"+monto);
+                                server.juego.comprarPorSubasta(i,indiceSubastador,monto);
+                            }
+                                
+                        }
                 }
             } catch (IOException ex) {
                 System.out.println(":(");

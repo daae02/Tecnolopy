@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
  */
 public class PropiedadesJF extends javax.swing.JFrame {
     MonopolyJF pantallaPrincipal;
+    String imagen;
     /**
      * Creates new form PropiedadesJF
      */
@@ -60,6 +61,11 @@ public class PropiedadesJF extends javax.swing.JFrame {
         });
 
         btnSubastar.setText("SUBASTAR");
+        btnSubastar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubastarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelDisponibleLayout = new javax.swing.GroupLayout(panelDisponible);
         panelDisponible.setLayout(panelDisponibleLayout);
@@ -198,13 +204,26 @@ public class PropiedadesJF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSubastarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubastarActionPerformed
+        System.out.println("Hi :(");
+        try {
+            pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(11);   
+            System.out.println(imagen);// TODO add your handling code here:
+            pantallaPrincipal.refCliente.hiloCliente.writer.writeUTF(imagen);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(PropiedadesJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSubastarActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public void mostrarPropDisponible(String url){
+        this.imagen = url;
         lblProperty.setIcon( new ImageIcon(getClass().getResource(url)));
     }
     public static void main(String args[]) {
