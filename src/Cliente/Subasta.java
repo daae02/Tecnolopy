@@ -21,7 +21,8 @@ public class Subasta extends javax.swing.JFrame {
     int puja;
     MonopolyJF pantallaPrincipal;
     private int maximo= 0;
-    private int minimo= 0;
+    public int indiceProp= 0;
+    public boolean playing;
 
     /**
      * Creates new form NewJFrame
@@ -41,6 +42,7 @@ public class Subasta extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     public void startList(ArrayList<String> nombresActualizados){
         nombres = new  ArrayList<String>();
+        jTextArea1.setText("");
         for (int j = 0; j<nombresActualizados.size();j++){
             this.nombres.add(nombresActualizados.get(j));
             System.out.println("cn: "+nombresActualizados.get(j)+"j: "+j);
@@ -51,12 +53,19 @@ public class Subasta extends javax.swing.JFrame {
             jTextArea1.setText(jTextArea1.getText()+nombres.get(i)+"\n");
         }
     }
-    public void updateList(String nombre){
+    public void updateList(String nombre) throws IOException{
        System.out.println("Nombres actulizando: "+nombres.size());
        nombres.remove(nombre);
-       jTextArea1.setText("");
        System.out.println("El texto dice: "+ jTextArea1.getText());
        startList(nombres);
+       if (nombres.size()==1 && playing == true){
+                System.out.println("Alguien ganó");
+                pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(14);
+                pantallaPrincipal.refCliente.hiloCliente.writer.writeUTF(nombres.get(0));
+                pantallaPrincipal.refCliente.hiloCliente.writer.writeInt((Integer)jSpinner1.getValue()-1);
+                pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(indiceProp);
+                this.setVisible(false);
+            }
     }
     public void pujaRecibida(String nombre, int puja){
         jLabel3.setText("Va ganando: "+nombre);
@@ -70,7 +79,6 @@ public class Subasta extends javax.swing.JFrame {
         }
     }
     public void startSpinner(int minimo, int maximo){
-        this.minimo = minimo;
         this.maximo = maximo;
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(minimo, minimo, maximo, 1));
     }
@@ -231,11 +239,7 @@ public class Subasta extends javax.swing.JFrame {
             jLabel4.setText("$ 0");
             jLabel5.setText("Dinero a pujar: ");
             jButton1.setEnabled(true);
-            if (nombres.size()==1){
-                pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(14);
-                pantallaPrincipal.refCliente.hiloCliente.writer.writeUTF(nombres.get(0));
-                pantallaPrincipal.refCliente.hiloCliente.writer.writeInt((Integer)jSpinner1.getValue()-1);
-            }
+            playing = false;
             this.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(Subasta.class.getName()).log(Level.SEVERE, null, ex);

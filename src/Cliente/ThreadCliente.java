@@ -138,6 +138,8 @@ public class ThreadCliente extends Thread {
                         int minimo = reader.readInt();
                         secPantalla.pantallaSubastas.startSpinner(minimo, maximo);
                         secPantalla.pantallaSubastas.startList((ArrayList<String>)objReader.readObject());
+                        secPantalla.pantallaSubastas.indiceProp = reader.readInt();
+                        secPantalla.pantallaSubastas.playing = true;
                         secPantalla.mostrarSubasta(url2);
                         break;
                     case 15:

@@ -106,7 +106,7 @@ public class Juego {
     }
     public void comprarPorSubasta(int indice, int indicePropiedad,int pago) throws IOException{
          for (int i = 0; i<propiedades.size(); i++){
-            
+             System.out.println("Sí entra");
             if (propiedades.get(i).index == indicePropiedad){
                 currentPlayers.get(indice).properties.add(propiedades.get(i));
                 propiedades.get(i).dueno =  currentPlayers.get(indice);
