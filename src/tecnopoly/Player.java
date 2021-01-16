@@ -18,6 +18,7 @@ public class Player {
     boolean enCarcel;
     int turnosRestantes;
     public int indiceArreglo;
+    public int turnoCarcel = 0;
     public Player(int indiceArreglo){
         money = 2000;
         currentIndex = 0;

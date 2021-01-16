@@ -57,6 +57,7 @@ public class PantallaServer extends javax.swing.JFrame{
         jScrollPane1.setViewportView(txaMensajes);
 
         btnIniciar.setText("Iniciar");
+        btnIniciar.setEnabled(false);
         btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarActionPerformed(evt);
@@ -96,6 +97,8 @@ public class PantallaServer extends javax.swing.JFrame{
         srv.ordenarAL();
         //srv.ordenarAL();
         for (int i = 0; i < srv.conexiones.size(); i++) {
+        srv.nombres.add(srv.conexiones.get(i).nickname);
+        srv.urlBotones.add(srv.conexiones.get(i).pieza);
         addMessage(srv.conexiones.get(i).toString()); 
         addMessage("NOmbre: "+ srv.conexiones.get(i).nickname);
         addMessage("turno: "+srv.conexiones.get(i).turno+"");

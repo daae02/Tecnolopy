@@ -184,7 +184,7 @@ public class Juego {
     public String getProperties(int indice){
         String res = "";
         for (int i = 0; i<currentPlayers.get(indice).properties.size();i++){
-            res += currentPlayers.get(indice).properties.get(i).nombre + "/n";
+            res += currentPlayers.get(indice).properties.get(i).nombre + "\n";
         }
         return res;
     }
@@ -195,22 +195,51 @@ public class Juego {
         }
         return null;
     }
-    public void turnoJugador(int posicionThread,int casillasMover) throws IOException{
+    public void salirCarcelBtn(int posicionThread) throws IOException{
+        if (currentPlayers.get(posicionThread).money >= 50){
+            currentPlayers.get(posicionThread).money -= 50;
+            currentPlayers.get(posicionThread).enCarcel = false;
+            currentPlayers.get(posicionThread).turnoCarcel = 0;
+            refServer.funcionesCarcel(posicionThread,2);
+        }
+        else refServer.funcionesCarcel(posicionThread,3);
+    }
+    public void turnoJugador(int posicionThread,int casillasMover, boolean iguales) throws IOException{
         currentPlayers.get(posicionThread).currentIndex += casillasMover;
         if (currentPlayers.get(posicionThread).currentIndex > 39){
             currentPlayers.get(posicionThread).currentIndex -= 40;
             currentPlayers.get(posicionThread).money += 200;
         }
-        Property propiedadTmp = getProperty(currentPlayers.get(posicionThread).currentIndex);
-        if (propiedadTmp != null)
-            if(propiedadTmp.dueno == null)
-                refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
-           else {
-                if (propiedadTmp.dueno.indiceArreglo == posicionThread)
-                    refServer.writeInThreadOwner(posicionThread,"El jugador ya es dueño de esta propiedad");
-                else refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo);
+        if (currentPlayers.get(posicionThread).currentIndex == 30){
+            currentPlayers.get(posicionThread).enCarcel = true;
+            currentPlayers.get(posicionThread).currentIndex = 10;
+            refServer.funcionesCarcel(posicionThread,1);
+            
+        }
+        else{
+            if (!currentPlayers.get(posicionThread).enCarcel){
+                Property propiedadTmp = getProperty(currentPlayers.get(posicionThread).currentIndex);
+                if (propiedadTmp != null)
+                    if(propiedadTmp.dueno == null)
+                        refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
+                   else {
+                        if (propiedadTmp.dueno.indiceArreglo == posicionThread)
+                            refServer.writeInThreadOwner(posicionThread,"El jugador ya es dueño de esta propiedad");
+                        else refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo);
+                    }
+                }
+            else {
+                if (currentPlayers.get(posicionThread).turnoCarcel < 3 && !iguales){
+                    currentPlayers.get(posicionThread).turnoCarcel++;
+                    
+                }
+                else {
+                    currentPlayers.get(posicionThread).enCarcel = false;
+                    currentPlayers.get(posicionThread).turnoCarcel = 0;
+                    refServer.funcionesCarcel(posicionThread,2);
+                }
             }
-        
+        }
             
     }
 }

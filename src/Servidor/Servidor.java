@@ -61,6 +61,22 @@ public class Servidor{
         
         return conexiones.get(turno).nickname;
     }
+    public void cayoCarcel(int posicionThread){
+        
+    }
+    public void funcionesCarcel (int posicion,int caso) throws IOException{
+        switch (caso){
+            case 1://cayo carcel primera vez
+                conexiones.get(posicion).writer.writeInt(17);
+                break;
+            case 2://sale de la carcel
+                conexiones.get(posicion).writer.writeInt(18);
+                break;
+            case 3:
+                conexiones.get(posicion).writer.writeInt(19);
+                break;
+        }
+    }
     public void writeInThreadAP(int position, String url) throws IOException{
         System.out.println("URL ------------"+url);
         conexiones.get(position).writer.writeInt(12);
@@ -75,10 +91,12 @@ public class Servidor{
     }
     public void writeInThreadOwner(int position,String mensaje) throws IOException{
         String name = conexiones.get(position).nickname;
-        conexiones.get(position).writer.writeInt(6);
-        System.out.println("Posicion "+position + "nickname "+conexiones.get(position).nickname+ "mensaje "+ mensaje);
-        conexiones.get(position).writer.writeUTF(name);
-        conexiones.get(position).writer.writeUTF(mensaje);
+        for (int i = 0; i < conexiones.size(); i++) {
+            ThreadServidor current = conexiones.get(i);
+            current.writer.writeInt(6);
+            current.writer.writeUTF(name);
+            current.writer.writeUTF(mensaje);
+        }
     }
     public String getTurno(){
         return conexiones.get(turno).nickname;
@@ -145,7 +163,7 @@ public class Servidor{
                 if (!partidaIniciada){ 
                     contadorDeConexiones++;
                     if (contadorDeConexiones > 1)
-                    refPantalla.btnIniciar.setEnabled(true);
+                        refPantalla.btnIniciar.setEnabled(true);
                     refPantalla.addMessage(":Conexión " + contadorDeConexiones + "aceptada");
                     
                     // nuevo thread

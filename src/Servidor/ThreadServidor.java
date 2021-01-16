@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import static java.lang.Boolean.parseBoolean;
 import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ class ThreadServidor extends Thread{
     public String nickname;
     public String pieza;
     private boolean running = true;
+    public boolean dadosIguales = false;
     Servidor server;
 
     public ThreadServidor(Socket socketRef, Servidor server) throws IOException {
@@ -91,6 +93,7 @@ class ThreadServidor extends Thread{
                     case 3:
                         int [] turno2Tmp = server.lanzarDados();
                         boolean iguales = turno2Tmp[0] == turno2Tmp[1];
+                        dadosIguales = iguales;
                         String iguales2 = Boolean.toString(iguales);
                         String [] iconDados2 = server.buscarDados(turno2Tmp);
                         for (int i = 0; i < server.conexiones.size(); i++) {
@@ -116,8 +119,6 @@ class ThreadServidor extends Thread{
                         this.nickname = nickname;
                         this.pieza = pieza;
                         //String [] arrayTmp = {nickname,pieza};
-                        server.nombres.add(nickname);
-                        server.urlBotones.add(pieza);
                         /*if (server.urlBotones.size() == server.conexiones.size()){
                             
                             for (int i = 0; i < server.conexiones.size(); i++) {
@@ -192,7 +193,7 @@ class ThreadServidor extends Thread{
                        break;
                     case 9:
                         int casillasAMover = reader.readInt();
-                        server.juego.turnoJugador(server.conexiones.indexOf(this), casillasAMover);
+                        server.juego.turnoJugador(server.conexiones.indexOf(this), casillasAMover, dadosIguales);
                         break;   
                     case 10:
                         System.out.println("entra case 10");
@@ -249,6 +250,16 @@ class ThreadServidor extends Thread{
                             }
                                 
                         }
+                        break;
+                    case 15:
+                        int dineroTmp = server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money;
+                        writer.writeInt(19);
+                        writer.writeInt(dineroTmp);
+                        break;
+                    case 16:
+                        server.juego.salirCarcelBtn(server.conexiones.indexOf(this));
+                        break;
+                        
                 }
             } catch (IOException ex) {
                 System.out.println(":(");

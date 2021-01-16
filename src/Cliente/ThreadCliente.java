@@ -151,6 +151,15 @@ public class ThreadCliente extends Thread {
                         String persona = reader.readUTF();
                         secPantalla.pantallaSubastas.pujaRecibida(persona,nuevoMonto);
                         break;
+                    case 17:
+                        secPantalla.cayoCarcel();
+                        break;
+                    case 18:
+                        secPantalla.salioCarcel();
+                        break;
+                    case 19:
+                        secPantalla.noDinero();
+                        break;
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {

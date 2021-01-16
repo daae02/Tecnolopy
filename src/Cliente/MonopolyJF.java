@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -44,8 +45,12 @@ public class MonopolyJF extends javax.swing.JFrame {
     public int turnoActual = 0; 
     PropiedadesJF pantalla;
     public Subasta pantallaSubastas;
+    public boolean enCarcel = false;
+    public boolean dadosIguales = false;
+    
     public MonopolyJF() {
         initComponents();
+        btnSalirCarcel.setVisible(false);
         pantalla = new PropiedadesJF();
         pantalla.pantallaPrincipal = this;
         pantallaSubastas = new Subasta(this);
@@ -135,10 +140,11 @@ public class MonopolyJF extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnIntercambiar = new javax.swing.JButton();
+        btnSalirCarcel = new javax.swing.JButton();
         btnHipotecar = new javax.swing.JButton();
         btnConstruir = new javax.swing.JButton();
         btnTerminarTurno = new javax.swing.JButton();
+        btnIntercambiar1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         cbbNombres = new javax.swing.JComboBox<>();
         lblMoney = new javax.swing.JLabel();
@@ -206,16 +212,16 @@ public class MonopolyJF extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(206, 255, 221));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnIntercambiar.setBackground(new java.awt.Color(121, 150, 130));
-        btnIntercambiar.setForeground(new java.awt.Color(255, 255, 255));
-        btnIntercambiar.setText("INTERCAMBIAR");
-        btnIntercambiar.setEnabled(false);
-        btnIntercambiar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalirCarcel.setBackground(new java.awt.Color(121, 150, 130));
+        btnSalirCarcel.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalirCarcel.setText("SALIR CARCEL");
+        btnSalirCarcel.setEnabled(false);
+        btnSalirCarcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIntercambiarActionPerformed(evt);
+                btnSalirCarcelActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIntercambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
+        jPanel1.add(btnSalirCarcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 110, 50));
 
         btnHipotecar.setBackground(new java.awt.Color(121, 150, 130));
         btnHipotecar.setForeground(new java.awt.Color(255, 255, 255));
@@ -249,6 +255,17 @@ public class MonopolyJF extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnTerminarTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 130, 50));
+
+        btnIntercambiar1.setBackground(new java.awt.Color(121, 150, 130));
+        btnIntercambiar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnIntercambiar1.setText("INTERCAMBIAR");
+        btnIntercambiar1.setEnabled(false);
+        btnIntercambiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIntercambiar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIntercambiar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 550, 150));
 
@@ -331,159 +348,159 @@ public class MonopolyJF extends javax.swing.JFrame {
         jPanel2.add(inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 600, 90, 90));
 
         culturaYdeporte.setOpaque(false);
-        culturaYdeporte.setLayout(new java.awt.GridLayout());
+        culturaYdeporte.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(culturaYdeporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 600, 60, 90));
 
         communityChest0.setOpaque(false);
-        communityChest0.setLayout(new java.awt.GridLayout());
+        communityChest0.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(communityChest0, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 600, 50, 90));
 
         escCienciasSociales.setOpaque(false);
-        escCienciasSociales.setLayout(new java.awt.GridLayout());
+        escCienciasSociales.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escCienciasSociales, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 600, 60, 90));
 
         pagoCreditos.setOpaque(false);
-        pagoCreditos.setLayout(new java.awt.GridLayout());
+        pagoCreditos.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(pagoCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 600, 50, 90));
 
         biciTec.setOpaque(false);
-        biciTec.setLayout(new java.awt.GridLayout());
+        biciTec.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(biciTec, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 600, 60, 90));
 
         escCienciasLenguaje.setOpaque(false);
-        escCienciasLenguaje.setLayout(new java.awt.GridLayout());
+        escCienciasLenguaje.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escCienciasLenguaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 600, 60, 90));
 
         chance0.setOpaque(false);
-        chance0.setLayout(new java.awt.GridLayout());
+        chance0.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(chance0, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 600, 50, 90));
 
         escQuimica.setOpaque(false);
-        escQuimica.setLayout(new java.awt.GridLayout());
+        escQuimica.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escQuimica, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 600, 60, 90));
 
         escMatematicas.setOpaque(false);
-        escMatematicas.setLayout(new java.awt.GridLayout());
+        escMatematicas.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escMatematicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, 60, 90));
 
         carcel.setOpaque(false);
-        carcel.setLayout(new java.awt.GridLayout());
+        carcel.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(carcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 90, 90));
 
         escBiologia.setOpaque(false);
-        escBiologia.setLayout(new java.awt.GridLayout());
+        escBiologia.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escBiologia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 90, 60));
 
         fotocopiadora.setOpaque(false);
-        fotocopiadora.setLayout(new java.awt.GridLayout());
+        fotocopiadora.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(fotocopiadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 90, 50));
 
         ingAgricola.setOpaque(false);
-        ingAgricola.setLayout(new java.awt.GridLayout());
+        ingAgricola.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingAgricola, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 90, 60));
 
         ingForestal.setOpaque(false);
-        ingForestal.setLayout(new java.awt.GridLayout());
+        ingForestal.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingForestal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 90, 60));
 
         lumaca.setOpaque(false);
-        lumaca.setLayout(new java.awt.GridLayout());
+        lumaca.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(lumaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 90, 50));
 
         administracion.setOpaque(false);
-        administracion.setLayout(new java.awt.GridLayout());
+        administracion.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(administracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 90, 60));
 
         communityChest1.setOpaque(false);
-        communityChest1.setLayout(new java.awt.GridLayout());
+        communityChest1.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(communityChest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 90, 50));
 
         ingSegLaboral.setOpaque(false);
-        ingSegLaboral.setLayout(new java.awt.GridLayout());
+        ingSegLaboral.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingSegLaboral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 90, 60));
 
         produccionInd.setOpaque(false);
-        produccionInd.setLayout(new java.awt.GridLayout());
+        produccionInd.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(produccionInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 90, 60));
 
         parqueo.setOpaque(false);
-        parqueo.setLayout(new java.awt.GridLayout());
+        parqueo.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(parqueo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 90));
 
         escFisica.setOpaque(false);
-        escFisica.setLayout(new java.awt.GridLayout());
+        escFisica.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 60, 90));
 
         chance1.setOpaque(false);
-        chance1.setLayout(new java.awt.GridLayout());
+        chance1.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(chance1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 50, 90));
 
         escEducTecnica.setOpaque(false);
-        escEducTecnica.setLayout(new java.awt.GridLayout());
+        escEducTecnica.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escEducTecnica, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 60, 90));
 
         ingConstruccion.setOpaque(false);
-        ingConstruccion.setLayout(new java.awt.GridLayout());
+        ingConstruccion.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingConstruccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 60, 90));
 
         bicitec2.setOpaque(false);
-        bicitec2.setLayout(new java.awt.GridLayout());
+        bicitec2.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(bicitec2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 50, 90));
 
         ingElectromecanica.setOpaque(false);
-        ingElectromecanica.setLayout(new java.awt.GridLayout());
+        ingElectromecanica.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingElectromecanica, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 60, 90));
 
         ingElectrica.setOpaque(false);
-        ingElectrica.setLayout(new java.awt.GridLayout());
+        ingElectrica.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingElectrica, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 60, 90));
 
         laimi.setOpaque(false);
-        laimi.setLayout(new java.awt.GridLayout());
+        laimi.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(laimi, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 50, 90));
 
         ingMateriales.setOpaque(false);
-        ingMateriales.setLayout(new java.awt.GridLayout());
+        ingMateriales.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingMateriales, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 60, 90));
 
         vayaCarcel.setOpaque(false);
-        vayaCarcel.setLayout(new java.awt.GridLayout());
+        vayaCarcel.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(vayaCarcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, 90, 90));
 
         diseñoInd.setOpaque(false);
-        diseñoInd.setLayout(new java.awt.GridLayout());
+        diseñoInd.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(diseñoInd, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 90, 60));
 
         ingMecatronica.setOpaque(false);
-        ingMecatronica.setLayout(new java.awt.GridLayout());
+        ingMecatronica.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingMecatronica, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 90, 60));
 
         communityChest2.setOpaque(false);
-        communityChest2.setLayout(new java.awt.GridLayout());
+        communityChest2.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(communityChest2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 210, 90, 50));
 
         ingComputadores.setOpaque(false);
-        ingComputadores.setLayout(new java.awt.GridLayout());
+        ingComputadores.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingComputadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 90, 60));
 
         trenes.setOpaque(false);
-        trenes.setLayout(new java.awt.GridLayout());
+        trenes.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(trenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 320, 90, 50));
 
         chance2.setOpaque(false);
-        chance2.setLayout(new java.awt.GridLayout());
+        chance2.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(chance2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 380, 90, 50));
 
         ingComputacion.setOpaque(false);
-        ingComputacion.setLayout(new java.awt.GridLayout());
+        ingComputacion.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(ingComputacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, 90, 60));
 
         pagoPoliza.setOpaque(false);
-        pagoPoliza.setLayout(new java.awt.GridLayout());
+        pagoPoliza.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(pagoPoliza, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 90, 50));
 
         escArqui.setOpaque(false);
-        escArqui.setLayout(new java.awt.GridLayout());
+        escArqui.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(escArqui, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 540, 90, 60));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Tablero.png"))); // NOI18N
@@ -518,7 +535,7 @@ public class MonopolyJF extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, -1));
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, 20));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 210, 530));
 
@@ -527,6 +544,26 @@ public class MonopolyJF extends javax.swing.JFrame {
 
     public void setTitulo(){
         this.setTitle(refCliente.nickname);
+    }
+    public void cayoCarcel() throws IOException{
+        enCarcel = true;
+        btnSalirCarcel.setVisible(true);
+        refCliente.hiloCliente.writer.writeInt(8);
+        refCliente.hiloCliente.writer.writeInt(labelActual);
+        refCliente.hiloCliente.writer.writeInt(20);
+        refCliente.hiloCliente.objWriter.writeObject(myIcon);
+        labelActual = 10;
+        refCliente.hiloCliente.writer.writeInt(5);
+        refCliente.hiloCliente.writer.writeUTF("El jugador cayó en la carcel");
+    }
+    public void salioCarcel() throws IOException{
+        enCarcel = false;
+        refCliente.hiloCliente.writer.writeInt(5);
+        refCliente.hiloCliente.writer.writeUTF("El jugador salio de la carcel");
+        btnSalirCarcel.setVisible(false);
+    }
+    public void noDinero(){
+        JOptionPane.showMessageDialog(this, "No tiene sufienciente dinero");
     }
     private void cbbNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNombresActionPerformed
         try {
@@ -545,31 +582,41 @@ public class MonopolyJF extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chatSmsActionPerformed
 
-    private void btnIntercambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiarActionPerformed
+    private void btnSalirCarcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirCarcelActionPerformed
+        try {
+            System.out.println("BOTON CARCEL");
+            refCliente.hiloCliente.writer.writeInt(16);
+        } catch (IOException ex) {
+            Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-
-    }//GEN-LAST:event_btnIntercambiarActionPerformed
+    }//GEN-LAST:event_btnSalirCarcelActionPerformed
     public void addMessage(String msj){
         jTextArea19.append(msj + "\n");
     }
-    public void pintarLanzamientoDados(String icon1,String icon2,int turnoLegal,String iguales){
+    public void pintarLanzamientoDados(String icon1,String icon2,int turnoLegal,String iguales) throws IOException{
         lblDado1.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon1))); // NOI18
         lblDado2.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon2)));
         turnoActual = turnoLegal;
-        if (!parseBoolean(iguales)){
+        boolean igual = parseBoolean(iguales);
+        dadosIguales = igual;
+        if (!igual || enCarcel){
             btnLanzarDados.setEnabled(false);
         }
+       
     }
     public void habilitarBtns(){
         btnLanzarDados.setEnabled(true);
-        btnIntercambiar.setEnabled(true);
+        btnTerminarTurno.setEnabled(true);
+        if (!enCarcel){
+        btnSalirCarcel.setEnabled(true);
         btnHipotecar.setEnabled(true);
         btnConstruir.setEnabled(true);
-        btnTerminarTurno.setEnabled(true);
+        }
     }
     public void deshabilitarBtns(){
         btnLanzarDados.setEnabled(false);
-        btnIntercambiar.setEnabled(false);
+        btnSalirCarcel.setEnabled(false);
         btnHipotecar.setEnabled(false);
         btnConstruir.setEnabled(false);
         btnTerminarTurno.setEnabled(false);
@@ -619,7 +666,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         //System.out.println("myicnonito"+iconi);
         for (int i = 0; i < componentes.length ; i++) {
             JLabel iconito = (JLabel)componentes[i];
+            System.out.println("Iconito " +iconito.getIcon().toString()+" \niconin "+iconi);
             if (iconito.getIcon().toString().equals(iconi.toString())) {
+                System.out.println("entraIconito " +iconito.getIcon().toString()+" \niconin "+iconi);
                 casilla.remove(componentes[i]);  
                 //System.out.println("Sí lo encontró");
                 casilla.revalidate();
@@ -664,11 +713,15 @@ public class MonopolyJF extends javax.swing.JFrame {
         //findToken(labelActual,myIcon);
         //findToken(labelActual,myIcon,turnoActual);
         try {
-            
+            if (labelActual + turnoActual == 30)
+                JOptionPane.showMessageDialog(this, "Ha caido en la carcel");
+              refCliente.hiloCliente.writer.writeInt(5);
+              refCliente.hiloCliente.writer.writeUTF("Tiro los dados y sacó: "+turnoActual);
               refCliente.hiloCliente.writer.writeInt(8);
               refCliente.hiloCliente.writer.writeInt(labelActual);
               refCliente.hiloCliente.writer.writeInt(turnoActual);
               refCliente.hiloCliente.objWriter.writeObject(myIcon);
+              System.out.println("My icono"+nickname+""+myIcon);
               labelActual += turnoActual;
               refCliente.hiloCliente.writer.writeInt(9);
               refCliente.hiloCliente.writer.writeInt(turnoActual);
@@ -680,6 +733,10 @@ public class MonopolyJF extends javax.swing.JFrame {
               Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
           }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnIntercambiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIntercambiar1ActionPerformed
     public void actualizarCBBplayer(String propiedades,String dinero){
         lblMoney.setText("");
         lblProperties.setText("");
@@ -747,8 +804,9 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel bicitec2;
     private javax.swing.JButton btnConstruir;
     private javax.swing.JButton btnHipotecar;
-    private javax.swing.JButton btnIntercambiar;
+    private javax.swing.JButton btnIntercambiar1;
     private javax.swing.JButton btnLanzarDados;
+    private javax.swing.JButton btnSalirCarcel;
     private javax.swing.JButton btnTerminarTurno;
     private javax.swing.JPanel carcel;
     private javax.swing.JComboBox<String> cbbNombres;
