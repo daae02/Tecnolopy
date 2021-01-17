@@ -259,7 +259,67 @@ class ThreadServidor extends Thread{
                     case 16:
                         server.juego.salirCarcelBtn(server.conexiones.indexOf(this));
                         break;
-                        
+                    case 17:
+                        int indiceInvitado = reader.readInt();
+                        server.conexiones.get(indiceInvitado).writer.writeInt(20);
+                        server.conexiones.get(indiceInvitado).writer.writeInt(server.conexiones.indexOf(this));
+                        server.writeInThreadOwner(server.conexiones.indexOf(this),"Ha invitado a un intercambio a: "+server.nombres.get(indiceInvitado));
+                        break;                        
+                     case 18:
+                         int indiceAnfitrion = reader.readInt();
+                         int resultado = reader.readInt();
+                         server.conexiones.get(indiceAnfitrion).writer.writeInt(21);
+                         server.conexiones.get(indiceAnfitrion).writer.writeInt(resultado);
+                         server.conexiones.get(indiceAnfitrion).writer.writeInt(server.conexiones.indexOf(this));
+                         break;
+                     case 19:
+                         System.out.println("Envia persona");
+                         int persona = reader.readInt();
+                         writer.writeInt(22);
+                         writer.writeInt(persona);
+                         System.out.println("Empiza a enviar");
+                         objWriter.writeObject(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).getPropertiesNames());
+                         System.out.println("Sale primero");
+                         objWriter.writeObject(server.juego.currentPlayers.get(persona).getPropertiesNames());
+                         System.out.println("Sale segundo");
+                         writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
+                         System.out.println("Sale tercero");
+                         writer.writeInt(server.juego.currentPlayers.get(persona).money);   
+                         System.out.println("Sale ultimo");
+                         break;
+                     case 20:
+                         int persona2 = reader.readInt();
+                         ArrayList<String> prop1 = (ArrayList<String>) objReader.readObject();
+                         ArrayList<String> prop2 = (ArrayList<String>) objReader.readObject();
+                         int din1 = reader.readInt();
+                         int din2 = reader.readInt();
+                         ThreadServidor current = server.conexiones.get(persona2);
+                         current.writer.writeInt(23);
+                         current.writer.writeInt(server.conexiones.indexOf(this));
+                         current.objWriter.writeObject(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).getPropertiesNames());
+                         current.objWriter.writeObject(server.juego.currentPlayers.get(persona2).getPropertiesNames());;
+                         current.writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
+                         current.writer.writeInt(server.juego.currentPlayers.get(persona2).money);   
+                         current.objWriter.writeObject(prop1);
+                         current.objWriter.writeObject(prop2);
+                         current.writer.writeInt(din1);
+                         current.writer.writeInt(din2);
+                         break;
+                     case 21:
+                         System.out.println("Awebo que si alv");
+                         int rechazado = reader.readInt();
+                         server.conexiones.get(rechazado).writer.writeInt(24);
+                         server.conexiones.get(rechazado).writer.writeInt(server.conexiones.indexOf(this));
+                         break;
+                     case 22:
+                         int personaAceptada = reader.readInt();
+                         ArrayList<String> propAceptada1 = (ArrayList<String>) objReader.readObject();
+                         ArrayList<String> propAceptada2 = (ArrayList<String>) objReader.readObject();
+                         int dinAceptado1 = reader.readInt();
+                         int dinAceptado2 = reader.readInt();
+                         server.juego.intercambio(propAceptada1, dinAceptado1, server.conexiones.indexOf(this), propAceptada2, dinAceptado2, personaAceptada);
+                         server.writeInThreadOwner(server.conexiones.indexOf(this),"Ha aceptado el intercambio de"+server.nombres.get(personaAceptada));
+                         break;
                 }
             } catch (IOException ex) {
                 System.out.println(":(");

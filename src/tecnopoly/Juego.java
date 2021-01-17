@@ -130,12 +130,14 @@ public class Juego {
             }
         }
     }
-    private ArrayList<Property> findProperties(String[] nombres){
+    private ArrayList<Property> findProperties(ArrayList <String> nombres){
         ArrayList<Property> resultado = new ArrayList<Property>();
-        for (int i=0; i<nombres.length;i++){
+        for (int i=0; i<nombres.size();i++){
             for (int j=0;j<propiedades.size();j++){
-                if (propiedades.get(j).nombre.equals(nombres[i]))
+                if (propiedades.get(j).nombre.equals(nombres.get(i))){
+                    System.out.println("\t"+propiedades.get(j).nombre+"\n");
                     resultado.add(propiedades.get(j));
+                }
             }
         }
         return resultado;
@@ -143,11 +145,14 @@ public class Juego {
     private void changeOwner(ArrayList<Property> propiedades, int antiguo, int nuevo){
         for(int i=0; i<propiedades.size();i++){
             currentPlayers.get(antiguo).properties.remove(propiedades.get(i));
+            propiedades.get(i).dueno = currentPlayers.get(nuevo);
             currentPlayers.get(antiguo).properties.add(propiedades.get(i));
         }
     }
-    public void intercambio (String[] nombres1, int dinero1, int indice1,String[] nombres2, int dinero2, int indice2){
+    public void intercambio (ArrayList <String> nombres1, int dinero1, int indice1,ArrayList <String> nombres2, int dinero2, int indice2){
+        System.out.println("Propiedades de: "+indice1+"\n");
        ArrayList<Property> propiedades1 = findProperties(nombres1);
+       System.out.println("Propiedades de: "+indice2+"\n");
        ArrayList<Property> propiedades2 = findProperties(nombres2);
        changeOwner(propiedades1,indice1,indice2);
        changeOwner(propiedades2,indice2,indice1);

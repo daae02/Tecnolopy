@@ -80,7 +80,12 @@ public class Subasta extends javax.swing.JFrame {
     }
     public void startSpinner(int minimo, int maximo){
         this.maximo = maximo;
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(minimo, minimo, maximo, 1));
+        if(maximo >= minimo)
+            jSpinner1.setModel(new javax.swing.SpinnerNumberModel(minimo, minimo, maximo, 1));
+        else{
+            jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 0, 1));
+            jButton1.setEnabled(false);
+            }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

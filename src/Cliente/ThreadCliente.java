@@ -45,7 +45,7 @@ public class ThreadCliente extends Thread {
         this.secPantalla = secPantalla;
         this.refPantalla = refPantalla;
     }
-    
+
     public void run (){
         
         int instruccionId = 1;
@@ -139,6 +139,7 @@ public class ThreadCliente extends Thread {
                         secPantalla.pantallaSubastas.startSpinner(minimo, maximo);
                         secPantalla.pantallaSubastas.startList((ArrayList<String>)objReader.readObject());
                         secPantalla.pantallaSubastas.indiceProp = reader.readInt();
+                        secPantalla.pantallaSubastas.setTitle(nombre);
                         secPantalla.pantallaSubastas.playing = true;
                         secPantalla.mostrarSubasta(url2);
                         break;
@@ -159,6 +160,60 @@ public class ThreadCliente extends Thread {
                         break;
                     case 19:
                         secPantalla.noDinero();
+                        break;
+                    case 20:
+                        int anfitrion = reader.readInt();
+                        secPantalla.showDialog(anfitrion);
+                        break;
+                    case 21:
+                        System.out.println("Empiza solicitando informacion");
+                        int resultado = reader.readInt();
+                        int personaIntercambio = reader.readInt();
+                        if (resultado==0){
+                            System.out.println("Envia la 19");
+                            writer.writeInt(19);
+                            writer.writeInt(personaIntercambio);
+                            System.out.println("Envio info");
+                            break;
+                        }
+                        else secPantalla.showDialogRejected(personaIntercambio);
+                        break;
+                    case 22:
+                        System.out.println("Intenta obtener data");
+                        int otraPersona = reader.readInt();
+                        ArrayList<String> misProps = (ArrayList<String>) objReader.readObject();
+                        System.out.println("Lee primero");
+                        ArrayList<String> susProps = (ArrayList<String>) objReader.readObject();
+                        System.out.println("Lee segundo");
+                        int miDinero = reader.readInt();
+                        System.out.println("Lee tercero");
+                        int suDinero = reader.readInt();
+                        System.out.println("Lee ultimo");
+                        secPantalla.cargarVentanaIntercambio(misProps, susProps, miDinero, suDinero, secPantalla.nombres.get(otraPersona),otraPersona); 
+                        System.out.println("lets go");
+                        break;
+                    case 23:
+                        System.out.println("Intenta obtener data");
+                        int otraPersona2 = reader.readInt();
+                        ArrayList<String> susProps2 = (ArrayList<String>) objReader.readObject();
+                        System.out.println("Lee primero");
+                        ArrayList<String> misProps2 = (ArrayList<String>) objReader.readObject();
+                        System.out.println("Lee segundo");
+                        int suDinero2 = reader.readInt();
+                        System.out.println("Lee tercero");
+                        int miDinero2 = reader.readInt();
+                        System.out.println("Lee ultimo");
+                        secPantalla.cargarVentanaIntercambio(misProps2, susProps2, miDinero2, suDinero2, secPantalla.nombres.get(otraPersona2),otraPersona2); 
+                         ArrayList<String> meOfrece = (ArrayList<String>) objReader.readObject();
+                         ArrayList<String> mePide = (ArrayList<String>) objReader.readObject();
+                         int dinOfrece = reader.readInt();
+                         int dinPide = reader.readInt();
+                         secPantalla.intercambios.mostrarSolicitud(meOfrece,mePide,dinOfrece,dinPide);
+                         break;
+                    case 24:
+                        System.out.println("jeje se mamaron alv");
+                        int rechazador = reader.readInt();
+                        secPantalla.showDialogRejected(rechazador);
                         break;
                 }
             } catch (IOException ex) {

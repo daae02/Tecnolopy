@@ -44,6 +44,8 @@ public class MonopolyJF extends javax.swing.JFrame {
     public String pieza = "hello";
     public int turnoActual = 0; 
     PropiedadesJF pantalla;
+    elegirIntercambio elegirPantalla;
+    ventanaIntercambio intercambios;
     public Subasta pantallaSubastas;
     public boolean enCarcel = false;
     public boolean dadosIguales = false;
@@ -54,6 +56,10 @@ public class MonopolyJF extends javax.swing.JFrame {
         pantalla = new PropiedadesJF();
         pantalla.pantallaPrincipal = this;
         pantallaSubastas = new Subasta(this);
+        elegirPantalla = new elegirIntercambio();
+        elegirPantalla.refPantalla = this;
+        intercambios = new ventanaIntercambio();
+        intercambios.refPantalla = this;
         lblAL = new ArrayList();
         iconos = new ArrayList();
         JLabel lblToken1 = new javax.swing.JLabel();
@@ -72,6 +78,21 @@ public class MonopolyJF extends javax.swing.JFrame {
         
 
     }
+    public void showDialog(int anfitrion) throws IOException{
+        String mensaje = nombres.get(anfitrion)+" le ha invitado aun intercambio";
+        String[] options = new String[2];
+        options[0] = "Aceptar";
+        options[1] = "Rechazar";
+        int resultado= JOptionPane.showOptionDialog(this.getContentPane(),mensaje,"Invitación intercambio", 0,JOptionPane.INFORMATION_MESSAGE,null,options,null);
+        refCliente.hiloCliente.writer.writeInt(18);
+        refCliente.hiloCliente.writer.writeInt(anfitrion);
+        refCliente.hiloCliente.writer.writeInt(resultado);
+        
+    }
+    public void showDialogRejected(int rechazador) throws IOException{
+        String mensaje = nombres.get(rechazador)+" ha rechazado la ofera de intercambio";
+        JOptionPane.showMessageDialog(this.getContentPane(), mensaje, "Intercambio Rechazado",JOptionPane.ERROR_MESSAGE);  
+    }
     public void mostrarSubasta(String subastada){
         System.out.println("En el metodo: "+subastada);
         ImageIcon icon = new ImageIcon(getClass().getResource(subastada));
@@ -81,6 +102,12 @@ public class MonopolyJF extends javax.swing.JFrame {
         pantallaSubastas.lblPropiedad.setIcon(icon);
         pantalla.panelDisponible.setVisible(true);
         pantallaSubastas.setVisible(true);
+    }
+    void cargarVentanaIntercambio(ArrayList<String> misProps, ArrayList<String> susProps, int miDinero, int suDinero, String nombre2, int otraPersona) {
+        intercambios.setVisible(true);    
+        intercambios.updateData(misProps, susProps, miDinero,suDinero,nombre2,otraPersona);
+        System.out.println("Updated");
+              
     }
     public void setRefCliente(Cliente refCliente) {
         this.refCliente = refCliente;
@@ -144,7 +171,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         btnHipotecar = new javax.swing.JButton();
         btnConstruir = new javax.swing.JButton();
         btnTerminarTurno = new javax.swing.JButton();
-        btnIntercambiar1 = new javax.swing.JButton();
+        btnIntercambiar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         cbbNombres = new javax.swing.JComboBox<>();
         lblMoney = new javax.swing.JLabel();
@@ -256,16 +283,15 @@ public class MonopolyJF extends javax.swing.JFrame {
         });
         jPanel1.add(btnTerminarTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 130, 50));
 
-        btnIntercambiar1.setBackground(new java.awt.Color(121, 150, 130));
-        btnIntercambiar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnIntercambiar1.setText("INTERCAMBIAR");
-        btnIntercambiar1.setEnabled(false);
-        btnIntercambiar1.addActionListener(new java.awt.event.ActionListener() {
+        btnIntercambiar.setBackground(new java.awt.Color(121, 150, 130));
+        btnIntercambiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIntercambiar.setText("INTERCAMBIAR");
+        btnIntercambiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIntercambiar1ActionPerformed(evt);
+                btnIntercambiarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIntercambiar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
+        jPanel1.add(btnIntercambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 550, 150));
 
@@ -734,9 +760,11 @@ public class MonopolyJF extends javax.swing.JFrame {
           }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnIntercambiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnIntercambiar1ActionPerformed
+    private void btnIntercambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiarActionPerformed
+        elegirPantalla.actualizarCBB();
+        intercambios.aceptar.setEnabled(false);
+        elegirPantalla.setVisible(true);
+    }//GEN-LAST:event_btnIntercambiarActionPerformed
     public void actualizarCBBplayer(String propiedades,String dinero){
         lblMoney.setText("");
         lblProperties.setText("");
@@ -804,7 +832,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel bicitec2;
     private javax.swing.JButton btnConstruir;
     private javax.swing.JButton btnHipotecar;
-    private javax.swing.JButton btnIntercambiar1;
+    private javax.swing.JButton btnIntercambiar;
     private javax.swing.JButton btnLanzarDados;
     private javax.swing.JButton btnSalirCarcel;
     private javax.swing.JButton btnTerminarTurno;
@@ -866,6 +894,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel trenes;
     private javax.swing.JPanel vayaCarcel;
     // End of variables declaration//GEN-END:variables
+
 
 
 }

@@ -13,7 +13,7 @@ import javax.swing.JLabel;
  */
 public class Player {
     public int money;
-    ArrayList<Property> properties = new ArrayList<Property>();
+    public ArrayList<Property> properties = new ArrayList<Property>();
     public int currentIndex;
     boolean enCarcel;
     int turnosRestantes;
@@ -24,6 +24,15 @@ public class Player {
         currentIndex = 0;
         this.indiceArreglo = indiceArreglo;
     }
-    
+    public ArrayList<String> getPropertiesNames(){
+        ArrayList<String> resultado = new ArrayList<String>();
+        System.out.println("Entra ciclo");
+        for(int i = 0;i<properties.size();i++){
+            System.out.println(properties.get(i).nombre);
+            resultado.add(properties.get(i).nombre);
+        }
+        System.out.println("Sale ciclo");
+        return resultado;
+    } 
 
 }
