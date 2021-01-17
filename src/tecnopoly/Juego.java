@@ -146,7 +146,7 @@ public class Juego {
         for(int i=0; i<propiedades.size();i++){
             currentPlayers.get(antiguo).properties.remove(propiedades.get(i));
             propiedades.get(i).dueno = currentPlayers.get(nuevo);
-            currentPlayers.get(antiguo).properties.add(propiedades.get(i));
+            currentPlayers.get(nuevo).properties.add(propiedades.get(i));
         }
     }
     public void intercambio (ArrayList <String> nombres1, int dinero1, int indice1,ArrayList <String> nombres2, int dinero2, int indice2){

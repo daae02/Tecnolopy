@@ -464,6 +464,7 @@ public class ventanaIntercambio extends javax.swing.JFrame {
         try {
             refPantalla.refCliente.hiloCliente.writer.writeInt(22);
             sendAll();
+            borrarTodo();
             this.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(ventanaIntercambio.class.getName()).log(Level.SEVERE, null, ex);
@@ -544,8 +545,8 @@ public class ventanaIntercambio extends javax.swing.JFrame {
     }
     private void reinicirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reinicirActionPerformed
         aceptar.setEnabled(false);
-        propiedadesOfrecidas.clear();
-        propiedadesSolicitadas.clear();
+        propiedadesOfrecidas = new ArrayList <String>();
+        propiedadesSolicitadas = new ArrayList <String>();
         dineroSolicitado = 0;
         dineroOfrecido = 0;
         listaPropiedades.setText("");
