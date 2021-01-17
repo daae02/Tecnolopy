@@ -30,6 +30,7 @@ public class MonopolyJF extends javax.swing.JFrame {
      * Creates new form MonopolyJF
      */
     public boolean actualizado = false;
+    public CartaChance cartaJF;
     public int myIndex = 0;
     public int labelActual = 0;
     public ArrayList<String> botones;
@@ -52,7 +53,10 @@ public class MonopolyJF extends javax.swing.JFrame {
     
     public MonopolyJF() {
         initComponents();
+        cartaJF = new CartaChance();
+        cartaJF.refPantalla = this;
         btnSalirCarcel.setVisible(false);
+        btnCarcelGratis.setVisible(false);
         pantalla = new PropiedadesJF();
         pantalla.pantallaPrincipal = this;
         pantallaSubastas = new Subasta(this);
@@ -92,6 +96,198 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void showDialogRejected(int rechazador) throws IOException{
         String mensaje = nombres.get(rechazador)+" ha rechazado la ofera de intercambio";
         JOptionPane.showMessageDialog(this.getContentPane(), mensaje, "Intercambio Rechazado",JOptionPane.ERROR_MESSAGE);  
+    }
+    public void findTokenAux(int dondeEstoy,ImageIcon micono,int dondeVoy){
+        JPanel casilla = casillas.get(dondeEstoy);
+        Component [] componentes = casilla.getComponents();
+        //System.out.println("myicnonito"+iconi);
+        for (int i = 0; i < componentes.length ; i++) {
+            JLabel iconito = (JLabel)componentes[i];
+            if (iconito.getIcon().toString().equals(micono.toString())) {
+                casilla.remove(componentes[i]);  
+                //System.out.println("Sí lo encontró");
+                casilla.revalidate();
+                casilla.repaint();
+                repaintToken(iconito,dondeVoy);
+            }
+            //System.out.println(iconito.getIcon());
+        }
+    }
+    public void moverCartaX(int adonde) throws IOException{
+              refCliente.hiloCliente.writer.writeInt(25);
+              refCliente.hiloCliente.writer.writeInt(labelActual);
+              refCliente.hiloCliente.writer.writeInt(adonde);
+              refCliente.hiloCliente.objWriter.writeObject(myIcon);
+              labelActual = adonde;      
+              refCliente.hiloCliente.writer.writeInt(26);
+              refCliente.hiloCliente.writer.writeInt(adonde);
+    }
+    public void cambiarDinero(int suma,int sumar) throws IOException{
+              refCliente.hiloCliente.writer.writeInt(27);
+              refCliente.hiloCliente.writer.writeInt(suma);
+              refCliente.hiloCliente.writer.writeInt(sumar);
+    }
+    public void cartaChanceAux(int carta) throws IOException{
+        cartaJF.cartaB = false;
+        cartaJF.setVisible(false);
+        switch(carta){
+            case 0:
+                moverCartaX(39);
+                break;
+            case 1:
+                moverCartaX(11);                
+                break;
+            case 2:
+                moverCartaX(24);
+                break;                
+            case 3:
+                moverCartaX(0);
+                cambiarDinero(200,0);
+                break;        
+            case 4:
+                moverCartaX(5);
+                break;      
+            case 5:
+                JOptionPane.showMessageDialog(this, "Ha caido en la carcel");
+                moverCartaX(30);
+                break;                
+            case 6:
+                cambiarDinero(150,0);
+                break; 
+            case 7:
+                cambiarDinero(15,1);
+                break;
+            case 8:
+                cambiarDinero(50,0);
+                break;             
+            case 9:
+                moverCartaX(labelActual-3);
+                break; 
+            case 10:
+                btnCarcelGratis.setVisible(true);
+                break;
+            default:
+                moverCartaX(labelActual-3);
+                break;
+
+        }
+        
+    }
+    public void cartaArcaAux(int carta) throws IOException{
+        cartaJF.setVisible(false);
+        switch(carta){
+            case 0:
+                JOptionPane.showMessageDialog(this, "Ha caido en la carcel");
+                moverCartaX(30);
+                break;
+            case 1:
+               cambiarDinero(50,1);
+               break;
+            case 2:
+                cambiarDinero(20,0);
+                break;                
+            case 3:
+                cambiarDinero(100,0);
+                break;        
+            case 4:
+                cambiarDinero(100,1);
+                break;      
+            case 5:
+                cambiarDinero(100,0);
+                break;                
+            case 6:
+                cambiarDinero(100,1);
+                break; 
+            case 7:
+                btnCarcelGratis.setVisible(true);
+                break;
+            default:
+                cambiarDinero(100,0);
+                break;
+
+        }
+        
+    }
+    public void cartaChance(int carta){
+        String url = "";
+        switch(carta){
+            case 0:
+                url = "/Resources/Chance/AvanceArquitectura.png";
+                break;
+            case 1:
+                url = "/Resources/Chance/AvanceBiologia.png";
+                break;
+            case 2:
+                url = "/Resources/Chance/AvanceConstruccion.png";
+                break;                
+            case 3:
+                url = "/Resources/Chance/AvanceGo.png";
+                break;        
+            case 4:
+                url = "/Resources/Chance/Avancebicipublica.png";
+                break;      
+            case 5:
+                url = "/Resources/Chance/ClasesVirtuales.png";
+                break;                
+            case 6:
+                url = "/Resources/Chance/DepositoPrestamo.png";
+                break; 
+            case 7:
+                url = "/Resources/Chance/MultaBiciTEC.png";
+                break;
+            case 8:
+                url = "/Resources/Chance/PagoAsistencia.png";
+                break;             
+            case 9:
+                url = "/Resources/Chance/RetrocedaTresCasillas.png";
+                break;
+            case 10:
+                url = "/Resources/Chance/SalirClasesVirtuales.png";
+                break;
+            default:
+                url = "/Resources/Chance/RetrocedaTresCasillas.png";
+                break; 
+        }
+        cartaJF.cartaB = true;
+        cartaJF.setChance(carta,url);
+        cartaJF.setVisible(true);
+        
+    }
+    public void cartaArca(int arca){
+        String url = "";
+        switch(arca){
+            case 0:
+                url = "/Resources/ArcaComunal/ClasesVirtuales.png";
+                break;
+            case 1:
+                url = "/Resources/ArcaComunal/CobroClinica.png";
+                break;
+            case 2:
+                url = "/Resources/ArcaComunal/CobroImpuestos.png";
+                break;                
+            case 3:
+                url = "/Resources/ArcaComunal/PagoSeguro.png";
+                break;        
+            case 4:
+                url = "/Resources/ArcaComunal/PagoVacaciones.png";
+                break;      
+            case 5:
+                url = "/Resources/Chance/PagosHospital.png";
+                break;                
+            case 6:
+                url = "/Resources/Chance/PagueMateriales.png";
+                break; 
+            case 7:
+                url = "/Resources/Chance/SaleClasesVirtuales.png";
+                break;
+            default:
+                url = "/Resources/Chance/PagosHospital.png";
+                break; 
+        }
+        cartaJF.cartaB = false;
+        cartaJF.setChance(arca,url);    
+        cartaJF.setVisible(true);
+        
     }
     public void mostrarSubasta(String subastada){
         System.out.println("En el metodo: "+subastada);
@@ -172,6 +368,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         btnConstruir = new javax.swing.JButton();
         btnTerminarTurno = new javax.swing.JButton();
         btnIntercambiar = new javax.swing.JButton();
+        btnCarcelGratis = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         cbbNombres = new javax.swing.JComboBox<>();
         lblMoney = new javax.swing.JLabel();
@@ -292,6 +489,17 @@ public class MonopolyJF extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnIntercambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 50));
+
+        btnCarcelGratis.setBackground(new java.awt.Color(121, 150, 130));
+        btnCarcelGratis.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarcelGratis.setText("SALIR CARCEL GRATIS");
+        btnCarcelGratis.setEnabled(false);
+        btnCarcelGratis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarcelGratisActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCarcelGratis, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 190, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 550, 150));
 
@@ -574,6 +782,8 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void cayoCarcel() throws IOException{
         enCarcel = true;
         btnSalirCarcel.setVisible(true);
+        if (btnCarcelGratis.isVisible())
+            btnCarcelGratis.setEnabled(true);
         refCliente.hiloCliente.writer.writeInt(8);
         refCliente.hiloCliente.writer.writeInt(labelActual);
         refCliente.hiloCliente.writer.writeInt(20);
@@ -584,6 +794,10 @@ public class MonopolyJF extends javax.swing.JFrame {
     }
     public void salioCarcel() throws IOException{
         enCarcel = false;
+        if (btnCarcelGratis.isVisible()){
+            btnCarcelGratis.setEnabled(false);
+            btnCarcelGratis.setVisible(false);
+        }
         refCliente.hiloCliente.writer.writeInt(5);
         refCliente.hiloCliente.writer.writeUTF("El jugador salio de la carcel");
         btnSalirCarcel.setVisible(false);
@@ -612,6 +826,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         try {
             System.out.println("BOTON CARCEL");
             refCliente.hiloCliente.writer.writeInt(16);
+            refCliente.hiloCliente.writer.writeInt(0);
         } catch (IOException ex) {
             Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -626,9 +841,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         turnoActual = turnoLegal;
         boolean igual = parseBoolean(iguales);
         dadosIguales = igual;
-        if (!igual || enCarcel){
+       /* if (!igual || enCarcel){
             btnLanzarDados.setEnabled(false);
-        }
+        }*/
        
     }
     public void habilitarBtns(){
@@ -692,9 +907,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         //System.out.println("myicnonito"+iconi);
         for (int i = 0; i < componentes.length ; i++) {
             JLabel iconito = (JLabel)componentes[i];
-            System.out.println("Iconito " +iconito.getIcon().toString()+" \niconin "+iconi);
             if (iconito.getIcon().toString().equals(iconi.toString())) {
-                System.out.println("entraIconito " +iconito.getIcon().toString()+" \niconin "+iconi);
                 casilla.remove(componentes[i]);  
                 //System.out.println("Sí lo encontró");
                 casilla.revalidate();
@@ -732,6 +945,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         int height = 343;
         icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         pantalla.lblProperty.setIcon(icon);
+        pantalla.lblDueño.setText(dueño);
         pantalla.panelNoDisponible.setVisible(true);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -747,8 +961,9 @@ public class MonopolyJF extends javax.swing.JFrame {
               refCliente.hiloCliente.writer.writeInt(labelActual);
               refCliente.hiloCliente.writer.writeInt(turnoActual);
               refCliente.hiloCliente.objWriter.writeObject(myIcon);
-              System.out.println("My icono"+nickname+""+myIcon);
               labelActual += turnoActual;
+              if (labelActual > 39)
+                labelActual -= 40;
               refCliente.hiloCliente.writer.writeInt(9);
               refCliente.hiloCliente.writer.writeInt(turnoActual);
               //refCliente.hiloCliente.writer.writeInt(myIndex);
@@ -765,6 +980,17 @@ public class MonopolyJF extends javax.swing.JFrame {
         intercambios.aceptar.setEnabled(false);
         elegirPantalla.setVisible(true);
     }//GEN-LAST:event_btnIntercambiarActionPerformed
+
+    private void btnCarcelGratisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarcelGratisActionPerformed
+        // TODO add your handling code here:
+        try {
+            System.out.println("BOTON CARCEL");
+            refCliente.hiloCliente.writer.writeInt(16);
+            refCliente.hiloCliente.writer.writeInt(1);
+        } catch (IOException ex) {
+            Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCarcelGratisActionPerformed
     public void actualizarCBBplayer(String propiedades,String dinero){
         lblMoney.setText("");
         lblProperties.setText("");
@@ -830,6 +1056,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel administracion;
     private javax.swing.JPanel biciTec;
     private javax.swing.JPanel bicitec2;
+    private javax.swing.JButton btnCarcelGratis;
     private javax.swing.JButton btnConstruir;
     private javax.swing.JButton btnHipotecar;
     private javax.swing.JButton btnIntercambiar;

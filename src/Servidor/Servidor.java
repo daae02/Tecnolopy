@@ -78,7 +78,6 @@ public class Servidor{
         }
     }
     public void writeInThreadAP(int position, String url) throws IOException{
-        System.out.println("URL ------------"+url);
         conexiones.get(position).writer.writeInt(12);
         conexiones.get(position).writer.writeUTF(url);
     }
@@ -130,6 +129,14 @@ public class Servidor{
             arreglo[i] = path;           
         }
         return arreglo;
+    }
+    public void cartaChance(int carta,int posicionThread) throws IOException{
+        conexiones.get(posicionThread).writer.writeInt(26);
+        conexiones.get(posicionThread).writer.writeInt(carta);
+    }
+    public void arcaComunal(int arca,int posicionThread) throws IOException{
+        conexiones.get(posicionThread).writer.writeInt(26);
+        conexiones.get(posicionThread).writer.writeInt(arca);   
     }
     public int[] lanzarDados(){
         int [] arreglo = new int[2];

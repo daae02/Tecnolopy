@@ -247,8 +247,7 @@ class ThreadServidor extends Thread{
                                 System.out.println("Por: &"+monto);
                                 server.juego.comprarPorSubasta(i,indiceProp,monto);
                                 System.out.println("Comprado");
-                            }
-                                
+                            }                               
                         }
                         break;
                     case 15:
@@ -257,7 +256,8 @@ class ThreadServidor extends Thread{
                         writer.writeInt(dineroTmp);
                         break;
                     case 16:
-                        server.juego.salirCarcelBtn(server.conexiones.indexOf(this));
+                        int gratis = reader.readInt();
+                        server.juego.salirCarcelBtn(server.conexiones.indexOf(this),gratis);
                         break;
                     case 17:
                         int indiceInvitado = reader.readInt();
@@ -312,6 +312,7 @@ class ThreadServidor extends Thread{
                          server.conexiones.get(rechazado).writer.writeInt(server.conexiones.indexOf(this));
                          break;
                      case 22:
+                         System.out.println("Llamando al case 22 2");
                          int personaAceptada = reader.readInt();
                          ArrayList<String> propAceptada1 = (ArrayList<String>) objReader.readObject();
                          ArrayList<String> propAceptada2 = (ArrayList<String>) objReader.readObject();
@@ -320,6 +321,47 @@ class ThreadServidor extends Thread{
                          server.juego.intercambio(propAceptada1, dinAceptado1, server.conexiones.indexOf(this), propAceptada2, dinAceptado2, personaAceptada);
                          server.writeInThreadOwner(server.conexiones.indexOf(this),"Ha aceptado el intercambio de"+server.nombres.get(personaAceptada));
                          break;
+                     case 23:
+                            int [] turno3Tmp = server.lanzarDados();
+                            String [] iconDados3 = server.buscarDados(turno3Tmp);
+                            int [] datosDinero = server.juego.getDatosDinero(server.conexiones.indexOf(this),turno3Tmp[0],turno3Tmp[1]);
+                            writer.writeInt(25);
+                            writer.writeUTF(iconDados3[0]);
+                            writer.writeUTF(iconDados3[1]);
+                            writer.writeInt(datosDinero[0]);
+                            writer.writeInt(datosDinero[1]);
+                            //writer.writeInt(turno3Tmp[0]+turno3Tmp[1]);
+                            break;
+                     case 24:
+                         int plataPagar = reader.readInt();
+                         server.juego.pagarPorPropiedad(server.conexiones.indexOf(this),plataPagar);
+                         break;
+                     case 25:
+                        int dondeEstoy = reader.readInt();
+                        int dondeVoy = reader.readInt();
+                        ImageIcon micono = (ImageIcon) objReader.readObject();
+                        
+                        for (int i = 0; i < server.conexiones.size(); i++) {
+                            ThreadServidor current25 = server.conexiones.get(i);
+                            current25.writer.writeInt(27);
+                            current25.writer.writeInt(dondeEstoy);
+                            current25.writer.writeInt(dondeVoy);
+                            current25.objWriter.writeObject(micono);
+                            
+                        }
+                       break;
+                     case 26:
+                        int adonde = reader.readInt();
+                        server.juego.turnoJugadorAux(server.conexiones.indexOf(this), adonde);
+                        break;
+                     case 27:
+                         int cantidad = reader.readInt();
+                         int sumar = reader.readInt();
+                         if (sumar == 0)
+                            server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money+=cantidad;
+                         else server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money-=cantidad;
+                         break;
+                         
                 }
             } catch (IOException ex) {
                 System.out.println(":(");

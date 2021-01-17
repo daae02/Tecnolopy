@@ -10,8 +10,11 @@ import java.util.ArrayList;
  * @author Diego Álvarez
  */
 public class Juego {
+    public int chanceActual = 0;
+    public int arcaActual = 0;
     public ArrayList<Player> currentPlayers = new ArrayList<Player>();
     public ArrayList<Property> propiedades = new ArrayList<Property>();
+    //public ArrayList<Chance> cartasChance = new ArrayList<Property>(); 
     public int cantConexiones;
     int houses;
     int hotel;
@@ -200,7 +203,13 @@ public class Juego {
         }
         return null;
     }
-    public void salirCarcelBtn(int posicionThread) throws IOException{
+    public void salirCarcelBtn(int posicionThread,int gratis) throws IOException{
+        if (gratis == 1){
+            currentPlayers.get(posicionThread).enCarcel = false;
+            currentPlayers.get(posicionThread).turnoCarcel = 0;
+            refServer.funcionesCarcel(posicionThread,2);
+        }
+        else{
         if (currentPlayers.get(posicionThread).money >= 50){
             currentPlayers.get(posicionThread).money -= 50;
             currentPlayers.get(posicionThread).enCarcel = false;
@@ -208,22 +217,70 @@ public class Juego {
             refServer.funcionesCarcel(posicionThread,2);
         }
         else refServer.funcionesCarcel(posicionThread,3);
-    }
-    public void turnoJugador(int posicionThread,int casillasMover, boolean iguales) throws IOException{
-        currentPlayers.get(posicionThread).currentIndex += casillasMover;
-        if (currentPlayers.get(posicionThread).currentIndex > 39){
-            currentPlayers.get(posicionThread).currentIndex -= 40;
-            currentPlayers.get(posicionThread).money += 200;
         }
-        if (currentPlayers.get(posicionThread).currentIndex == 30){
-            currentPlayers.get(posicionThread).enCarcel = true;
-            currentPlayers.get(posicionThread).currentIndex = 10;
+        
+    }
+    public int [] getDatosDinero(int posicionThread,int dado1,int dado2){
+        int [] datos = new int[2];
+        Property propiedadTmp = getProperty(currentPlayers.get(posicionThread).currentIndex);
+        datos [0] = currentPlayers.get(posicionThread).money;
+        datos[1] = propiedadTmp.calcularCobro(dado1, dado2);
+        return datos;
+    }
+    public void pagarPorPropiedad(int posicionThread,int plataPagar) throws IOException{
+        currentPlayers.get(posicionThread).money -= plataPagar;
+    }
+    public void turnoJugadorAux(int posicionThread,int adonde) throws IOException{
+        Player current = currentPlayers.get(posicionThread);
+        current.currentIndex = adonde;
+        if (current.currentIndex == 30){
+            current.enCarcel = true;
+            current.currentIndex = 10;
             refServer.funcionesCarcel(posicionThread,1);
             
         }
+        else {
+            Property propiedadTmp = getProperty(current.currentIndex);
+            if (propiedadTmp != null){
+            if(propiedadTmp.dueno == null)
+                refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
+           else {
+                if (propiedadTmp.dueno.indiceArreglo == posicionThread)
+                    refServer.writeInThreadOwner(posicionThread,"El jugador ya es dueño de esta propiedad");
+                else refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo);
+            }
+        }
+        }
+
+    }
+    public void turnoJugador(int posicionThread,int casillasMover, boolean iguales) throws IOException{
+        Player current = currentPlayers.get(posicionThread);
+        current.currentIndex += casillasMover;
+        if (current.currentIndex > 39){
+            current.currentIndex -= 40;
+            current.money += 200;
+        }
+        if (current.currentIndex == 30){
+            current.enCarcel = true;
+            current.currentIndex = 10;
+            refServer.funcionesCarcel(posicionThread,1);
+            
+        }
+        else if (current.currentIndex == 2 || current.currentIndex == 17 || current.currentIndex == 33){
+            refServer.cartaChance(chanceActual,posicionThread);
+            chanceActual++;
+            if (chanceActual>10)
+                chanceActual = 0;
+        }
+        else if (current.currentIndex == 7 || current.currentIndex == 22 || current.currentIndex == 36){
+            refServer.arcaComunal(arcaActual,posicionThread);
+            arcaActual++;
+            if (arcaActual>7)
+                arcaActual = 0;
+        }
         else{
-            if (!currentPlayers.get(posicionThread).enCarcel){
-                Property propiedadTmp = getProperty(currentPlayers.get(posicionThread).currentIndex);
+            if (!current.enCarcel){
+                Property propiedadTmp = getProperty(current.currentIndex);
                 if (propiedadTmp != null)
                     if(propiedadTmp.dueno == null)
                         refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
@@ -234,13 +291,13 @@ public class Juego {
                     }
                 }
             else {
-                if (currentPlayers.get(posicionThread).turnoCarcel < 3 && !iguales){
-                    currentPlayers.get(posicionThread).turnoCarcel++;
+                if (current.turnoCarcel < 3 && !iguales){
+                    current.turnoCarcel++;
                     
                 }
                 else {
-                    currentPlayers.get(posicionThread).enCarcel = false;
-                    currentPlayers.get(posicionThread).turnoCarcel = 0;
+                    current.enCarcel = false;
+                    current.turnoCarcel = 0;
                     refServer.funcionesCarcel(posicionThread,2);
                 }
             }

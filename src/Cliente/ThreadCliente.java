@@ -124,7 +124,6 @@ public class ThreadCliente extends Thread {
                         break;
                     case 12:
                         String url = reader.readUTF();
-                        System.out.println("llega al thread cliente");
                         secPantalla.mostrarPropDisponible(url);
                         break;
                     case 13:
@@ -215,6 +214,28 @@ public class ThreadCliente extends Thread {
                         int rechazador = reader.readInt();
                         secPantalla.showDialogRejected(rechazador);
                         break;
+                    case 25:
+                        String icon1ter = reader.readUTF();
+                        String icon2ter = reader.readUTF();
+                        int plataActual = reader.readInt();
+                        int plataPagar = reader.readInt();
+                        secPantalla.pantalla.pintarLanzamientoDados(icon1ter, icon2ter,plataActual,plataPagar);
+                        break;
+                    case 26:
+                        int cartaChance = reader.readInt();
+                        secPantalla.cartaChance(cartaChance);
+                        break;
+                    case 27:
+                        int dondeEstoy = reader.readInt();
+                        int dondeVoy = reader.readInt();
+                        //int indexThread = reader.readInt();
+                        ImageIcon micono = (ImageIcon) objReader.readObject();
+                        secPantalla.findTokenAux(dondeEstoy,micono,dondeVoy);
+                        break;
+                    case 28:
+                        int arca = reader.readInt();
+                        secPantalla.cartaArca(arca);
+                        break;                    
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {
