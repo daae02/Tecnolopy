@@ -139,6 +139,7 @@ public class CartaChance extends javax.swing.JFrame {
             }
         });
     }
+    //f
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOkay;
