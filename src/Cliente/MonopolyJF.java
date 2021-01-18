@@ -47,11 +47,14 @@ public class MonopolyJF extends javax.swing.JFrame {
     PropiedadesJF pantalla;
     elegirIntercambio elegirPantalla;
     ventanaIntercambio intercambios;
+    Hipotecas refHipotecas;
+    BrokeForm ventanaQuiebra;
     public Subasta pantallaSubastas;
     public boolean enCarcel = false;
     public boolean dadosIguales = false;
     
     public MonopolyJF() {
+        System.out.println("Prueba 0");
         initComponents();
         cartaJF = new CartaChance();
         cartaJF.refPantalla = this;
@@ -60,6 +63,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         pantalla = new PropiedadesJF();
         pantalla.pantallaPrincipal = this;
         pantallaSubastas = new Subasta(this);
+        System.out.println("Prueba");
+        refHipotecas = new Hipotecas();
+        refHipotecas.refPantalla = this;
         elegirPantalla = new elegirIntercambio();
         elegirPantalla.refPantalla = this;
         intercambios = new ventanaIntercambio();
@@ -877,7 +883,13 @@ public class MonopolyJF extends javax.swing.JFrame {
     }//GEN-LAST:event_chatSmsKeyPressed
 
     private void btnHipotecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHipotecarActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            refCliente.hiloCliente.writer.writeInt(29);
+        } catch (IOException ex) {
+            Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            refHipotecas.setVisible(true);
     }//GEN-LAST:event_btnHipotecarActionPerformed
 
     private void btnConstruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstruirActionPerformed

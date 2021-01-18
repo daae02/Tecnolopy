@@ -361,8 +361,16 @@ class ThreadServidor extends Thread{
                             server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money+=cantidad;
                          else server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money-=cantidad;
                          break;
-                         
-                }
+                     case 28:
+                         int seleccionada = reader.readInt();
+                         int jugador = server.conexiones.indexOf(this);
+                         writer.writeBoolean(server.juego.estaHipotecada(seleccionada,jugador));
+                         break;
+                     case 29:
+                         writer.writeInt(29);
+                         objWriter.writeObject(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).getPropertiesNames());
+                         break;
+                }       
             } catch (IOException ex) {
                 System.out.println(":(");
             } catch (ClassNotFoundException ex) {

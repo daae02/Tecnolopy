@@ -152,6 +152,10 @@ public class Juego {
             currentPlayers.get(nuevo).properties.add(propiedades.get(i));
         }
     }
+    public boolean estaHipotecada(int propiedad, int indice){
+        System.out.println("Indice: "+indice+" propiedad: "+propiedad);
+        return currentPlayers.get(indice).properties.get(propiedad).hipotecada;
+    }
     public void intercambio (ArrayList <String> nombres1, int dinero1, int indice1,ArrayList <String> nombres2, int dinero2, int indice2){
         System.out.println("Propiedades de: "+indice1+"\n");
        ArrayList<Property> propiedades1 = findProperties(nombres1);

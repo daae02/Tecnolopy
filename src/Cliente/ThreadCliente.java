@@ -27,7 +27,7 @@ public class ThreadCliente extends Thread {
     public DataInputStream reader;
     public DataOutputStream writer;
     public ObjectOutputStream objWriter;
-    private ObjectInputStream objReader;
+    ObjectInputStream objReader;
     private String nombre;
     private Cliente cliente;
     private MonopolyJF secPantalla;
@@ -235,7 +235,12 @@ public class ThreadCliente extends Thread {
                     case 28:
                         int arca = reader.readInt();
                         secPantalla.cartaArca(arca);
-                        break;                    
+                        break;   
+                    case 29:
+                          ArrayList <String> elementos = (ArrayList <String>) objReader.readObject();
+                          secPantalla.refHipotecas.updateComboBox(elementos);
+                          break;
+                            
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {
