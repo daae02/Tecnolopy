@@ -37,7 +37,7 @@ public class Juego {
     void propietyFactory(int index,int tipo, String nombre,String URL, int valor, int cobro, int c1, int c2,int c3, int c4,int hotel, int hipoteca, String familia){
         switch (tipo){
             case 0:
-                propiedades.add(new CommonProperty(c1,c2,c3,c4,hotel,valor,index,hipoteca,URL,familia,nombre));
+                propiedades.add(new CommonProperty(c1,c2,c3,c4,hotel,valor,cobro,index,hipoteca,URL,familia,nombre));
                 break;
             case 1:
                 propiedades.add(new TransportProperty(valor, index, hipoteca, URL, familia,nombre));
@@ -156,6 +156,10 @@ public class Juego {
         System.out.println("Indice: "+indice+" propiedad: "+propiedad);
         return currentPlayers.get(indice).properties.get(propiedad).hipotecada;
     }
+    public boolean puedeDeshipotecar(int propiedad, int indice){
+        Player current = currentPlayers.get(indice);
+        return current.money >= current.properties.get(propiedad).hipotecable;
+    }
     public void intercambio (ArrayList <String> nombres1, int dinero1, int indice1,ArrayList <String> nombres2, int dinero2, int indice2){
         System.out.println("Propiedades de: "+indice1+"\n");
        ArrayList<Property> propiedades1 = findProperties(nombres1);
@@ -168,10 +172,22 @@ public class Juego {
         currentPlayers.get(indice2).money += dinero1;
         currentPlayers.get(indice2).money -= dinero2;
     }
-    public void hipotecar (String propiedad, int indice){
-            for (int i=0;i<propiedades.size();i++){
+    public void hipotecar (int indice,int indexCliente){
+        Player current = currentPlayers.get(indexCliente);
+        Property propiedad = current.properties.get(indice);
+        if (propiedad.hipotecada){
+            System.out.println("La deshipoteco");
+            currentPlayers.get(indice).money -= propiedad.hipotecable;
+        }
+        else{
+            System.out.println("La hipoteco");
+            currentPlayers.get(indice).money += propiedad.hipotecable;
+        }
+        propiedad.hipotecada = !propiedad.hipotecada;
+      /*      for (int i=0;i<propiedades.size();i++){
                 if (propiedades.get(i).nombre.equals(propiedad)){
                     if (propiedades.get(i).hipotecada == true){
+                        
                         currentPlayers.get(indice).money -= propiedades.get(i).hipotecable;
                     }
                     else{
@@ -179,7 +195,7 @@ public class Juego {
                     }
                     propiedades.get(i).hipotecada = !propiedades.get(i).hipotecada;
                 }
-            }
+            }*/
     }
     public int getPropertyValue(int indice){
         System.out.println("Posicion del jugador: "+ currentPlayers.get(indice).currentIndex);
@@ -270,13 +286,13 @@ public class Juego {
             refServer.funcionesCarcel(posicionThread,1);
             
         }
-        else if (current.currentIndex == 2 || current.currentIndex == 17 || current.currentIndex == 33){
+        else if (current.currentIndex == 7 || current.currentIndex == 22 || current.currentIndex == 36){
             refServer.cartaChance(chanceActual,posicionThread);
             chanceActual++;
             if (chanceActual>10)
                 chanceActual = 0;
         }
-        else if (current.currentIndex == 7 || current.currentIndex == 22 || current.currentIndex == 36){
+        else if (current.currentIndex == 2 || current.currentIndex == 17 || current.currentIndex == 33){
             refServer.arcaComunal(arcaActual,posicionThread);
             arcaActual++;
             if (arcaActual>7)

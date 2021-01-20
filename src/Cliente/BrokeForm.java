@@ -5,17 +5,26 @@
  */
 package Cliente;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Diego Álvarez
  */
 public class BrokeForm extends javax.swing.JFrame {
-     MonopolyJF refPantalla;
+     PropiedadesJF refPantalla;
+     int deudaActual;
+     int plataActual;
+     public boolean afuera = false;
     /**
      * Creates new form BrokeForm
      */
     public BrokeForm() {
         initComponents();
+        btnPagarCarta.setVisible(false);
     }
 
     /**
@@ -28,7 +37,7 @@ public class BrokeForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        deuda = new javax.swing.JLabel();
+        lblDeuda = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         venderCasas = new javax.swing.JButton();
         hipotecar = new javax.swing.JButton();
@@ -37,14 +46,18 @@ public class BrokeForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Redirse = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        btnPagarCarta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        lblPlata = new javax.swing.JLabel();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Está en banca rota :(");
 
-        deuda.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        deuda.setText("0 $");
+        lblDeuda.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblDeuda.setText("0 $");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("O");
@@ -84,7 +97,28 @@ public class BrokeForm extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel6.setText("Tranquilo, solo es un juego");
+        jLabel6.setText("Tiene:");
+
+        btnPagarCarta.setText("Pagar");
+        btnPagarCarta.setEnabled(false);
+        btnPagarCarta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarCartaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        lblPlata.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblPlata.setText("0 $");
+
+        btnVolver.setText("Volver");
+        btnVolver.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,61 +127,74 @@ public class BrokeForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deuda))
+                        .addComponent(lblDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPlata, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(intercambios, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(hipotecar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Redirse, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(65, 65, 65)
+                        .addComponent(venderCasas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(Redirse, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(intercambios, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                                .addComponent(hipotecar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(venderCasas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(189, 189, 189))
+                .addComponent(btnPagarCarta, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deuda)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblDeuda)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPlata)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(intercambios)
                     .addComponent(venderCasas)
                     .addComponent(hipotecar))
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Redirse)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel6)
-                .addGap(12, 12, 12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPagarCarta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -159,15 +206,55 @@ public class BrokeForm extends javax.swing.JFrame {
 
     private void hipotecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hipotecarActionPerformed
         // TODO add your handling code here:
+        refPantalla.pantallaPrincipal.btnHipotecar.doClick();
     }//GEN-LAST:event_hipotecarActionPerformed
 
     private void intercambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intercambiosActionPerformed
-       refPantalla.elegirPantalla.setVisible(true);
+       refPantalla.pantallaPrincipal.elegirPantalla.setVisible(true);
+       this.setVisible(false);
     }//GEN-LAST:event_intercambiosActionPerformed
-
+    public void actualizarDeudaCarta(int plata){
+       lblPlata.setText(plata+"");
+       plataActual = plata;
+       if (afuera && plataActual >= deudaActual){
+           btnPagarCarta.setEnabled(true);
+       }
+       else{
+           btnVolver.setEnabled(true);
+       }
+    }
+    public void deudaCarta(int deuda,int plata){
+        deudaActual = deuda;
+        plataActual = plata;
+        lblDeuda.setText(deuda+"");
+        lblPlata.setText(plata+"");
+    }
     private void RedirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RedirseActionPerformed
         // TODO add your handling code here:
+        refPantalla.pantallaPrincipal.rendido = true;
+        JOptionPane.showMessageDialog(this, "Se ha rendido, gracias por jugar");
+        refPantalla.pantallaPrincipal.btnTerminarTurno.doClick();
+        refPantalla.setVisible(false);        
     }//GEN-LAST:event_RedirseActionPerformed
+
+    private void btnPagarCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarCartaActionPerformed
+         try {
+             // TODO add your handling code here:
+             refPantalla.pantallaPrincipal.cambiarDinero(deudaActual, 1);
+             this.setVisible(false);
+         } catch (IOException ex) {
+             Logger.getLogger(BrokeForm.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_btnPagarCartaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         try {
+             // TODO add your handling code here:
+             refPantalla.pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(31);
+         } catch (IOException ex) {
+             Logger.getLogger(BrokeForm.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,14 +293,18 @@ public class BrokeForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Redirse;
-    private javax.swing.JLabel deuda;
+    public javax.swing.JButton btnPagarCarta;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JButton hipotecar;
     private javax.swing.JButton intercambios;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lblDeuda;
+    private javax.swing.JLabel lblPlata;
     private javax.swing.JButton venderCasas;
     // End of variables declaration//GEN-END:variables
 }

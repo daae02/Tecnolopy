@@ -80,7 +80,7 @@ public class CartaChance extends javax.swing.JFrame {
             // TODO add your handling code here:
             if (cartaB)
                 refPantalla.cartaChanceAux(carta);
-            else  refPantalla.cartaArcaAux(carta);
+            else  refPantalla.cartaArcaAux(arca);
                 
         } catch (IOException ex) {
             Logger.getLogger(CartaChance.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,20 +92,20 @@ public class CartaChance extends javax.swing.JFrame {
      */
     public void setChance(int carta,String url){
         if (cartaB){
-        this.carta = carta;
-        ImageIcon icon = new ImageIcon(getClass().getResource(url));
-        int width =450;
-        int height = 216;
-        icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-        lblCarta.setIcon(icon);
+            this.carta = carta;
+            ImageIcon icon = new ImageIcon(getClass().getResource(url));
+            int width =450;
+            int height = 216;
+            icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            lblCarta.setIcon(icon);
         }
         else{
-        this.arca = carta;
-        ImageIcon icon = new ImageIcon(getClass().getResource(url));
-        int width =450;
-        int height = 216;
-        icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-        lblCarta.setIcon(icon);
+            this.arca = carta;
+            ImageIcon icon = new ImageIcon(getClass().getResource(url));
+            int width =450;
+            int height = 216;
+            icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            lblCarta.setIcon(icon);
         }
     }
     public static void main(String args[]) {

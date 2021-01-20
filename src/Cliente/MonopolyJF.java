@@ -48,13 +48,13 @@ public class MonopolyJF extends javax.swing.JFrame {
     elegirIntercambio elegirPantalla;
     ventanaIntercambio intercambios;
     Hipotecas refHipotecas;
-    BrokeForm ventanaQuiebra;
     public Subasta pantallaSubastas;
     public boolean enCarcel = false;
     public boolean dadosIguales = false;
+    public boolean rendido = false;
+    public BrokeForm deudaCarta;
     
     public MonopolyJF() {
-        System.out.println("Prueba 0");
         initComponents();
         cartaJF = new CartaChance();
         cartaJF.refPantalla = this;
@@ -72,6 +72,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         intercambios.refPantalla = this;
         lblAL = new ArrayList();
         iconos = new ArrayList();
+        deudaCarta = new BrokeForm();
+        deudaCarta.afuera = true;
+        deudaCarta.refPantalla = pantalla;
         JLabel lblToken1 = new javax.swing.JLabel();
         JLabel lblToken2 = new javax.swing.JLabel();
         JLabel lblToken3 = new javax.swing.JLabel();
@@ -118,6 +121,11 @@ public class MonopolyJF extends javax.swing.JFrame {
             }
             //System.out.println(iconito.getIcon());
         }
+    }
+    public void hesBroke(int plata,int deuda){
+        deudaCarta.deudaCarta(deuda, plata);
+        deudaCarta.btnPagarCarta.setVisible(true);
+        deudaCarta.setVisible(true);
     }
     public void moverCartaX(int adonde) throws IOException{
               refCliente.hiloCliente.writer.writeInt(25);
@@ -180,6 +188,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         
     }
     public void cartaArcaAux(int carta) throws IOException{
+        System.out.println("Cayo el switch con el numero "+carta);
         cartaJF.setVisible(false);
         switch(carta){
             case 0:
@@ -215,6 +224,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         
     }
     public void cartaChance(int carta){
+        System.out.println("cual llegoooo carta "+carta);
         String url = "";
         switch(carta){
             case 0:
@@ -260,6 +270,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         
     }
     public void cartaArca(int arca){
+        System.out.println("cual llegoooo arca "+arca);
         String url = "";
         switch(arca){
             case 0:
@@ -852,7 +863,8 @@ public class MonopolyJF extends javax.swing.JFrame {
         }*/
        
     }
-    public void habilitarBtns(){
+    public void habilitarBtns() throws IOException{
+        if (!rendido){
         btnLanzarDados.setEnabled(true);
         btnTerminarTurno.setEnabled(true);
         if (!enCarcel){
@@ -860,6 +872,13 @@ public class MonopolyJF extends javax.swing.JFrame {
         btnHipotecar.setEnabled(true);
         btnConstruir.setEnabled(true);
         }
+        }
+        else {
+              refCliente.hiloCliente.writer.writeInt(5);
+              refCliente.hiloCliente.writer.writeUTF("Era mi turno pero me he rendido, paso al siguiente");
+              btnTerminarTurno.doClick();
+        }
+    
     }
     public void deshabilitarBtns(){
         btnLanzarDados.setEnabled(false);
@@ -881,7 +900,10 @@ public class MonopolyJF extends javax.swing.JFrame {
           }
    }
     }//GEN-LAST:event_chatSmsKeyPressed
-
+    public void updateHipoteca(ArrayList <String> elementos){
+        refHipotecas.updateComboBox(elementos);
+        refHipotecas.setVisible(true);
+    }
     private void btnHipotecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHipotecarActionPerformed
 
         try {
@@ -889,7 +911,6 @@ public class MonopolyJF extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
         }
-            refHipotecas.setVisible(true);
     }//GEN-LAST:event_btnHipotecarActionPerformed
 
     private void btnConstruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstruirActionPerformed
@@ -926,14 +947,11 @@ public class MonopolyJF extends javax.swing.JFrame {
                 casilla.repaint();
                 repaintToken(iconito,lblAbuscar+casillaMover);
             }
-            System.out.println(iconito.getIcon());
         }
     }
     public void repaintToken(JLabel lbl,int casillaActual){
-        System.out.println("Esta es su casilla actual"+casillaActual);
         if (casillaActual > 39){
             casillaActual = casillaActual-40;
-            System.out.println("Esta es su casilla actual 2.0"+casillaActual);
         }
         JPanel casilla = casillas.get(casillaActual);
         casilla.add(lbl);
@@ -948,7 +966,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         int height = 343;
         icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         pantalla.lblProperty.setIcon(icon);
+        pantalla.panelNoDisponible.setVisible(false);
         pantalla.panelDisponible.setVisible(true);
+                
     }
     public void mostrarPropNoDisponible(String url,String dueño){
         pantalla.setVisible(true);
@@ -958,6 +978,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         pantalla.lblProperty.setIcon(icon);
         pantalla.lblDueño.setText(dueño);
+        pantalla.panelDisponible.setVisible(false);
         pantalla.panelNoDisponible.setVisible(true);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1070,11 +1091,11 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel bicitec2;
     private javax.swing.JButton btnCarcelGratis;
     private javax.swing.JButton btnConstruir;
-    private javax.swing.JButton btnHipotecar;
+    public javax.swing.JButton btnHipotecar;
     private javax.swing.JButton btnIntercambiar;
     private javax.swing.JButton btnLanzarDados;
     private javax.swing.JButton btnSalirCarcel;
-    private javax.swing.JButton btnTerminarTurno;
+    public javax.swing.JButton btnTerminarTurno;
     private javax.swing.JPanel carcel;
     private javax.swing.JComboBox<String> cbbNombres;
     private javax.swing.JPanel chance0;

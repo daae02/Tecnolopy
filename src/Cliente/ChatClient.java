@@ -392,8 +392,6 @@ public class ChatClient extends javax.swing.JFrame {
         String nombre = txtNombre.getText();
         refCliente.nickname = nombre;
         nickname = nombre;
-        System.out.println(nickname);
-        System.out.println(pieza);
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnGuitarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuitarraActionPerformed

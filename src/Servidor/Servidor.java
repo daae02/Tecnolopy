@@ -135,7 +135,7 @@ public class Servidor{
         conexiones.get(posicionThread).writer.writeInt(carta);
     }
     public void arcaComunal(int arca,int posicionThread) throws IOException{
-        conexiones.get(posicionThread).writer.writeInt(26);
+        conexiones.get(posicionThread).writer.writeInt(28);
         conexiones.get(posicionThread).writer.writeInt(arca);   
     }
     public int[] lanzarDados(){

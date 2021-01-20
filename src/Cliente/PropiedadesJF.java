@@ -21,15 +21,17 @@ public class PropiedadesJF extends javax.swing.JFrame {
     String imagen;
     int plataPagar = 0;
     int plataActual = 0;
+    BrokeForm ventanaQuiebra;
     /**
      * Creates new form PropiedadesJF
      */
     public PropiedadesJF() {
         
         initComponents();
+        ventanaQuiebra = new BrokeForm();
+        ventanaQuiebra.refPantalla = this;
         panelDisponible.setVisible(false);
         panelNoDisponible.setVisible(false);
-        panelDeuda.setVisible(false);
     }
 
     /**
@@ -56,9 +58,6 @@ public class PropiedadesJF extends javax.swing.JFrame {
         lblPagar = new javax.swing.JLabel();
         lblMoney = new javax.swing.JLabel();
         btnPagar = new javax.swing.JButton();
-        panelDeuda = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,40 +193,6 @@ public class PropiedadesJF extends javax.swing.JFrame {
                     .addContainerGap(323, Short.MAX_VALUE)))
         );
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Le falta plata:");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelDeudaLayout = new javax.swing.GroupLayout(panelDeuda);
-        panelDeuda.setLayout(panelDeudaLayout);
-        panelDeudaLayout.setHorizontalGroup(
-            panelDeudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDeudaLayout.createSequentialGroup()
-                .addGroup(panelDeudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDeudaLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
-                    .addGroup(panelDeudaLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jButton1)))
-                .addContainerGap(280, Short.MAX_VALUE))
-        );
-        panelDeudaLayout.setVerticalGroup(
-            panelDeudaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDeudaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -238,9 +203,7 @@ public class PropiedadesJF extends javax.swing.JFrame {
                     .addComponent(panelDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProperty, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelNoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelNoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(414, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -259,9 +222,7 @@ public class PropiedadesJF extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(panelNoDisponible, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(panelDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(158, 158, 158))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(21, 21, 21)
@@ -282,15 +243,11 @@ public class PropiedadesJF extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnComprarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnSubastarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubastarActionPerformed
         System.out.println("Hi :(");
         try {
             pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(11);   
-            System.out.println(imagen);// TODO add your handling code here:
+            //System.out.println(imagen);// TODO add your handling code here:
             pantallaPrincipal.refCliente.hiloCliente.writer.writeUTF(imagen);
             this.setVisible(false);
         } catch (IOException ex) {
@@ -307,7 +264,9 @@ public class PropiedadesJF extends javax.swing.JFrame {
         lblMoney.setText("Saldo actual: "+ plataActual);
         if(plataActual >= plataPagar)
             btnPagar.setEnabled(true);
-        else panelDeuda.setVisible(true);
+        else {
+            ventanaQuiebra.setVisible(true);
+        }
     }
     private void btnLanzarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarDadosActionPerformed
         // TODO add your handling code here:
@@ -324,6 +283,7 @@ public class PropiedadesJF extends javax.swing.JFrame {
             pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(24);
             pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(plataPagar);
             JOptionPane.showMessageDialog(this, "Ha pagado, su saldo actual es de: "+(plataActual-plataPagar));
+            this.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -373,9 +333,7 @@ public class PropiedadesJF extends javax.swing.JFrame {
     private javax.swing.JButton btnLanzarDados;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSubastar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblDado1;
     private javax.swing.JLabel lblDado2;
@@ -384,7 +342,6 @@ public class PropiedadesJF extends javax.swing.JFrame {
     public javax.swing.JLabel lblMoney;
     public javax.swing.JLabel lblPagar;
     public javax.swing.JLabel lblProperty;
-    public javax.swing.JPanel panelDeuda;
     public javax.swing.JPanel panelDisponible;
     public javax.swing.JPanel panelNoDisponible;
     // End of variables declaration//GEN-END:variables

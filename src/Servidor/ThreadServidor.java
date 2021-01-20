@@ -359,17 +359,42 @@ class ThreadServidor extends Thread{
                          int sumar = reader.readInt();
                          if (sumar == 0)
                             server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money+=cantidad;
-                         else server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money-=cantidad;
+                         else {
+                             if (server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money >= cantidad)
+                                server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money-=cantidad;
+                             else{
+                                 writer.writeInt(31);
+                                 writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
+                                 writer.writeInt(cantidad);
+                             }
+                         }
                          break;
                      case 28:
                          int seleccionada = reader.readInt();
                          int jugador = server.conexiones.indexOf(this);
+                         boolean hipotecada = server.juego.estaHipotecada(seleccionada,jugador);
+                         boolean puedeDeshipotecar = true;
+                         if (hipotecada){
+                             puedeDeshipotecar = server.juego.puedeDeshipotecar(seleccionada,jugador);
+                         }
+                         writer.writeInt(30);
                          writer.writeBoolean(server.juego.estaHipotecada(seleccionada,jugador));
+                         writer.writeBoolean(puedeDeshipotecar);
                          break;
                      case 29:
                          writer.writeInt(29);
                          objWriter.writeObject(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).getPropertiesNames());
                          break;
+                     case 30:
+                         int seleccionada1 = reader.readInt();
+                         int jugador1 = server.conexiones.indexOf(this);
+                         server.juego.hipotecar(seleccionada1,jugador1);
+                         break;
+                     case 31:
+                         writer.writeInt(32);
+                         writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
+                         break;
+                         
                 }       
             } catch (IOException ex) {
                 System.out.println(":(");

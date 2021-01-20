@@ -81,7 +81,6 @@ public class ThreadCliente extends Thread {
                         secPantalla.botones = urlBotones;
                         secPantalla.nombres = nombres;
                         secPantalla.setTitulo();
-                        System.out.println("llega");
                         break;
                     case 5:
                         refPantalla.setVisible(false);
@@ -92,7 +91,7 @@ public class ThreadCliente extends Thread {
                     case 6:
                         String usuarioTmp = reader.readUTF();
                         String mensaje = reader.readUTF();
-                        System.out.println(usuarioTmp+">   " + mensaje);
+                        //System.out.println(usuarioTmp+">   " + mensaje);
                         //System.out.println("CLIENTE Recibido mensaje: " + mensaje);
                         secPantalla.addMessage(usuarioTmp+">   " + mensaje);
                         
@@ -238,9 +237,22 @@ public class ThreadCliente extends Thread {
                         break;   
                     case 29:
                           ArrayList <String> elementos = (ArrayList <String>) objReader.readObject();
-                          secPantalla.refHipotecas.updateComboBox(elementos);
+                          secPantalla.updateHipoteca(elementos);
                           break;
-                            
+                    case 30:
+                        boolean res = reader.readBoolean();
+                        boolean puedeDeshipotecar = reader.readBoolean();
+                        secPantalla.refHipotecas.respuestaJuego(res,puedeDeshipotecar);
+                        break;
+                    case 31:
+                        int plata = reader.readInt();
+                        int deuda = reader.readInt();
+                        secPantalla.hesBroke(plata,deuda);
+                        break;
+                    case 32:
+                        int data = reader.readInt();
+                        secPantalla.deudaCarta.actualizarDeudaCarta(data);
+                        break;
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {
