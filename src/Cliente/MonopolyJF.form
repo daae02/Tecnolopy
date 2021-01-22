@@ -1365,7 +1365,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1040" y="0" width="210" height="530"/>
+          <AbsoluteConstraints x="1040" y="0" width="220" height="530"/>
         </Constraint>
       </Constraints>
 
@@ -1424,13 +1424,14 @@
         <Component class="javax.swing.JButton" name="btnMoverToken">
           <Properties>
             <Property name="text" type="java.lang.String" value="OK"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoverTokenActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="140" width="50" height="20"/>
+              <AbsoluteConstraints x="160" y="140" width="60" height="20"/>
             </Constraint>
           </Constraints>
         </Component>

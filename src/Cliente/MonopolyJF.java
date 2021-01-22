@@ -1054,15 +1054,16 @@ public class MonopolyJF extends javax.swing.JFrame {
         jPanel4.add(btnLanzarDados, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 110, 40));
 
         btnMoverToken.setText("OK");
+        btnMoverToken.setEnabled(false);
         btnMoverToken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoverTokenActionPerformed(evt);
             }
         });
-        jPanel4.add(btnMoverToken, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 50, 20));
+        jPanel4.add(btnMoverToken, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 60, 20));
         jPanel4.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 210, 530));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 220, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1143,7 +1144,6 @@ public class MonopolyJF extends javax.swing.JFrame {
         dadosIguales = igual;
         if (!igual){
             btnLanzarDados.setEnabled(false);
-            btnMoverToken.setEnabled(false);
         }
         if (enCarcel){
             btnLanzarDados.setEnabled(false);
@@ -1332,6 +1332,7 @@ public class MonopolyJF extends javax.swing.JFrame {
           } catch (IOException ex) {
               Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
           }
+          btnMoverToken.setEnabled(false);
     }//GEN-LAST:event_btnMoverTokenActionPerformed
 
     private void btnIntercambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiarActionPerformed
