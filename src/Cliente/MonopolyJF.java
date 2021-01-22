@@ -161,7 +161,6 @@ public class MonopolyJF extends javax.swing.JFrame {
             panelTmp.revalidate();
             panelTmp.repaint(); 
         }
-        compraVendeCasas.actualizarCompra();
     }
     public void vendioCasa(int buscar,int eraHotel){
         JPanel panelTmp = casillasCasas.get(buscar);

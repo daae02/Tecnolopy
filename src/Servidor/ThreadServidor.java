@@ -442,10 +442,11 @@ class ThreadServidor extends Thread{
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha vendido una casa");
+                                    current2.writer.writeInt(36);
+                                    current2.writer.writeInt(datosVender[0]);
+                                    current2.writer.writeInt(datosVender[1]);
                                 }
-                        writer.writeInt(36);
-                        writer.writeInt(datosVender[0]);
-                        writer.writeInt(datosVender[1]);
+ 
                          break;
                      case 35:
                          int indicePropiedad = server.juego.comprarCasas(reader.readInt(), server.conexiones.indexOf(this));
@@ -454,8 +455,8 @@ class ThreadServidor extends Thread{
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha comprado una casa"); 
-                                    writer.writeInt(35);
-                                    writer.writeInt(indicePropiedad);
+                                    current2.writer.writeInt(35);
+                                    current2.writer.writeInt(indicePropiedad);
                          }
                         break;
                      case 36:
