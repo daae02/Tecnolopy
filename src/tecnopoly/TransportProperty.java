@@ -25,4 +25,9 @@ public class TransportProperty extends Property{
         }
         return res;
     }
+
+    @Override
+    public int getHouseValue() {
+       return 0;
+    }
 }

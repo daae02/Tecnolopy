@@ -253,6 +253,30 @@ public class ThreadCliente extends Thread {
                         int data = reader.readInt();
                         secPantalla.deudaCarta.actualizarDeudaCarta(data);
                         break;
+                    case 33:
+                        System.out.println("Llega acá");
+                        int casas = reader.readInt();
+                        int hoteles = reader.readInt();
+                        ArrayList <String> props = (ArrayList <String>) objReader.readObject();
+                        System.out.println("A ver");
+                        secPantalla.compraVendeCasas.updateData(casas, hoteles);
+                        secPantalla.compraVendeCasas.updateCombo(props);
+                        secPantalla.compraVendeCasas.setVisible(true);
+                        break;
+                    case 34:
+                        System.out.println("Entra al case");
+                        int ordenes = reader.readInt();
+                        int nCasas = reader.readInt();
+                        int precio = reader.readInt();
+                        
+                        if (ordenes == 0){
+                            secPantalla.compraVendeCasas.opcionInvalida();
+                        }
+                        else{
+                            int dineroActual = reader.readInt();
+                            boolean resB = reader.readBoolean();
+                            secPantalla.compraVendeCasas.opcionValida(nCasas, precio, dineroActual,resB);
+                        }
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {

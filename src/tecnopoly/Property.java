@@ -16,7 +16,9 @@ abstract class  Property {
     String familia;
     Player dueno;
     ArrayList <Property> hermanas = new ArrayList <Property>();
-
+    int getHouseValue;
+    public Property() {
+    }
     public Property(int costo, int index, int hipotecable, String img, String familia, String nombre) {
         this.costo = costo;
         this.index = index;
@@ -34,4 +36,8 @@ abstract class  Property {
         return true;
     }
     abstract public int calcularCobro(int dado1, int dado2);
+    abstract public int getHouseValue();
+
+
+    
 }

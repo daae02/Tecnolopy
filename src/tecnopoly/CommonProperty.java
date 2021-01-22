@@ -17,6 +17,9 @@ public class CommonProperty extends Property{
     int casa3;
     int casa4;
     int hotel;
+    public CommonProperty() {
+      
+    }
     public CommonProperty(int casa1, int casa2, int casa3, int casa4, int hotel, int costo,int cobro, int index, int hipotecable, String img, String familia,String nombre) {
         super(costo, index, hipotecable, img, familia,nombre);
         this.cobro = cobro;
@@ -25,6 +28,7 @@ public class CommonProperty extends Property{
         this.casa3 = casa3;
         this.casa4 = casa4;
         this.hotel = hotel;
+        casas = 0;
     }
     public int obtenerValor(){
        switch (casas){
@@ -43,6 +47,7 @@ public class CommonProperty extends Property{
        } 
     }
     @Override
+    
     public int calcularCobro(int dado1, int dado2) {
         if (hipotecada){
             return 0;
@@ -55,6 +60,21 @@ public class CommonProperty extends Property{
             }        
         else{
             return cobro;
+        }
+    }
+    @Override
+    public int getHouseValue(){
+        if (index < 10){
+            return 50;
+        }
+        else if (index < 20){
+            return 100;
+        }
+        else if (index < 30){
+            return 150;
+        }
+        else{
+            return 200;
         }
     }
 }

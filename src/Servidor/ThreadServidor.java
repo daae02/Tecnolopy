@@ -19,7 +19,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-
 /**
  *
  * @author diemo
@@ -394,8 +393,47 @@ class ThreadServidor extends Thread{
                          writer.writeInt(32);
                          writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
                          break;
-                         
-                }       
+                     case 32:
+                          System.out.println("lala");
+                          writer.writeInt(33);
+                          writer.writeInt(server.juego.houses);
+                          writer.writeInt(server.juego.hotel);
+                          objWriter.writeObject(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).getPropertiesNames());
+                          break;
+                     case 33:
+                        int propBuild = reader.readInt();
+                        int datosCasas[] = server.juego.datosCasas(propBuild, server.conexiones.indexOf(this));
+                        writer.writeInt(34);
+                        if(datosCasas == null){
+                            for (int i = 0; i <3; i++)
+                                writer.writeInt(0);
+                            break;
+                        }
+                        writer.writeInt(1);
+                        writer.writeInt(datosCasas[0]);
+                        writer.writeInt(datosCasas[1]);
+                        writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
+                        writer.writeBoolean(server.juego.canBuild(propBuild,server.conexiones.indexOf(this)));
+                        break;
+                     case 34:
+                         server.juego.venderCasas(reader.readInt(), server.conexiones.indexOf(this));
+                         for (int j = 0; j < server.conexiones.size(); j++) {
+                                    ThreadServidor current2 = server.conexiones.get(j);
+                                    current2.writer.writeInt(6);
+                                    current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
+                                    current2.writer.writeUTF("Ha vendido una casa");
+                                }
+                         break;
+                     case 35:
+                         server.juego.comprarCasas(reader.readInt(), server.conexiones.indexOf(this));
+                         for (int j = 0; j < server.conexiones.size(); j++) {
+                                    ThreadServidor current2 = server.conexiones.get(j);
+                                    current2.writer.writeInt(6);
+                                    current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
+                                    current2.writer.writeUTF("Ha comprado una casa"); 
+                         }
+                         break;
+                }
             } catch (IOException ex) {
                 System.out.println(":(");
             } catch (ClassNotFoundException ex) {

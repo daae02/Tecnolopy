@@ -16,11 +16,13 @@ public class Juego {
     public ArrayList<Property> propiedades = new ArrayList<Property>();
     //public ArrayList<Chance> cartasChance = new ArrayList<Property>(); 
     public int cantConexiones;
-    int houses;
-    int hotel;
+    public int houses;
+    public int hotel;
     public Servidor refServer;
     public Juego(){}
     public Juego(int cantConexiones){
+        houses = 32;
+        hotel = 12;
         this.cantConexiones = cantConexiones;
         startGame();
     }
@@ -48,7 +50,7 @@ public class Juego {
         }
     }
     void propietyCreator(){
-        String[] nombres = {"Cultura y Deporta","Esc. Ciencias Sociales","BiciPubliCartago",
+        String[] nombres = {"Cultura y Deporte","Esc. Ciencias Sociales","BiciPubliCartago",
                             "Ciencias del Lenguaje", "Escuela de Quimica", "Escuela de Matematicas",
                             "Escuela de Biologia", "Ingenieria Agricola", "Ingenieria Forestal",
                             "Autobuses Lumaca","Administración de Empresas","Ing en Seg. Laboral E Higiene Amb.",
@@ -107,6 +109,7 @@ public class Juego {
              }
          }*/
     }
+
     public void comprarPorSubasta(int indice, int indicePropiedad,int pago) throws IOException{
          for (int i = 0; i<propiedades.size(); i++){
              System.out.println("Sí entra");
@@ -119,6 +122,48 @@ public class Juego {
                 break;
             }
         }
+    }
+    public boolean canBuild(int propiedad,int indice){
+        CommonProperty c =  (CommonProperty) currentPlayers.get(indice).properties.get(propiedad);
+        System.out.println(c.wholeMonopoly() && !c.hipotecada);
+        return (c.wholeMonopoly() && !c.hipotecada);
+    }
+    public int[] datosCasas(int propiedad, int indice){
+        System.out.println("Props: "+propiedad+" Index: "+indice);
+        if( currentPlayers.get(indice).properties.get(propiedad).getClass().equals(new CommonProperty().getClass())){
+            CommonProperty  c =  (CommonProperty) currentPlayers.get(indice).properties.get(propiedad);
+            int [] datos = new int[2];
+            datos[1] = c.getHouseValue();
+            datos[0] = c.casas;
+            System.out.println("datos 0 y 1: "+datos[0]+" "+datos[1]);
+            return datos;
+        }
+        return null;
+    }
+    public void comprarCasas(int propiedad, int indice){
+         System.out.println("Entra a compra");
+         CommonProperty c =  (CommonProperty) currentPlayers.get(indice).properties.get(propiedad);
+         c.casas++;
+         currentPlayers.get(indice).money -= c.getHouseValue();
+         if (c.casas == 5){
+             houses += 4;
+             hotel--;
+         }
+         else{
+             houses--;
+         }
+    }
+        public void venderCasas(int propiedad, int indice){
+         CommonProperty c =  (CommonProperty) currentPlayers.get(indice).properties.get(propiedad);
+         c.casas--;
+         currentPlayers.get(indice).money += c.getHouseValue();
+         if (c.casas == 4){
+             houses -=4 ;
+             hotel++;
+         }
+         else{
+             houses++;
+         }
     }
     public void comprarPropiedad(int indice) throws IOException{
         for (int i = 0; i<propiedades.size(); i++){

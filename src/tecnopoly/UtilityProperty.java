@@ -23,4 +23,9 @@ public class UtilityProperty extends Property{
         }
         return suma*4;
     }
+
+    @Override
+    public int getHouseValue() {
+        return 0;
+    }
 }

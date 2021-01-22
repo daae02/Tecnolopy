@@ -47,6 +47,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     PropiedadesJF pantalla;
     elegirIntercambio elegirPantalla;
     ventanaIntercambio intercambios;
+    comprarCasas compraVendeCasas;
     Hipotecas refHipotecas;
     public Subasta pantallaSubastas;
     public boolean enCarcel = false;
@@ -70,6 +71,8 @@ public class MonopolyJF extends javax.swing.JFrame {
         elegirPantalla.refPantalla = this;
         intercambios = new ventanaIntercambio();
         intercambios.refPantalla = this;
+        compraVendeCasas = new comprarCasas();
+        compraVendeCasas.refPantalla = this;
         lblAL = new ArrayList();
         iconos = new ArrayList();
         deudaCarta = new BrokeForm();
@@ -914,7 +917,14 @@ public class MonopolyJF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHipotecarActionPerformed
 
     private void btnConstruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstruirActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            System.out.println("Do");
+            refCliente.hiloCliente.writer.writeInt(32);
+            System.out.println("Do do");
+        } catch (IOException ex) {
+            Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnConstruirActionPerformed
 
     private void btnTerminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarTurnoActionPerformed
