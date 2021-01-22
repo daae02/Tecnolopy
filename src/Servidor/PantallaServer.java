@@ -22,6 +22,7 @@ public class PantallaServer extends javax.swing.JFrame{
     private Servidor srv;
     public PantallaServer() {
         initComponents();
+        btnGanador.setVisible(false);
     }
     
     
@@ -49,7 +50,7 @@ public class PantallaServer extends javax.swing.JFrame{
         jScrollPane1 = new javax.swing.JScrollPane();
         txaMensajes = new javax.swing.JTextArea();
         btnIniciar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnGanador = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,10 +66,10 @@ public class PantallaServer extends javax.swing.JFrame{
             }
         });
 
-        jButton1.setText("Ganador");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGanador.setText("Ganador");
+        btnGanador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGanadorActionPerformed(evt);
             }
         });
 
@@ -83,18 +84,20 @@ public class PantallaServer extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addGap(81, 81, 81)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(48, 48, 48))
+                .addGap(57, 57, 57)
+                .addComponent(btnGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGanador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(4, 4, 4)))
                 .addGap(23, 23, 23))
         );
 
@@ -105,19 +108,14 @@ public class PantallaServer extends javax.swing.JFrame{
         // TODO add your handling code here:
         srv.juego = new Juego(srv.conexiones.size());
         srv.juego.refServer = srv;
-        addMessage("" + srv.conexiones.size());
         srv.ordenarAL();
         //srv.ordenarAL();
         for (int i = 0; i < srv.conexiones.size(); i++) {
         srv.nombres.add(srv.conexiones.get(i).nickname);
         srv.urlBotones.add(srv.conexiones.get(i).pieza);
-        addMessage(srv.conexiones.get(i).toString()); 
-        addMessage("NOmbre: "+ srv.conexiones.get(i).nickname);
-        addMessage("turno: "+srv.conexiones.get(i).turno+"");
-        addMessage("pieza: "+srv.conexiones.get(i).pieza+"");}
+        }
         try{
             for (int i = 0; i < srv.conexiones.size(); i++) {
-            System.out.println("entra"+ i);
             ThreadServidor current = srv.conexiones.get(i);
             current.writer.writeInt(4);
             current.objWriter.writeObject(srv.urlBotones); 
@@ -135,6 +133,7 @@ public class PantallaServer extends javax.swing.JFrame{
         } catch (IOException ex) {
             Logger.getLogger(PantallaServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        btnGanador.setVisible(true);
         
         
         
@@ -142,14 +141,14 @@ public class PantallaServer extends javax.swing.JFrame{
         
     }//GEN-LAST:event_btnIniciarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGanadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGanadorActionPerformed
         try {
             // TODO add your handling code here:
             srv.escogerGanador();
         } catch (IOException ex) {
             Logger.getLogger(PantallaServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGanadorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,8 +186,8 @@ public class PantallaServer extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGanador;
     public javax.swing.JButton btnIniciar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txaMensajes;
     // End of variables declaration//GEN-END:variables

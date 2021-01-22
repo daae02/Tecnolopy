@@ -226,7 +226,7 @@ public class ChatClient extends javax.swing.JFrame {
 
         jLabel1.setText("Nickname:");
 
-        btnFinal.setText("OkiKoki");
+        btnFinal.setText("Ingresar");
         btnFinal.setEnabled(false);
         btnFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

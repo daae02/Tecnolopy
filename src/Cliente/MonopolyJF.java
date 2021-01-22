@@ -584,7 +584,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         lblDado2 = new javax.swing.JLabel();
         lblDado1 = new javax.swing.JLabel();
         btnLanzarDados = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnMoverToken = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -640,6 +640,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         btnIntercambiar.setBackground(new java.awt.Color(121, 150, 130));
         btnIntercambiar.setForeground(new java.awt.Color(255, 255, 255));
         btnIntercambiar.setText("INTERCAMBIAR");
+        btnIntercambiar.setEnabled(false);
         btnIntercambiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIntercambiarActionPerformed(evt);
@@ -1052,14 +1053,14 @@ public class MonopolyJF extends javax.swing.JFrame {
         });
         jPanel4.add(btnLanzarDados, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 110, 40));
 
-        jButton1.setText("MOVER TOKEN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMoverToken.setText("OK");
+        btnMoverToken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMoverTokenActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, 20));
-        jPanel4.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
+        jPanel4.add(btnMoverToken, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 50, 20));
+        jPanel4.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 210, 530));
 
@@ -1073,7 +1074,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         enCarcel = true;
         deshabilitarBtns();
         btnSalirCarcel.setVisible(true);
-        btnSalirCarcel.setEnabled(true);
+        btnSalirCarcel.setEnabled(false);
         btnTerminarTurno.setEnabled(true);
         if (tieneSalirGratis){
             btnCarcelGratis.setVisible(true);
@@ -1122,6 +1123,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     private void btnSalirCarcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirCarcelActionPerformed
         try {
             System.out.println("BOTON CARCEL");
+            btnLanzarDados.setEnabled(false);
             refCliente.hiloCliente.writer.writeInt(16);
             refCliente.hiloCliente.writer.writeInt(0);
         } catch (IOException ex) {
@@ -1141,6 +1143,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         dadosIguales = igual;
         if (!igual){
             btnLanzarDados.setEnabled(false);
+            btnMoverToken.setEnabled(false);
         }
         if (enCarcel){
             btnLanzarDados.setEnabled(false);
@@ -1151,6 +1154,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void habilitarBtns() throws IOException{
         if (!rendido){
             btnLanzarDados.setEnabled(true);
+            btnMoverToken.setEnabled(true);
             btnTerminarTurno.setEnabled(true);
         if (!enCarcel){
         btnIntercambiar.setEnabled(true);
@@ -1179,6 +1183,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         btnHipotecar.setEnabled(false);
         btnConstruir.setEnabled(false);
         btnTerminarTurno.setEnabled(false);
+        btnMoverToken.setEnabled(false);
     }
     private void chatSmsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chatSmsKeyPressed
         // TODO add your handling code here:
@@ -1296,7 +1301,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         }
         }
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnMoverTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoverTokenActionPerformed
         // TODO add your handling code here:
         //findToken(labelActual,myIcon);
         //findToken(labelActual,myIcon,turnoActual);
@@ -1327,7 +1332,7 @@ public class MonopolyJF extends javax.swing.JFrame {
           } catch (IOException ex) {
               Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
           }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnMoverTokenActionPerformed
 
     private void btnIntercambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntercambiarActionPerformed
         elegirPantalla.actualizarCBB();
@@ -1340,6 +1345,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         try {
             System.out.println("BOTON CARCEL");
             tieneSalirGratis = false;
+            btnLanzarDados.setEnabled(false);
             refCliente.hiloCliente.writer.writeInt(16);
             refCliente.hiloCliente.writer.writeInt(1);
         } catch (IOException ex) {
@@ -1416,6 +1422,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     public javax.swing.JButton btnHipotecar;
     private javax.swing.JButton btnIntercambiar;
     private javax.swing.JButton btnLanzarDados;
+    private javax.swing.JButton btnMoverToken;
     private javax.swing.JButton btnSalirCarcel;
     public javax.swing.JButton btnTerminarTurno;
     private javax.swing.JPanel carcel;
@@ -1471,7 +1478,6 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel ingMecatronica;
     private javax.swing.JPanel ingSegLaboral;
     private javax.swing.JPanel inicio;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -385,7 +385,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnFinal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OkiKoki"/>
+        <Property name="text" type="java.lang.String" value="Ingresar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>

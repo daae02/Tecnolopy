@@ -371,11 +371,16 @@ class ThreadServidor extends Thread{
                      case 27:
                          int cantidad = reader.readInt();
                          int sumar = reader.readInt();
-                         if (sumar == 0)
+                         if (sumar == 0){
                             server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money+=cantidad;
+                            server.writeInThreadOwner(server.conexiones.indexOf(this),"Ha ganado $"+cantidad);
+
+                         }
                          else {
-                             if (server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money >= cantidad)
+                             if (server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money >= cantidad){
                                 server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money-=cantidad;
+                                server.writeInThreadOwner(server.conexiones.indexOf(this),"Ha perdido $"+cantidad);
+                             }
                              else{
                                  writer.writeInt(31);
                                  writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
@@ -437,10 +442,10 @@ class ThreadServidor extends Thread{
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha vendido una casa");
-                                    current2.writer.writeInt(36);
-                                    current2.writer.writeInt(datosVender[0]);
-                                    current2.writer.writeInt(datosVender[1]);
                                 }
+                        writer.writeInt(36);
+                        writer.writeInt(datosVender[0]);
+                        writer.writeInt(datosVender[1]);
                          break;
                      case 35:
                          int indicePropiedad = server.juego.comprarCasas(reader.readInt(), server.conexiones.indexOf(this));
@@ -449,9 +454,9 @@ class ThreadServidor extends Thread{
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha comprado una casa"); 
-                                    current2.writer.writeInt(35);
-                                    current2.writer.writeInt(indicePropiedad);
                          }
+                        writer.writeInt(35);
+                        writer.writeInt(indicePropiedad);
                          break;
                      case 36:
                          rendido = true;

@@ -172,6 +172,9 @@ public class Servidor{
         });
         
     }
+    public String getNickname(int nombreIndice){
+        return conexiones.get(nombreIndice).nickname;
+    }
     
     public void runServer(){
         int contadorDeConexiones = 0;
@@ -179,7 +182,6 @@ public class Servidor{
             srv = new ServerSocket(35577);
             while (running){
                if (!pause){
-                   refPantalla.addMessage("pasa 1");
                 if (contadorDeConexiones < 6){
                 refPantalla.addMessage("::Esperando conexión ...");
                 Socket nuevaConexion = srv.accept();
