@@ -454,10 +454,10 @@ class ThreadServidor extends Thread{
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha comprado una casa"); 
+                                    writer.writeInt(35);
+                                    writer.writeInt(indicePropiedad);
                          }
-                        writer.writeInt(35);
-                        writer.writeInt(indicePropiedad);
-                         break;
+                        break;
                      case 36:
                          rendido = true;
                          break;

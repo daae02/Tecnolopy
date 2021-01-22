@@ -131,7 +131,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void felicitarGanador(){
         JOptionPane.showMessageDialog(this, "Felicidades"+nickname+ "usted ha sido el ganador :)");
     }
-    public void comproCasa(int buscar){
+    public void comproCasa(int buscar) throws IOException{
         JPanel panelTmp = casillasCasas.get(buscar);
         Component [] tmpComponentes = panelTmp.getComponents();
         if (tmpComponentes.length == 4){
@@ -161,6 +161,7 @@ public class MonopolyJF extends javax.swing.JFrame {
             panelTmp.revalidate();
             panelTmp.repaint(); 
         }
+        compraVendeCasas.actualizarCompra();
     }
     public void vendioCasa(int buscar,int eraHotel){
         JPanel panelTmp = casillasCasas.get(buscar);
@@ -1138,8 +1139,8 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void pintarLanzamientoDados(String icon1,String icon2,int turnoLegal,String iguales) throws IOException{
         lblDado1.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon1))); // NOI18
         lblDado2.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon2)));
-        //turnoActual = turnoLegal;
-        turnoActual = (int) jSpinner1.getValue();
+        turnoActual = turnoLegal;
+        //turnoActual = (int) jSpinner1.getValue();
         boolean igual = parseBoolean(iguales);
         dadosIguales = igual;
         if (!igual){

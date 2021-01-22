@@ -290,7 +290,7 @@ public class ThreadCliente extends Thread {
                         }
                         break;
                     case 35:
-                        secPantalla.compraVendeCasas.actualizarCompra();
+                        //secPantalla.compraVendeCasas.actualizarCompra();
                         secPantalla.comproCasa(reader.readInt());
                         break;
                     case 36:
