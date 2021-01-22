@@ -322,6 +322,7 @@ public class Juego {
         else {
             Property propiedadTmp = getProperty(current.currentIndex);
             if (propiedadTmp != null){
+            refServer.writeInThreadOwner(posicionThread,"Ha caído en "+propiedadTmp.nombre);
             if(propiedadTmp.dueno == null)
                 refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
            else {
@@ -372,8 +373,9 @@ public class Juego {
         else{
             if (!current.enCarcel){
                 Property propiedadTmp = getProperty(current.currentIndex);
-                refServer.writeInThreadOwner(posicionThread,"Ha caído en "+propiedadTmp.nombre);
-                if (propiedadTmp != null)
+                
+                if (propiedadTmp != null){
+                    refServer.writeInThreadOwner(posicionThread,"Ha caído en "+propiedadTmp.nombre);
                     if(propiedadTmp.dueno == null)
                         refServer.writeInThreadAP(posicionThread,propiedadTmp.img);
                    else {
@@ -392,6 +394,7 @@ public class Juego {
                         }
                     }
                 }
+            }
             else {
                 if (current.turnoCarcel < 3 && !iguales){
                     current.turnoCarcel++;
