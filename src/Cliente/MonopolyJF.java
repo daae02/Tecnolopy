@@ -36,6 +36,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     public ArrayList<String> botones;
     public ArrayList<String> nombres;
     public ArrayList<javax.swing.JPanel> casillas;
+    public ArrayList<javax.swing.JPanel> casillasCasas;
     public ArrayList<ImageIcon> iconos;
     public ImageIcon myIcon; 
     ArrayList<JLabel> lblAL;
@@ -54,6 +55,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     public boolean dadosIguales = false;
     public boolean rendido = false;
     public BrokeForm deudaCarta;
+    public boolean tieneSalirGratis = false;
     
     public MonopolyJF() {
         initComponents();
@@ -91,6 +93,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         lblAL.add(lblToken5);
         lblAL.add(lblToken6);
         agregarCasillas();
+        agregarCasillasCasas();
         
 
     }
@@ -125,6 +128,65 @@ public class MonopolyJF extends javax.swing.JFrame {
             //System.out.println(iconito.getIcon());
         }
     }
+    public void felicitarGanador(){
+        JOptionPane.showMessageDialog(this, "Felicidades"+nickname+ "usted ha sido el ganador :)");
+    }
+    public void comproCasa(int buscar){
+        JPanel panelTmp = casillasCasas.get(buscar);
+        Component [] tmpComponentes = panelTmp.getComponents();
+        if (tmpComponentes.length == 4){
+            panelTmp.removeAll();
+            JLabel lblHotel = new javax.swing.JLabel();
+            lblHotel.setSize(15,15);
+            lblHotel.setOpaque(false);
+            ImageIcon icon = new ImageIcon(getClass().getResource("/Resources/Casas/hotel.png"));
+            int width =15;
+            int height = 15;
+            icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            lblHotel.setIcon(icon);
+            panelTmp.add(lblHotel);
+            panelTmp.revalidate();
+            panelTmp.repaint();     
+        }
+        else{
+            JLabel lblHotel = new javax.swing.JLabel();
+            lblHotel.setSize(20,20);
+            lblHotel.setOpaque(false);
+            ImageIcon icon = new ImageIcon(getClass().getResource("/Resources/Casas/casa.png"));
+            int width =15;
+            int height = 15;
+            icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+            lblHotel.setIcon(icon);
+            panelTmp.add(lblHotel);
+            panelTmp.revalidate();
+            panelTmp.repaint(); 
+        }
+    }
+    public void vendioCasa(int buscar,int eraHotel){
+        JPanel panelTmp = casillasCasas.get(buscar);
+        Component [] tmpComponentes = panelTmp.getComponents();
+        if (eraHotel == 0){
+            panelTmp.removeAll();
+            for (int i = 0; i < 4; i++) {
+                JLabel lblHotel = new javax.swing.JLabel();
+                lblHotel.setSize(15,15);
+                lblHotel.setOpaque(false);
+                ImageIcon icon = new ImageIcon(getClass().getResource("/Resources/Casas/casa.png"));
+                int width =15;
+                int height = 15;
+                icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                lblHotel.setIcon(icon);
+                panelTmp.add(lblHotel);
+                panelTmp.revalidate();
+                panelTmp.repaint();  
+            }
+        }
+        else{
+            panelTmp.remove(panelTmp.getComponentCount()-1);
+            panelTmp.revalidate();
+            panelTmp.repaint(); 
+        }
+    }
     public void hesBroke(int plata,int deuda){
         deudaCarta.deudaCarta(deuda, plata);
         deudaCarta.btnPagarCarta.setVisible(true);
@@ -135,7 +197,13 @@ public class MonopolyJF extends javax.swing.JFrame {
               refCliente.hiloCliente.writer.writeInt(labelActual);
               refCliente.hiloCliente.writer.writeInt(adonde);
               refCliente.hiloCliente.objWriter.writeObject(myIcon);
-              labelActual = adonde;      
+              labelActual = adonde;   
+              if (labelActual == 4 ){
+                  cambiarDinero(200,1);
+                    }
+              else if (labelActual == 38 ){
+                  cambiarDinero(75,1);
+              } 
               refCliente.hiloCliente.writer.writeInt(26);
               refCliente.hiloCliente.writer.writeInt(adonde);
     }
@@ -218,6 +286,7 @@ public class MonopolyJF extends javax.swing.JFrame {
                 break; 
             case 7:
                 btnCarcelGratis.setVisible(true);
+                tieneSalirGratis = true;
                 break;
             default:
                 cambiarDinero(100,0);
@@ -373,6 +442,51 @@ public class MonopolyJF extends javax.swing.JFrame {
         
         
     }
+    public void agregarCasillasCasas(){
+        casillasCasas = new ArrayList();
+        casillasCasas.add(inicio);
+        casillasCasas.add(casas1);
+        casillasCasas.add(communityChest0);
+        casillasCasas.add(casas2);
+        casillasCasas.add(pagoCreditos);
+        casillasCasas.add(biciTec);
+        casillasCasas.add(casas3);
+        casillasCasas.add(chance0);
+        casillasCasas.add(casas4);
+        casillasCasas.add(casas5);
+        casillasCasas.add(carcel);
+        casillasCasas.add(casas6);
+        casillasCasas.add(fotocopiadora);
+        casillasCasas.add(casas7);
+        casillasCasas.add(casas8);
+        casillasCasas.add(lumaca);
+        casillasCasas.add(casas9);
+        casillasCasas.add(communityChest1);
+        casillasCasas.add(casas10);
+        casillasCasas.add(casas11);
+        casillasCasas.add(parqueo);
+        casillasCasas.add(casas12);
+        casillasCasas.add(chance1);
+        casillasCasas.add(casas13);
+        casillasCasas.add(casas14);
+        casillasCasas.add(bicitec2);
+        casillasCasas.add(casas15);
+        casillasCasas.add(casas16);
+        casillasCasas.add(laimi);
+        casillasCasas.add(casas17);
+        casillasCasas.add(vayaCarcel);
+        casillasCasas.add(casas18);
+        casillasCasas.add(casas19);
+        casillasCasas.add(communityChest2);
+        casillasCasas.add(casas20);
+        casillasCasas.add(trenes);
+        casillasCasas.add(chance2);
+        casillasCasas.add(casas21);
+        casillasCasas.add(pagoPoliza);
+        casillasCasas.add(casas22);
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -403,6 +517,28 @@ public class MonopolyJF extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         chatSms = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
+        casas22 = new javax.swing.JPanel();
+        casas21 = new javax.swing.JPanel();
+        casas20 = new javax.swing.JPanel();
+        casas19 = new javax.swing.JPanel();
+        casas18 = new javax.swing.JPanel();
+        casas17 = new javax.swing.JPanel();
+        casas16 = new javax.swing.JPanel();
+        casas15 = new javax.swing.JPanel();
+        casas14 = new javax.swing.JPanel();
+        casas13 = new javax.swing.JPanel();
+        casas12 = new javax.swing.JPanel();
+        casas11 = new javax.swing.JPanel();
+        casas10 = new javax.swing.JPanel();
+        casas9 = new javax.swing.JPanel();
+        casas8 = new javax.swing.JPanel();
+        casas7 = new javax.swing.JPanel();
+        casas6 = new javax.swing.JPanel();
+        casas5 = new javax.swing.JPanel();
+        casas4 = new javax.swing.JPanel();
+        casas3 = new javax.swing.JPanel();
+        casas2 = new javax.swing.JPanel();
+        casas1 = new javax.swing.JPanel();
         inicio = new javax.swing.JPanel();
         culturaYdeporte = new javax.swing.JPanel();
         communityChest0 = new javax.swing.JPanel();
@@ -449,6 +585,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         lblDado1 = new javax.swing.JLabel();
         btnLanzarDados = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jSpinner1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -596,6 +733,138 @@ public class MonopolyJF extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(206, 255, 221));
         jPanel2.setToolTipText("");
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        casas22.setOpaque(false);
+        casas22.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout10 = new java.awt.GridLayout();
+        gridLayout10.setColumns(1);
+        gridLayout10.setRows(4);
+        casas22.setLayout(gridLayout10);
+        jPanel2.add(casas22, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 540, 20, 60));
+
+        casas21.setOpaque(false);
+        casas21.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout9 = new java.awt.GridLayout();
+        gridLayout9.setColumns(1);
+        gridLayout9.setRows(4);
+        casas21.setLayout(gridLayout9);
+        jPanel2.add(casas21, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, 20, 60));
+
+        casas20.setOpaque(false);
+        casas20.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout8 = new java.awt.GridLayout();
+        gridLayout8.setColumns(1);
+        gridLayout8.setRows(4);
+        casas20.setLayout(gridLayout8);
+        jPanel2.add(casas20, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 20, 60));
+
+        casas19.setOpaque(false);
+        casas19.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout7 = new java.awt.GridLayout();
+        gridLayout7.setColumns(1);
+        gridLayout7.setRows(4);
+        casas19.setLayout(gridLayout7);
+        jPanel2.add(casas19, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 20, 60));
+
+        casas18.setOpaque(false);
+        casas18.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout6 = new java.awt.GridLayout();
+        gridLayout6.setColumns(1);
+        gridLayout6.setRows(4);
+        casas18.setLayout(gridLayout6);
+        jPanel2.add(casas18, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 20, 60));
+
+        casas17.setOpaque(false);
+        casas17.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas17, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 60, 20));
+
+        casas16.setOpaque(false);
+        casas16.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas16, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 60, 20));
+
+        casas15.setOpaque(false);
+        casas15.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas15, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 60, 20));
+
+        casas14.setOpaque(false);
+        casas14.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 60, 20));
+
+        casas13.setOpaque(false);
+        casas13.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas13, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 60, 20));
+
+        casas12.setOpaque(false);
+        casas12.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 60, 20));
+
+        casas11.setOpaque(false);
+        casas11.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout5 = new java.awt.GridLayout();
+        gridLayout5.setColumns(1);
+        gridLayout5.setRows(4);
+        casas11.setLayout(gridLayout5);
+        jPanel2.add(casas11, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 90, 20, 60));
+
+        casas10.setOpaque(false);
+        casas10.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout4 = new java.awt.GridLayout();
+        gridLayout4.setColumns(1);
+        gridLayout4.setRows(4);
+        casas10.setLayout(gridLayout4);
+        jPanel2.add(casas10, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 150, 20, 60));
+
+        casas9.setOpaque(false);
+        casas9.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout3 = new java.awt.GridLayout();
+        gridLayout3.setColumns(1);
+        gridLayout3.setRows(4);
+        casas9.setLayout(gridLayout3);
+        jPanel2.add(casas9, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 260, 20, 60));
+
+        casas8.setOpaque(false);
+        casas8.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout2 = new java.awt.GridLayout();
+        gridLayout2.setColumns(1);
+        gridLayout2.setRows(4);
+        casas8.setLayout(gridLayout2);
+        jPanel2.add(casas8, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 370, 20, 60));
+
+        casas7.setOpaque(false);
+        casas7.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridLayout gridLayout1 = new java.awt.GridLayout();
+        gridLayout1.setColumns(1);
+        gridLayout1.setRows(4);
+        casas7.setLayout(gridLayout1);
+        jPanel2.add(casas7, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 430, 20, 60));
+
+        casas6.setOpaque(false);
+        java.awt.GridLayout gridLayout = new java.awt.GridLayout();
+        gridLayout.setColumns(1);
+        gridLayout.setRows(4);
+        casas6.setLayout(new java.awt.GridLayout(1, 0));
+        casas6.setLayout(gridLayout);
+        jPanel2.add(casas6, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 543, 20, 60));
+
+        casas5.setOpaque(false);
+        casas5.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, 60, 20));
+
+        casas4.setOpaque(false);
+        casas4.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 600, 60, 20));
+
+        casas3.setOpaque(false);
+        casas3.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 600, 60, 20));
+
+        casas2.setOpaque(false);
+        casas2.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 600, 60, 20));
+
+        casas1.setOpaque(false);
+        casas1.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel2.add(casas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 600, 60, 20));
 
         inicio.setOpaque(false);
         inicio.setLayout(new java.awt.GridLayout(1, 0));
@@ -790,6 +1059,7 @@ public class MonopolyJF extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 130, 20));
+        jPanel4.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 210, 530));
 
@@ -801,9 +1071,14 @@ public class MonopolyJF extends javax.swing.JFrame {
     }
     public void cayoCarcel() throws IOException{
         enCarcel = true;
+        deshabilitarBtns();
         btnSalirCarcel.setVisible(true);
-        if (btnCarcelGratis.isVisible())
+        btnSalirCarcel.setEnabled(true);
+        btnTerminarTurno.setEnabled(true);
+        if (tieneSalirGratis){
+            btnCarcelGratis.setVisible(true);
             btnCarcelGratis.setEnabled(true);
+        }
         refCliente.hiloCliente.writer.writeInt(8);
         refCliente.hiloCliente.writer.writeInt(labelActual);
         refCliente.hiloCliente.writer.writeInt(20);
@@ -811,13 +1086,12 @@ public class MonopolyJF extends javax.swing.JFrame {
         labelActual = 10;
         refCliente.hiloCliente.writer.writeInt(5);
         refCliente.hiloCliente.writer.writeUTF("El jugador cayó en la carcel");
+        
     }
     public void salioCarcel() throws IOException{
         enCarcel = false;
-        if (btnCarcelGratis.isVisible()){
-            btnCarcelGratis.setEnabled(false);
-            btnCarcelGratis.setVisible(false);
-        }
+        btnCarcelGratis.setEnabled(false);
+        btnCarcelGratis.setVisible(false);
         refCliente.hiloCliente.writer.writeInt(5);
         refCliente.hiloCliente.writer.writeUTF("El jugador salio de la carcel");
         btnSalirCarcel.setVisible(false);
@@ -825,8 +1099,8 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void noDinero(){
         JOptionPane.showMessageDialog(this, "No tiene sufienciente dinero");
     }
-    private void cbbNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNombresActionPerformed
-        try {
+    public void actualizarDinero(){
+       try {
             // TODO add your handling code here:
             int index = cbbNombres.getSelectedIndex();
             if(index>-1 && actualizado){
@@ -836,6 +1110,9 @@ public class MonopolyJF extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void cbbNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNombresActionPerformed
+        actualizarDinero();
     }//GEN-LAST:event_cbbNombresActionPerformed
 
     private void chatSmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSmsActionPerformed
@@ -858,22 +1135,34 @@ public class MonopolyJF extends javax.swing.JFrame {
     public void pintarLanzamientoDados(String icon1,String icon2,int turnoLegal,String iguales) throws IOException{
         lblDado1.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon1))); // NOI18
         lblDado2.setIcon(new javax.swing.ImageIcon(getClass().getResource(icon2)));
-        turnoActual = turnoLegal;
+        //turnoActual = turnoLegal;
+        turnoActual = (int) jSpinner1.getValue();
         boolean igual = parseBoolean(iguales);
         dadosIguales = igual;
-       /* if (!igual || enCarcel){
+        if (!igual){
             btnLanzarDados.setEnabled(false);
-        }*/
+        }
+        if (enCarcel){
+            btnLanzarDados.setEnabled(false);
+            btnSalirCarcel.setEnabled(false);
+        }
        
     }
     public void habilitarBtns() throws IOException{
         if (!rendido){
-        btnLanzarDados.setEnabled(true);
-        btnTerminarTurno.setEnabled(true);
+            btnLanzarDados.setEnabled(true);
+            btnTerminarTurno.setEnabled(true);
         if (!enCarcel){
+        btnIntercambiar.setEnabled(true);
         btnSalirCarcel.setEnabled(true);
         btnHipotecar.setEnabled(true);
         btnConstruir.setEnabled(true);
+        }
+        else{
+        btnIntercambiar.setEnabled(false);
+        btnSalirCarcel.setEnabled(true);
+        btnHipotecar.setEnabled(false);
+        btnConstruir.setEnabled(false); 
         }
         }
         else {
@@ -884,6 +1173,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     
     }
     public void deshabilitarBtns(){
+        btnIntercambiar.setEnabled(false);
         btnLanzarDados.setEnabled(false);
         btnSalirCarcel.setEnabled(false);
         btnHipotecar.setEnabled(false);
@@ -931,6 +1221,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
               refCliente.hiloCliente.writer.writeInt(7);
+              
           } catch (IOException ex) {
               Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
           }
@@ -980,8 +1271,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         pantalla.panelDisponible.setVisible(true);
                 
     }
-    public void mostrarPropNoDisponible(String url,String dueño){
-        pantalla.setVisible(true);
+    public void mostrarPropNoDisponible(String url,String dueño ,boolean esUtility){
         ImageIcon icon = new ImageIcon(getClass().getResource(url));
         int width =233;
         int height = 343;
@@ -990,6 +1280,21 @@ public class MonopolyJF extends javax.swing.JFrame {
         pantalla.lblDueño.setText(dueño);
         pantalla.panelDisponible.setVisible(false);
         pantalla.panelNoDisponible.setVisible(true);
+        System.out.println("Es utility  ?"+esUtility);
+        if (esUtility){
+            pantalla.setVisible(true);
+            pantalla.pnlUtility.setVisible(true);
+        }
+        else{
+            try {
+                pantalla.setVisible(true);
+                pantalla.pnlUtility.setVisible(false);
+                refCliente.hiloCliente.writer.writeInt(23);
+                refCliente.hiloCliente.writer.writeInt(1);
+            } catch (IOException ex) {
+                Logger.getLogger(MonopolyJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -1007,6 +1312,12 @@ public class MonopolyJF extends javax.swing.JFrame {
               labelActual += turnoActual;
               if (labelActual > 39)
                 labelActual -= 40;
+              if (labelActual == 4 ){
+                  cambiarDinero(200,1);
+                    }
+              else if (labelActual == 38 ){
+                  cambiarDinero(75,1);
+              } 
               refCliente.hiloCliente.writer.writeInt(9);
               refCliente.hiloCliente.writer.writeInt(turnoActual);
               //refCliente.hiloCliente.writer.writeInt(myIndex);
@@ -1028,6 +1339,7 @@ public class MonopolyJF extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             System.out.println("BOTON CARCEL");
+            tieneSalirGratis = false;
             refCliente.hiloCliente.writer.writeInt(16);
             refCliente.hiloCliente.writer.writeInt(1);
         } catch (IOException ex) {
@@ -1100,13 +1412,35 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel biciTec;
     private javax.swing.JPanel bicitec2;
     private javax.swing.JButton btnCarcelGratis;
-    private javax.swing.JButton btnConstruir;
+    public javax.swing.JButton btnConstruir;
     public javax.swing.JButton btnHipotecar;
     private javax.swing.JButton btnIntercambiar;
     private javax.swing.JButton btnLanzarDados;
     private javax.swing.JButton btnSalirCarcel;
     public javax.swing.JButton btnTerminarTurno;
     private javax.swing.JPanel carcel;
+    private javax.swing.JPanel casas1;
+    private javax.swing.JPanel casas10;
+    private javax.swing.JPanel casas11;
+    private javax.swing.JPanel casas12;
+    private javax.swing.JPanel casas13;
+    private javax.swing.JPanel casas14;
+    private javax.swing.JPanel casas15;
+    private javax.swing.JPanel casas16;
+    private javax.swing.JPanel casas17;
+    private javax.swing.JPanel casas18;
+    private javax.swing.JPanel casas19;
+    private javax.swing.JPanel casas2;
+    private javax.swing.JPanel casas20;
+    private javax.swing.JPanel casas21;
+    private javax.swing.JPanel casas22;
+    private javax.swing.JPanel casas3;
+    private javax.swing.JPanel casas4;
+    private javax.swing.JPanel casas5;
+    private javax.swing.JPanel casas6;
+    private javax.swing.JPanel casas7;
+    private javax.swing.JPanel casas8;
+    private javax.swing.JPanel casas9;
     private javax.swing.JComboBox<String> cbbNombres;
     private javax.swing.JPanel chance0;
     private javax.swing.JPanel chance1;
@@ -1150,6 +1484,7 @@ public class MonopolyJF extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextArea jTextArea19;
     private javax.swing.JPanel laimi;
     private javax.swing.JLabel lblDado1;

@@ -184,7 +184,18 @@ public class comprarCasas extends javax.swing.JFrame {
             Logger.getLogger(comprarCasas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_venderActionPerformed
-
+    public void actualizarCompra() throws IOException{
+        refPantalla.refCliente.hiloCliente.writer.writeInt(32);
+       int selected = cProps.getSelectedIndex();
+        try {
+            if (selected > -1){
+            refPantalla.refCliente.hiloCliente.writer.writeInt(33);
+            refPantalla.refCliente.hiloCliente.writer.writeInt(selected);
+            }
+                    } catch (IOException ex) {
+            Logger.getLogger(comprarCasas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
         try {
             refPantalla.refCliente.hiloCliente.writer.writeInt(35);
@@ -200,8 +211,14 @@ public class comprarCasas extends javax.swing.JFrame {
             if (d >= p && c < 5){
                 comprar.setEnabled(true);
             }
+            else{
+                comprar.setEnabled(false);
+            }
             if(c == 0){
                 vender.setEnabled(false);
+            }
+            else{
+                vender.setEnabled(true);
             }
         }
         else{

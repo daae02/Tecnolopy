@@ -128,7 +128,8 @@ public class ThreadCliente extends Thread {
                     case 13:
                         String url1 = reader.readUTF();
                         String dueño = reader.readUTF();
-                        secPantalla.mostrarPropNoDisponible(url1,dueño);
+                        boolean isUtility = reader.readBoolean();
+                        secPantalla.mostrarPropNoDisponible(url1,dueño,isUtility);
                         break;
                     case 14:
                         String url2 = reader.readUTF();
@@ -214,12 +215,22 @@ public class ThreadCliente extends Thread {
                         secPantalla.showDialogRejected(rechazador);
                         break;
                     case 25:
-                        String icon1ter = reader.readUTF();
-                        String icon2ter = reader.readUTF();
-                        int plataActual = reader.readInt();
-                        int plataPagar = reader.readInt();
-                        secPantalla.pantalla.pintarLanzamientoDados(icon1ter, icon2ter,plataActual,plataPagar);
-                        break;
+                        int opcion = reader.readInt();
+                        if (opcion == 0){
+                            String icon1ter = reader.readUTF();
+                            String icon2ter = reader.readUTF();
+                            int plataActual = reader.readInt();
+                            int plataPagar = reader.readInt();
+                            secPantalla.pantalla.pintarLanzamientoDados(icon1ter, icon2ter,plataActual,plataPagar);
+                            break;
+                        }
+                        else{
+                            System.out.println("Esta llegando al case 25 de cliente");
+                            int plataActual = reader.readInt();
+                            int plataPagar = reader.readInt();
+                            secPantalla.pantalla.pintarDatos(plataActual,plataPagar);
+                            break;
+                        }
                     case 26:
                         int cartaChance = reader.readInt();
                         secPantalla.cartaChance(cartaChance);
@@ -277,6 +288,23 @@ public class ThreadCliente extends Thread {
                             boolean resB = reader.readBoolean();
                             secPantalla.compraVendeCasas.opcionValida(nCasas, precio, dineroActual,resB);
                         }
+                        break;
+                    case 35:
+                        secPantalla.compraVendeCasas.actualizarCompra();
+                        secPantalla.comproCasa(reader.readInt());
+                        break;
+                    case 36:
+                        secPantalla.compraVendeCasas.actualizarCompra();
+                        int indiceVenta = reader.readInt();
+                        int eraHotel = reader.readInt();
+                        secPantalla.vendioCasa(indiceVenta,eraHotel);
+                        break;  
+                    case 37:
+                        secPantalla.felicitarGanador();
+                        break;
+                    case 38:
+                        secPantalla.pantalla.actualizarJFDinero(reader.readInt());
+                        break;
                 }
             } catch (IOException ex) {
             } catch (ClassNotFoundException ex) {

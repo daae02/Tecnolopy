@@ -34,5 +34,14 @@ public class Player {
         System.out.println("Sale ciclo");
         return resultado;
     } 
+    public int getValorTotal(){
+        int valor = 0; 
+        for (int i = 0; i < properties.size(); i++) {
+            Property tmp = properties.get(i);
+            valor += tmp.costo;
+        }
+        valor+= money;
+        return valor;
+    }
 
 }

@@ -140,7 +140,7 @@ public class Juego {
         }
         return null;
     }
-    public void comprarCasas(int propiedad, int indice){
+    public int comprarCasas(int propiedad, int indice){
          System.out.println("Entra a compra");
          CommonProperty c =  (CommonProperty) currentPlayers.get(indice).properties.get(propiedad);
          c.casas++;
@@ -152,18 +152,24 @@ public class Juego {
          else{
              houses--;
          }
+         return c.index;
     }
-        public void venderCasas(int propiedad, int indice){
+        public int [] venderCasas(int propiedad, int indice){
+         int [] datos = new int[2];
          CommonProperty c =  (CommonProperty) currentPlayers.get(indice).properties.get(propiedad);
+         datos[0] = c.index;
          c.casas--;
          currentPlayers.get(indice).money += c.getHouseValue();
          if (c.casas == 4){
              houses -=4 ;
              hotel++;
+             datos[1] = 0;               
          }
          else{
              houses++;
+             datos[1] = 1;  
          }
+         return datos;
     }
     public void comprarPropiedad(int indice) throws IOException{
         for (int i = 0; i<propiedades.size(); i++){
@@ -288,12 +294,17 @@ public class Juego {
     public int [] getDatosDinero(int posicionThread,int dado1,int dado2){
         int [] datos = new int[2];
         Property propiedadTmp = getProperty(currentPlayers.get(posicionThread).currentIndex);
+        System.out.println(propiedadTmp.nombre);
         datos [0] = currentPlayers.get(posicionThread).money;
         datos[1] = propiedadTmp.calcularCobro(dado1, dado2);
         return datos;
     }
     public void pagarPorPropiedad(int posicionThread,int plataPagar) throws IOException{
-        currentPlayers.get(posicionThread).money -= plataPagar;
+        Player tmp = currentPlayers.get(posicionThread);
+        tmp.money -= plataPagar;
+        //System.out.println("current index "+tmp.currentIndex);
+        Property propiedadTmp = getProperty(tmp.currentIndex);
+        propiedadTmp.dueno.money += plataPagar;
     }
     public void turnoJugadorAux(int posicionThread,int adonde) throws IOException{
         Player current = currentPlayers.get(posicionThread);
@@ -312,7 +323,17 @@ public class Juego {
            else {
                 if (propiedadTmp.dueno.indiceArreglo == posicionThread)
                     refServer.writeInThreadOwner(posicionThread,"El jugador ya es dueño de esta propiedad");
-                else refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo);
+                else {
+                    
+                    if (current.currentIndex == 12 || current.currentIndex == 28) {
+                        System.out.println("ummmmmmm si");
+                        refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo,true);
+                    }
+                    else {
+                        System.out.println("ummmmmmm no");
+                        refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo,false);
+                    }
+                        }
             }
         }
         }
@@ -352,12 +373,23 @@ public class Juego {
                    else {
                         if (propiedadTmp.dueno.indiceArreglo == posicionThread)
                             refServer.writeInThreadOwner(posicionThread,"El jugador ya es dueño de esta propiedad");
-                        else refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo);
+                        else {
+                            System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+                            if (current.currentIndex == 12 || current.currentIndex == 28) {
+                                System.out.println("ummmmmmm si");
+                                refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo,true);
+                            }
+                        else {
+                                System.out.println("ummmmmmm no");
+                                refServer.writeInThreadNAP(posicionThread,propiedadTmp.img,propiedadTmp.dueno.indiceArreglo,false);
+                            }
+                        }
                     }
                 }
             else {
                 if (current.turnoCarcel < 3 && !iguales){
                     current.turnoCarcel++;
+                    refServer.writeInThreadOwner(posicionThread,"El jugador no ha salido de la carcel");
                     
                 }
                 else {

@@ -50,6 +50,21 @@ public class Servidor{
     public void iniciarPartida() {
         this.partidaIniciada = true;
     }
+    public void escogerGanador() throws IOException{
+        int ganador = 0;
+        ThreadServidor idxGanador = conexiones.get(0);
+        for (int i = 0; i < conexiones.size(); i++) {
+            ThreadServidor tmp = conexiones.get(i);
+            if (!tmp.rendido){
+                int tmpValor = juego.currentPlayers.get(i).getValorTotal();
+                if (tmpValor > ganador){
+                    ganador = tmpValor;
+                    idxGanador = tmp;
+                }
+            }     
+        }
+        idxGanador.writer.writeInt(37);
+    }
     
     public void stopserver(){
         running = false;
@@ -82,11 +97,12 @@ public class Servidor{
         conexiones.get(position).writer.writeUTF(url);
     }
     
-    public void writeInThreadNAP(int position,String url, int posDueño) throws IOException{
+    public void writeInThreadNAP(int position,String url, int posDueño,boolean isUtility) throws IOException{
         String dueño = conexiones.get(posDueño).nickname;
         conexiones.get(position).writer.writeInt(13);
         conexiones.get(position).writer.writeUTF(url);
         conexiones.get(position).writer.writeUTF(dueño);
+        conexiones.get(position).writer.writeBoolean(isUtility);
     }
     public void writeInThreadOwner(int position,String mensaje) throws IOException{
         String name = conexiones.get(position).nickname;

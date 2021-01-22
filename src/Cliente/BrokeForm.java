@@ -119,6 +119,11 @@ public class BrokeForm extends javax.swing.JFrame {
 
         btnVolver.setText("Volver");
         btnVolver.setEnabled(false);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,6 +208,7 @@ public class BrokeForm extends javax.swing.JFrame {
 
     private void venderCasasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venderCasasActionPerformed
         // TODO add your handling code here:
+        refPantalla.pantallaPrincipal.btnConstruir.doClick();
     }//GEN-LAST:event_venderCasasActionPerformed
 
     private void hipotecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hipotecarActionPerformed
@@ -212,7 +218,6 @@ public class BrokeForm extends javax.swing.JFrame {
 
     private void intercambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intercambiosActionPerformed
        refPantalla.pantallaPrincipal.elegirPantalla.setVisible(true);
-       this.setVisible(false);
     }//GEN-LAST:event_intercambiosActionPerformed
     public void actualizarDeudaCarta(int plata){
        lblPlata.setText(plata+"");
@@ -231,11 +236,16 @@ public class BrokeForm extends javax.swing.JFrame {
         lblPlata.setText(plata+"");
     }
     private void RedirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RedirseActionPerformed
-        // TODO add your handling code here:
-        refPantalla.pantallaPrincipal.rendido = true;
-        JOptionPane.showMessageDialog(this, "Se ha rendido, gracias por jugar");
-        refPantalla.pantallaPrincipal.btnTerminarTurno.doClick();
-        refPantalla.setVisible(false);        
+         try {
+             // TODO add your handling code here:
+             refPantalla.pantallaPrincipal.rendido = true;
+             refPantalla.pantallaPrincipal.refCliente.hiloCliente.writer.writeInt(36);
+             JOptionPane.showMessageDialog(this, "Se ha rendido, gracias por jugar");
+             refPantalla.pantallaPrincipal.btnTerminarTurno.doClick();        
+             refPantalla.setVisible(false);
+         } catch (IOException ex) {
+             Logger.getLogger(BrokeForm.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_RedirseActionPerformed
 
     private void btnPagarCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarCartaActionPerformed
@@ -256,6 +266,12 @@ public class BrokeForm extends javax.swing.JFrame {
              Logger.getLogger(BrokeForm.class.getName()).log(Level.SEVERE, null, ex);
          }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        refPantalla.actualizarDineroActual();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments

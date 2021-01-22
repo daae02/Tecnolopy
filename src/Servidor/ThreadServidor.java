@@ -36,6 +36,7 @@ class ThreadServidor extends Thread{
     private boolean running = true;
     public boolean dadosIguales = false;
     Servidor server;
+    public boolean rendido = false;
 
     public ThreadServidor(Socket socketRef, Servidor server) throws IOException {
         this.socketRef = socketRef;
@@ -321,16 +322,30 @@ class ThreadServidor extends Thread{
                          server.writeInThreadOwner(server.conexiones.indexOf(this),"Ha aceptado el intercambio de"+server.nombres.get(personaAceptada));
                          break;
                      case 23:
+                         int opcion = reader.readInt();
+                         if (opcion == 0){
                             int [] turno3Tmp = server.lanzarDados();
                             String [] iconDados3 = server.buscarDados(turno3Tmp);
                             int [] datosDinero = server.juego.getDatosDinero(server.conexiones.indexOf(this),turno3Tmp[0],turno3Tmp[1]);
                             writer.writeInt(25);
+                            writer.writeInt(opcion);
                             writer.writeUTF(iconDados3[0]);
                             writer.writeUTF(iconDados3[1]);
                             writer.writeInt(datosDinero[0]);
                             writer.writeInt(datosDinero[1]);
                             //writer.writeInt(turno3Tmp[0]+turno3Tmp[1]);
                             break;
+                         }
+                         else{
+                             System.out.println("Esta llegando al case 23 de server");
+                                int [] datosDinero = server.juego.getDatosDinero(server.conexiones.indexOf(this),0,0);
+                                writer.writeInt(25);
+                                writer.writeInt(opcion);
+                                writer.writeInt(datosDinero[0]);
+                                writer.writeInt(datosDinero[1]);
+                                //writer.writeInt(turno3Tmp[0]+turno3Tmp[1]);
+                                break;                             
+                         }
                      case 24:
                          int plataPagar = reader.readInt();
                          server.juego.pagarPorPropiedad(server.conexiones.indexOf(this),plataPagar);
@@ -416,22 +431,34 @@ class ThreadServidor extends Thread{
                         writer.writeBoolean(server.juego.canBuild(propBuild,server.conexiones.indexOf(this)));
                         break;
                      case 34:
-                         server.juego.venderCasas(reader.readInt(), server.conexiones.indexOf(this));
+                         int[] datosVender = server.juego.venderCasas(reader.readInt(), server.conexiones.indexOf(this));
                          for (int j = 0; j < server.conexiones.size(); j++) {
                                     ThreadServidor current2 = server.conexiones.get(j);
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha vendido una casa");
+                                    current2.writer.writeInt(36);
+                                    current2.writer.writeInt(datosVender[0]);
+                                    current2.writer.writeInt(datosVender[1]);
                                 }
                          break;
                      case 35:
-                         server.juego.comprarCasas(reader.readInt(), server.conexiones.indexOf(this));
+                         int indicePropiedad = server.juego.comprarCasas(reader.readInt(), server.conexiones.indexOf(this));
                          for (int j = 0; j < server.conexiones.size(); j++) {
                                     ThreadServidor current2 = server.conexiones.get(j);
                                     current2.writer.writeInt(6);
                                     current2.writer.writeUTF(server.nombres.get(server.conexiones.indexOf(this)));
                                     current2.writer.writeUTF("Ha comprado una casa"); 
+                                    current2.writer.writeInt(35);
+                                    current2.writer.writeInt(indicePropiedad);
                          }
+                         break;
+                     case 36:
+                         rendido = true;
+                         break;
+                     case 37:
+                         writer.writeInt(36);
+                         writer.writeInt(server.juego.currentPlayers.get(server.conexiones.indexOf(this)).money);
                          break;
                 }
             } catch (IOException ex) {
